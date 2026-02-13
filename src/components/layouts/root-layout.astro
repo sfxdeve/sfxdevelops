@@ -24,24 +24,26 @@ const navItems = [
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>
-            {title ? title : "Shayan Fareed | Full Stack JavaScript Developer"}
+            {
+                `${title ? title : "Shayan Fareed"} | Full Stack JavaScript Developer`
+            }
         </title>
         <meta
             name="description"
             content={description
                 ? description
-                : "Portfolio of Shayan Fareed, a production-focused Full Stack JavaScript Developer building scalable web applications."}
+                : "Portfolio of Shayan Fareed, Full Stack JavaScript Developer building scalable web applications."}
         />
         <meta name="generator" content={Astro.generator} />
     </head>
-    <body class="min-h-dvh font-body bg-ink-950">
+    <body class="min-h-dvh font-body text-paper-50 bg-ink-950">
         <header class="border-b-4 border-paper-50 bg-ink-950">
             <div
                 class="container mx-auto py-4 flex flex-wrap gap-3 items-center justify-between"
             >
                 <a
                     href="/"
-                    class="font-display uppercase tracking-wider text-3xl text-paper-50"
+                    class="font-display uppercase tracking-wider text-3xl"
                 >
                     SFX//Develops
                 </a>
@@ -63,7 +65,7 @@ const navItems = [
                                         <a
                                             href={item.href}
                                             class={cn(
-                                                "border-2 border-paper-50 py-2 px-3 font-mono uppercase tracking-wider text-xs text-paper-50 transition hover:text-ink-950 hover:bg-paper-50",
+                                                "border-2 border-paper-50 py-2 px-3 font-mono uppercase tracking-wider text-xs  transition hover:text-ink-950 hover:bg-paper-50",
                                                 !itemIsActive && "",
                                                 itemIsActive &&
                                                     "border-acid-300 text-ink-950 bg-acid-300",
@@ -89,7 +91,7 @@ const navItems = [
                 <p
                     class="font-mono uppercase tracking-wider text-xs text-paper-200"
                 >
-                    2026 SFX Develops
+                    2026 SFX//Develops
                 </p>
                 <p
                     class="font-mono uppercase tracking-wider text-xs text-acid-100"

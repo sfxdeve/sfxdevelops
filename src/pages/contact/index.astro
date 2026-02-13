@@ -1,7 +1,17 @@
 ---
+import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Contact</h1>
+<RootLayout
+	title="Contact"
+	description="Direct contact details for Shayan Fareed including email, phone, LinkedIn, and GitHub."
+>
+	<section>
+		<SectionTitle
+			kicker="Direct Contact"
+			title="Open for collaboration"
+			description="For product engineering roles, freelance builds, and long-term contracts, reach out directly through the channels below."
+		/>
+	</section>
 </RootLayout>

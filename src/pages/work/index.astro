@@ -1,7 +1,17 @@
 ---
+import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Work</h1>
+<RootLayout
+	title="Work"
+	description="Experience timeline for Shayan Fareed across production full-stack roles and freelance delivery."
+>
+	<section>
+		<SectionTitle
+			kicker="Experience First"
+			title="Work History"
+			description="Production roles, remote collaboration, and full stack delivery across international teams and freelance clients."
+		/>
+	</section>
 </RootLayout>

@@ -1,7 +1,17 @@
 ---
+import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Resume</h1>
+<RootLayout
+	title="Resume"
+	description="Technical skills, education, and professional positioning for Shayan Fareed."
+>
+	<section>
+		<SectionTitle
+			kicker="Resume"
+			title="Technical Profile"
+			description="Structured skills, education, and communication strengths for high ownership software roles."
+		/>
+	</section>
 </RootLayout>
