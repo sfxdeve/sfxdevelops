@@ -39,7 +39,7 @@ const navItems = [
     <body class="min-h-dvh font-body text-paper-50 bg-ink-950">
         <header class="border-b-4 border-paper-50 bg-ink-950">
             <div
-                class="container mx-auto py-4 flex flex-wrap gap-3 items-center justify-between"
+                class="container mx-auto p-4 flex flex-wrap gap-3 items-center justify-between"
             >
                 <a
                     href="/"
@@ -81,12 +81,10 @@ const navItems = [
                 </nav>
             </div>
         </header>
-        <main class="container mx-auto py-4 sm:py-12">
-            <slot />
-        </main>
+        <slot />
         <footer class="border-t-4 border-paper-50 bg-ink-950">
             <div
-                class="container mx-auto py-4 flex flex-wrap gap-3 items-center justify-between"
+                class="container mx-auto p-4 flex flex-wrap gap-3 items-center justify-between"
             >
                 <p
                     class="font-mono uppercase tracking-wider text-xs text-paper-200"
