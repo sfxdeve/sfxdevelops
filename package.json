@@ -13,11 +13,13 @@
     "lint:fix": "oxlint --fix"
   },
   "dependencies": {
+    "@astrojs/netlify": "^6.6.4",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "netlify-cli": "^23.15.1",
     "oxfmt": "^0.32.0",
     "oxlint": "^1.47.0"
   }
