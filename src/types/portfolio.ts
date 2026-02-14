@@ -37,6 +37,6 @@ export interface EducationItem {
 }
 
 export interface LanguageItem {
-  language: string;
+  name: string;
   level: string;
 }

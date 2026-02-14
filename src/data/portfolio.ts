@@ -11,8 +11,8 @@ export const profile: PortfolioProfile = {
   title: "Full Stack JavaScript Developer",
   location: "Karachi, Pakistan",
   summary: [
-    "Full Stack JavaScript Developer with 3+ years of professional experience building scalable, production-level web applications using React.js, Next.js, Node.js, and MongoDB.",
-    "Currently working remotely with a UK-based company and contributing across full-stack architecture, API development, and performance optimization with a strong focus on clean architecture and maintainable systems.",
+    "Full Stack JavaScript Developer with 3+ years of professional experience building scalable, production level web applications using React.js, Next.js, Node.js, and MongoDB.",
+    "Currently working remotely with a UK based company and contributing across full stack architecture, API development, and performance optimization with a strong focus on clean architecture and maintainable systems.",
   ],
   relocationNote: "Open to relocation within Europe.",
   contact: {
@@ -30,7 +30,7 @@ export const coreCompetencies: string[] = [
   "Performance Optimization",
   "Reusable Component Architecture",
   "Clean Code & Code Reviews",
-  "Agile & Sprint-Based Development",
+  "Agile & Sprint Based Development",
   "International Remote Collaboration",
 ];
 
@@ -42,8 +42,8 @@ export const experience: ExperienceItem[] = [
     startDate: "Jan 2025",
     endDate: "Present",
     achievements: [
-      "Develop and maintain full-stack MERN applications for production environments.",
-      "Design and implement scalable RESTful APIs for internal and third-party integrations.",
+      "Develop and maintain full stack MERN applications for production environments.",
+      "Design and implement scalable RESTful APIs for internal and third party integrations.",
       "Optimize frontend performance using structured state management and reusable architecture.",
       "Participate in sprint planning, architecture discussions, and peer code reviews.",
       "Contribute to scalable backend structures and clean deployment workflows.",
@@ -69,7 +69,7 @@ export const experience: ExperienceItem[] = [
     startDate: "Oct 2023",
     endDate: "Nov 2024",
     achievements: [
-      "Built production-level web applications using React.js and Node.js.",
+      "Built production level web applications using React.js and Node.js.",
       "Refactored reusable components to improve maintainability and performance.",
       "Assisted in backend API development and MongoDB schema design.",
       "Contributed to version control management and deployment processes.",
@@ -84,7 +84,7 @@ export const experience: ExperienceItem[] = [
     achievements: [
       "Developed responsive frontend interfaces from Figma designs.",
       "Integrated REST APIs and authentication systems.",
-      "Ensured cross-browser compatibility and mobile responsiveness.",
+      "Ensured cross browser compatibility and mobile responsiveness.",
     ],
   },
 ];
@@ -112,7 +112,7 @@ export const skillCategories: SkillCategory[] = [
       "Material UI",
       "Responsive UI/UX Design",
       "Component Optimization",
-      "Cross-browser compatibility",
+      "Cross browser compatibility",
     ],
   },
   {
@@ -127,7 +127,7 @@ export const skillCategories: SkillCategory[] = [
       "PostgreSQL",
       "MySQL",
       "Firebase",
-      "Event-driven architecture",
+      "Event driven architecture",
       "Webhook handling",
     ],
   },
@@ -135,9 +135,9 @@ export const skillCategories: SkillCategory[] = [
     name: "Dashboard & Data Systems",
     items: [
       "Custom Admin Panels",
-      "Data-driven dashboards",
-      "Real-time analytics",
-      "Third-party API integrations",
+      "Data driven dashboards",
+      "Real time analytics",
+      "Third party API integrations",
     ],
   },
   {
@@ -168,13 +168,13 @@ export const education: EducationItem[] = [
 ];
 
 export const languages: LanguageItem[] = [
-  { language: "English", level: "Professional" },
-  { language: "Turkish", level: "Fluent" },
-  { language: "Urdu", level: "Native" },
+  { name: "English", level: "Professional" },
+  { name: "Turkish", level: "Fluent" },
+  { name: "Urdu", level: "Native" },
 ];
 
 export const positioningSummary: string[] = [
-  "A production-ready Full Stack JavaScript engineer",
+  "A production ready Full Stack JavaScript engineer",
   "Experienced in international remote collaboration",
   "Strong in structured architecture and scalable systems",
   "Comfortable owning both frontend and backend systems",
