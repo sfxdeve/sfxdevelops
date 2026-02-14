@@ -24,7 +24,7 @@ export interface ExperienceItem {
 }
 
 export interface SkillCategory {
-  category: string;
+  name: string;
   items: string[];
 }
 

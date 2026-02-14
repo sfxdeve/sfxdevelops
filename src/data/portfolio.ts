@@ -93,7 +93,7 @@ export const featuredExperience: ExperienceItem[] = experience.slice(0, 2);
 
 export const skillCategories: SkillCategory[] = [
   {
-    category: "Programming Languages",
+    name: "Programming Languages",
     items: [
       "JavaScript (ES6+)",
       "TypeScript",
@@ -103,7 +103,7 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    category: "Frontend Development",
+    name: "Frontend Development",
     items: [
       "React.js",
       "Next.js",
@@ -116,7 +116,7 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    category: "Backend Development",
+    name: "Backend Development",
     items: [
       "Node.js",
       "Express.js",
@@ -132,7 +132,7 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    category: "Dashboard & Data Systems",
+    name: "Dashboard & Data Systems",
     items: [
       "Custom Admin Panels",
       "Data-driven dashboards",
@@ -141,11 +141,11 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    category: "DevOps & Deployment",
+    name: "DevOps & Deployment",
     items: ["Docker", "AWS", "Vercel", "Heroku", "CI/CD Pipelines", "Git & GitHub"],
   },
   {
-    category: "Development Tools & Practices",
+    name: "Development Tools & Practices",
     items: [
       "Git Version Control",
       "Postman",

@@ -1,6 +1,8 @@
 ---
 import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
+import Divider from "../../components/ui/divider.astro";
+import { skillCategories } from "../../data/portfolio";
 ---
 
 <RootLayout
@@ -13,5 +15,34 @@ import RootLayout from "../../components/layouts/root-layout.astro";
 			title="Technical Profile"
 			description="Structured skills, education, and communication strengths for high ownership software roles."
 		/>
-	</main>
-</RootLayout>
+		<section>
+			<div class="container mx-auto">
+				<Divider label="Skills" />
+			</div>
+		</section>
+		<section class="p-4 sm:py-12">
+			<ul
+				class="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-3"
+			>
+				{
+					skillCategories.map((category) => (
+						<li class="border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6">
+							<article class="space-y-4">
+								<h3 class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50">
+									{category.name}
+								</h3>
+								<ul class="flex flex-wrap gap-2">
+									{category.items.map((skill) => (
+										<li class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100">
+											{skill}
+										</li>
+									))}
+								</ul>
+							</article>
+						</li>
+					))
+				}
+			</ul>
+		</section>
+	</main></RootLayout
+>
