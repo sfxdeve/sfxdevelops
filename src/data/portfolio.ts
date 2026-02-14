@@ -35,20 +35,20 @@ export const coreCompetencies: string[] = [
 ];
 
 export const experience: ExperienceItem[] = [
-  {
-    role: "Software Engineer",
-    company: "Aqua Digital Rising",
-    location: "United Kingdom (Remote)",
-    startDate: "Jan 2025",
-    endDate: "Present",
-    achievements: [
-      "Develop and maintain full stack MERN applications for production environments.",
-      "Design and implement scalable RESTful APIs for internal and third party integrations.",
-      "Optimize frontend performance using structured state management and reusable architecture.",
-      "Participate in sprint planning, architecture discussions, and peer code reviews.",
-      "Contribute to scalable backend structures and clean deployment workflows.",
-    ],
-  },
+  // {
+  //   role: "Software Engineer",
+  //   company: "Aqua Digital Rising",
+  //   location: "United Kingdom (Remote)",
+  //   startDate: "Jan 2025",
+  //   endDate: "Present",
+  //   achievements: [
+  //     "Develop and maintain full stack MERN applications for production environments.",
+  //     "Design and implement scalable RESTful APIs for internal and third party integrations.",
+  //     "Optimize frontend performance using structured state management and reusable architecture.",
+  //     "Participate in sprint planning, architecture discussions, and peer code reviews.",
+  //     "Contribute to scalable backend structures and clean deployment workflows.",
+  //   ],
+  // },
   {
     role: "Freelance Full Stack Developer (Upwork)",
     company: "Independent",
