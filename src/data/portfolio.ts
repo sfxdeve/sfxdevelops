@@ -91,6 +91,14 @@ export const experience: ExperienceItem[] = [
 
 export const featuredExperience: ExperienceItem[] = experience.slice(0, 2);
 
+export const positioningSummary: string[] = [
+  "A production ready Full Stack JavaScript engineer",
+  "Experienced in international remote collaboration",
+  "Strong in structured architecture and scalable systems",
+  "Comfortable owning both frontend and backend systems",
+  "Ready for European relocation",
+];
+
 export const skillCategories: SkillCategory[] = [
   {
     name: "Programming Languages",
@@ -171,12 +179,4 @@ export const languages: LanguageItem[] = [
   { name: "English", level: "Professional" },
   { name: "Turkish", level: "Fluent" },
   { name: "Urdu", level: "Native" },
-];
-
-export const positioningSummary: string[] = [
-  "A production ready Full Stack JavaScript engineer",
-  "Experienced in international remote collaboration",
-  "Strong in structured architecture and scalable systems",
-  "Comfortable owning both frontend and backend systems",
-  "Ready for European relocation",
 ];
