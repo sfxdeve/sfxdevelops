@@ -3,6 +3,7 @@ import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
 import Divider from "../../components/ui/divider.astro";
 import { skillCategories } from "../../data/portfolio";
+import { cn } from "../../lib/utils";
 ---
 
 <RootLayout
@@ -25,8 +26,14 @@ import { skillCategories } from "../../data/portfolio";
 				class="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-3"
 			>
 				{
-					skillCategories.map((category) => (
-						<li class="border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6">
+					skillCategories.map((category, index) => (
+						<li class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6">
+							<div
+								class={cn(
+									"h-2 w-16 bg-safety-500",
+									index % 2 === 0 && "bg-acid-300",
+								)}
+							/>
 							<article class="space-y-4">
 								<h3 class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50">
 									{category.name}
