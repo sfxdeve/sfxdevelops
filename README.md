@@ -1,43 +1,78 @@
-# Astro Starter Kit: Minimal
+# sfxdevelops
+
+Personal portfolio website built with Astro, TypeScript, and Tailwind CSS v4.
+
+## Overview
+
+This project presents:
+
+- A homepage with positioning and featured experience
+- A full work timeline
+- A structured resume page with skills and languages
+- A contact page with direct links (email, phone, LinkedIn, GitHub)
+
+Most portfolio content is centralized in `src/data/portfolio.ts`.
+
+## Tech Stack
+
+- Astro 5
+- TypeScript
+- Tailwind CSS 4
+- Netlify adapter (`@astrojs/netlify`)
+- Utility tooling: `oxlint` and `oxfmt`
+
+## Routes
+
+- `/` -> landing page
+- `/work` -> work history
+- `/resume` -> technical profile
+- `/contact` -> contact channels
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm
+
+### Install
 
 ```sh
-pnpm create astro@latest -- --template minimal
+pnpm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+### Run locally
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+pnpm dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+App runs at `http://localhost:4321`.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Scripts
 
-Any static assets, like images, can be placed in the `public/` directory.
+| Command          | Description              |
+| :--------------- | :----------------------- |
+| `pnpm dev`       | Start local dev server   |
+| `pnpm build`     | Build production output  |
+| `pnpm preview`   | Preview production build |
+| `pnpm lint`      | Run linter (`oxlint`)    |
+| `pnpm lint:fix`  | Auto-fix lint issues     |
+| `pnpm fmt`       | Format code (`oxfmt`)    |
+| `pnpm fmt:check` | Check formatting         |
 
-## 🧞 Commands
+## Content Updates
 
-All commands are run from the root of the project, from a terminal:
+Update data in `src/data/portfolio.ts` to change:
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `pnpm install`         | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+- Profile summary and contact info
+- Experience and featured roles
+- Skill groups and languages
+- Education and positioning statements
 
-## 👀 Want to learn more?
+## Build
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```sh
+pnpm build
+pnpm preview
+```
