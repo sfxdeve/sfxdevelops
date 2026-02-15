@@ -1,7 +1,6 @@
 ---
 import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
-import ButtonLink from "../../components/ui/button-link.astro";
 import { profile } from "../../data/portfolio";
 ---
 
@@ -17,7 +16,7 @@ import { profile } from "../../data/portfolio";
 		/>
 		<section class="p-4 sm:py-12">
 			<div
-				class="container mx-auto grid gap-6 lg:grid-cols-[1.15fr_0.85fr]"
+				class="container mx-auto grid gap-6 lg:grid-cols-[1.3fr_0.7fr] items-start"
 			>
 				<article
 					class="space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
@@ -28,41 +27,115 @@ import { profile } from "../../data/portfolio";
 						Let&apos;s build something that ships
 					</h3>
 					<p class="max-w-2xl text-base text-paper-100 sm:text-lg">
-						Reach out directly for full time roles, long term
-						contracts, and high ownership product work.
+						Send a quick message and I&apos;ll reply as soon as
+						possible.
 					</p>
-					<ul class="flex flex-wrap gap-3">
-						<li>
-							<ButtonLink
-								href={`mailto:${profile.contact.email}`}
-								variant="solid">Email Me</ButtonLink
-							>
-						</li>
-						<li>
-							<ButtonLink
-								href={`tel:${profile.contact.phone}`}
-								variant="outline">Call</ButtonLink
-							>
-						</li>
-						<li>
-							<ButtonLink
-								href={profile.contact.linkedIn}
-								isExternal
-								variant="outline"
-							>
-								LinkedIn
-							</ButtonLink>
-						</li>
-						<li>
-							<ButtonLink
-								href={profile.contact.github}
-								isExternal
-								variant="outline"
-							>
-								GitHub
-							</ButtonLink>
-						</li>
-					</ul>
+					<form
+						name="contact"
+						method="POST"
+						data-netlify="true"
+						class="space-y-4"
+					>
+						<div class="grid gap-4 sm:grid-cols-2">
+							<label class="space-y-2">
+								<span
+									class="font-mono uppercase tracking-wider text-xs text-paper-300"
+								>
+									Name
+								</span>
+								<input
+									type="text"
+									name="name"
+									required
+									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
+								/>
+							</label>
+							<label class="space-y-2">
+								<span
+									class="font-mono uppercase tracking-wider text-xs text-paper-300"
+								>
+									Email
+								</span>
+								<input
+									type="email"
+									name="email"
+									required
+									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
+								/>
+							</label>
+							<label class="space-y-2 sm:col-span-2">
+								<span
+									class="font-mono uppercase tracking-wider text-xs text-paper-300"
+								>
+									Company / Brand
+								</span>
+								<input
+									type="text"
+									name="company"
+									placeholder="Optional"
+									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out placeholder:text-paper-400 focus:border-acid-300"
+								/>
+							</label>
+							<label class="space-y-2">
+								<span
+									class="font-mono uppercase tracking-wider text-xs text-paper-300"
+								>
+									Reason
+								</span>
+								<select
+									name="reason"
+									required
+									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
+								>
+									<option value="">Select one</option>
+									<option value="project-collaboration"
+										>Project collaboration</option
+									>
+									<option value="role-opportunity"
+										>Role opportunity</option
+									>
+									<option value="general-question"
+										>General question</option
+									>
+									<option value="other">Other</option>
+								</select>
+							</label>
+							<label class="space-y-2">
+								<span
+									class="font-mono uppercase tracking-wider text-xs text-paper-300"
+								>
+									Subject
+								</span>
+								<input
+									type="text"
+									name="subject"
+									required
+									placeholder="What should we talk about?"
+									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
+								/>
+							</label>
+							<label class="space-y-2 sm:col-span-2">
+								<span
+									class="font-mono uppercase tracking-wider text-xs text-paper-300"
+								>
+									Message
+								</span>
+								<textarea
+									name="message"
+									rows="5"
+									required
+									placeholder="Tell me a bit about what you need."
+									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out placeholder:text-paper-400 focus:border-acid-300"
+								></textarea>
+							</label>
+						</div>
+						<button
+							type="submit"
+							class="border-4 border-acid-300 bg-acid-300 px-5 py-2 font-bold uppercase tracking-widest text-xs text-ink-950 transition duration-300 ease-out hover:bg-paper-50"
+						>
+							Send Message
+						</button>
+					</form>
 				</article>
 				<article
 					class="space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
