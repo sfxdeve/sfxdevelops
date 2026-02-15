@@ -23,7 +23,7 @@ export interface ExperienceItem {
   achievements: string[];
 }
 
-export interface SkillCategory {
+export interface SkillGroup {
   name: string;
   items: string[];
 }

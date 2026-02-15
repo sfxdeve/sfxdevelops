@@ -3,7 +3,7 @@ import type {
   ExperienceItem,
   LanguageItem,
   PortfolioProfile,
-  SkillCategory,
+  SkillGroup,
 } from "../types/portfolio";
 
 export const profile: PortfolioProfile = {
@@ -99,7 +99,7 @@ export const positioningSummary: string[] = [
   "Ready for European relocation",
 ];
 
-export const skillCategories: SkillCategory[] = [
+export const skillGroups: SkillGroup[] = [
   {
     name: "Programming Languages",
     items: [

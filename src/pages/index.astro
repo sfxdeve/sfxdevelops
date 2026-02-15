@@ -2,7 +2,11 @@
 import RootLayout from "../components/layouts/root-layout.astro";
 import ButtonLink from "../components/ui/button-link.astro";
 import Divider from "../components/ui/divider.astro";
-import { featuredExperience, profile } from "../data/portfolio";
+import {
+	coreCompetencies,
+	featuredExperience,
+	profile,
+} from "../data/portfolio";
 import { cn } from "../lib/utils";
 ---
 
@@ -11,39 +15,77 @@ import { cn } from "../lib/utils";
 		<section class="p-4 sm:py-12">
 			<div class="container mx-auto">
 				<article
-					class="space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+					class="border-4 p-4 grid gap-4 md:grid-cols-[1.2fr_0.8fr] bg-ink-900 sm:p-6 sm:gap-6"
 				>
-					<h3
-						class="font-display uppercase leading-none tracking-wider text-5xl sm:text-7xl"
-					>
-						{profile.name}
-					</h3>
-					<div class="space-y-2">
-						{
-							profile.summary.map((paragraph) => (
-								<p class="max-w-2xl text-base text-paper-100 sm:text-lg">
-									{paragraph}
-								</p>
-							))
-						}
+					<div class="space-y-5">
+						<p
+							class="font-mono uppercase tracking-widest text-xs text-acid-300"
+						>
+							Available for impact first teams
+						</p>
+						<h3
+							class="max-w-2xl font-display uppercase tracking-wider text-5xl sm:text-9xl"
+						>
+							{profile.name}
+						</h3>
+						<div class="flex flex-wrap gap-2">
+							<div
+								class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
+							>
+								{profile.title}
+							</div>
+							<div
+								class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
+							>
+								{profile.location}
+							</div>
+						</div>
+						<div class="space-y-2">
+							{
+								profile.summary.map((paragraph) => (
+									<p class="max-w-2xl text-base text-paper-100 sm:text-lg">
+										{paragraph}
+									</p>
+								))
+							}
+							<p
+								class="uppercase tracking-widest text-safety-300"
+							>
+								{profile.relocationNote}
+							</p>
+						</div>
+						<ul class="flex flex-wrap gap-3">
+							<li>
+								<ButtonLink href="/work" variant="solid"
+									>See Work
+								</ButtonLink>
+							</li>
+							<li>
+								<ButtonLink href="/resume" variant="outline"
+									>Open Resume
+								</ButtonLink>
+							</li>
+							<li>
+								<ButtonLink href="/contact" variant="outline"
+									>Contact
+								</ButtonLink>
+							</li>
+						</ul>
 					</div>
-					<ul class="flex flex-wrap gap-3">
-						<li>
-							<ButtonLink href="/work/" variant="solid"
-								>See Work
-							</ButtonLink>
-						</li>
-						<li>
-							<ButtonLink href="/resume/" variant="outline"
-								>Open Resume
-							</ButtonLink>
-						</li>
-						<li>
-							<ButtonLink href="/contact/" variant="outline"
-								>Contact
-							</ButtonLink>
-						</li>
-					</ul>
+					<div class="space-y-4 border-4 p-4 bg-ink-950 sm:p-6">
+						<h3 class="font-mono uppercase tracking-widest text-xs">
+							Core competencies
+						</h3>
+						<ul class="flex flex-wrap gap-2">
+							{
+								coreCompetencies.map((item) => (
+									<li class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100">
+										{item}
+									</li>
+								))
+							}
+						</ul>
+					</div>
 				</article>
 			</div>
 		</section>
@@ -66,7 +108,7 @@ import { cn } from "../lib/utils";
 								/>
 								<div class="space-y-4">
 									<div class="space-y-1">
-										<h3 class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50">
+										<h3 class="font-display uppercase tracking-wider text-3xl text-paper-50">
 											{item.role}
 										</h3>
 										<p
