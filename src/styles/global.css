@@ -66,3 +66,31 @@
     opacity: 1;
   }
 }
+
+.sfx-js [data-layout-footer-text],
+.sfx-js [data-section-kicker],
+.sfx-js [data-section-heading],
+.sfx-js [data-section-description],
+.sfx-js [data-home-hero-kicker],
+.sfx-js [data-home-hero-title],
+.sfx-js [data-home-hero-meta-item],
+.sfx-js [data-home-hero-copy],
+.sfx-js [data-home-hero-actions] li,
+.sfx-js [data-home-competency],
+.sfx-js [data-home-feature-card],
+.sfx-js [data-home-feature-point],
+.sfx-js [data-work-period],
+.sfx-js [data-work-card],
+.sfx-js [data-work-bullet],
+.sfx-js [data-resume-card],
+.sfx-js [data-resume-skill-chip],
+.sfx-js [data-resume-language],
+.sfx-js [data-contact-heading],
+.sfx-js [data-contact-intro],
+.sfx-js [data-contact-input-group],
+.sfx-js [data-contact-submit],
+.sfx-js [data-contact-direct-panel],
+.sfx-js [data-contact-direct-link] {
+  opacity: 0;
+  visibility: hidden;
+}

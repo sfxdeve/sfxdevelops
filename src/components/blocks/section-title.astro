@@ -71,6 +71,7 @@ const { kicker, title, description } = Astro.props;
             });
 
             if (heading) {
+                gsap.set(heading, { autoAlpha: 1 });
                 const split = SplitText.create(heading, { type: "words,chars" });
                 activeSplits.push(split);
 
@@ -111,6 +112,4 @@ const { kicker, title, description } = Astro.props;
         document.addEventListener("astro:before-swap", resetSectionSplits);
         document.documentElement.dataset.sfxSectionTitleListenerBound = "1";
     }
-
-    animateSectionTitles();
 </script>
