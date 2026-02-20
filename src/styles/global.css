@@ -33,23 +33,23 @@
 }
 
 ::view-transition-group(root) {
-  animation-duration: 220ms;
+  animation-duration: 200ms;
   animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
 }
 
 ::view-transition-old(root) {
-  animation-name: sfxFadeOut;
-  animation-duration: 180ms;
+  animation-name: fadeOut;
+  animation-duration: 150ms;
   animation-timing-function: ease-out;
 }
 
 ::view-transition-new(root) {
-  animation-name: sfxFadeIn;
-  animation-duration: 220ms;
+  animation-name: fadeIn;
+  animation-duration: 200ms;
   animation-timing-function: ease-out;
 }
 
-@keyframes sfxFadeOut {
+@keyframes fadeOut {
   from {
     opacity: 1;
   }
@@ -58,39 +58,11 @@
   }
 }
 
-@keyframes sfxFadeIn {
+@keyframes fadeIn {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
   }
-}
-
-.gsap [data-layout-footer-text],
-.gsap [data-section-kicker],
-.gsap [data-section-heading],
-.gsap [data-section-description],
-.gsap [data-home-hero-kicker],
-.gsap [data-home-hero-title],
-.gsap [data-home-hero-meta-item],
-.gsap [data-home-hero-copy],
-.gsap [data-home-hero-actions] li,
-.gsap [data-home-competency],
-.gsap [data-home-feature-card],
-.gsap [data-home-feature-point],
-.gsap [data-work-period],
-.gsap [data-work-card],
-.gsap [data-work-bullet],
-.gsap [data-resume-card],
-.gsap [data-resume-skill-chip],
-.gsap [data-resume-language],
-.gsap [data-contact-heading],
-.gsap [data-contact-intro],
-.gsap [data-contact-input-group],
-.gsap [data-contact-submit],
-.gsap [data-contact-direct-panel],
-.gsap [data-contact-direct-link] {
-  opacity: 0;
-  visibility: hidden;
 }

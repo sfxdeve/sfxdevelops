@@ -24,9 +24,6 @@ const navItems = [
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <script is:inline>
-            document.documentElement.classList.add("gsap");
-        </script>
         <title>
             {
                 `${title ? title : "Shayan Fareed"} | Full Stack JavaScript Developer`
@@ -95,13 +92,13 @@ const navItems = [
                 class="container mx-auto p-4 flex flex-wrap gap-3 items-center justify-between"
             >
                 <p
-                    class="font-mono uppercase tracking-wider text-xs text-paper-200"
+                    class="hidden opacity-0 font-mono uppercase tracking-wider text-xs text-paper-200"
                     data-layout-footer-text
                 >
                     2026 SFX//Develops
                 </p>
                 <p
-                    class="font-mono uppercase tracking-wider text-xs text-acid-100"
+                    class="hidden opacity-0 font-mono uppercase tracking-wider text-xs text-acid-100"
                     data-layout-footer-text
                 >
                     Built with Astro + Tailwind
