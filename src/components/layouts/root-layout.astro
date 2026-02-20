@@ -113,16 +113,7 @@ const navItems = [
     import { ScrollTrigger } from "gsap/ScrollTrigger";
 
     gsap.registerPlugin(ScrollTrigger);
-
-    const resetLayoutTriggers = () => {
-        ScrollTrigger.getAll().forEach((trigger) => {
-            const id = trigger.vars.id;
-
-            if (typeof id === "string" && id.startsWith("layout-")) {
-                trigger.kill();
-            }
-        });
-    };
+    const EASE = "power2.out";
 
     const runLayoutAnimation = () => {
         const root = document.querySelector("[data-layout-shell]");
@@ -132,17 +123,22 @@ const navItems = [
             return;
         }
 
-        resetLayoutTriggers();
+        ScrollTrigger.getAll().forEach((trigger) => {
+            const id = trigger.vars.id;
+            if (typeof id === "string" && id.startsWith("layout-")) {
+                trigger.kill();
+            }
+        });
 
         gsap.fromTo(
             root.querySelectorAll("[data-layout-footer-text]"),
-            { autoAlpha: 0, y: 8 },
+            { autoAlpha: 0, y: 12 },
             {
                 autoAlpha: 1,
                 y: 0,
-                duration: 0.2,
+                duration: 0.26,
                 stagger: 0.05,
-                ease: "power1.out",
+                ease: EASE,
                 scrollTrigger: {
                     id: "layout-footer",
                     trigger: footer,
@@ -151,11 +147,22 @@ const navItems = [
                 },
             },
         );
+
+        ScrollTrigger.refresh();
     };
 
-    if (document.documentElement.dataset.sfxLayoutListenerBound !== "1") {
+    const beforeSwapLayoutAnimation = () => {
+        ScrollTrigger.getAll().forEach((trigger) => {
+            const id = trigger.vars.id;
+            if (typeof id === "string" && id.startsWith("layout-")) {
+                trigger.kill();
+            }
+        });
+    };
+
+    if (document.documentElement.dataset.layoutListenerBound !== "1") {
         document.addEventListener("astro:page-load", runLayoutAnimation);
-        document.addEventListener("astro:before-swap", resetLayoutTriggers);
-        document.documentElement.dataset.sfxLayoutListenerBound = "1";
+        document.addEventListener("astro:before-swap", beforeSwapLayoutAnimation);
+        document.documentElement.dataset.layoutListenerBound = "1";
     }
 </script>

@@ -19,8 +19,9 @@ import { profile } from "../../data/portfolio";
 				class="container mx-auto grid gap-6 lg:grid-cols-[1.3fr_0.7fr] items-start"
 			>
 				<article
-					class="space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+					class="invisible opacity-0 space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 					data-contact-form-panel
+					data-anim-card
 				>
 					<h3
 						class="invisible opacity-0 font-display uppercase tracking-wider text-3xl sm:text-5xl"
@@ -46,6 +47,7 @@ import { profile } from "../../data/portfolio";
 							<label
 								class="invisible opacity-0 space-y-2"
 								data-contact-input-group
+								data-anim-list-item
 							>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
@@ -62,6 +64,7 @@ import { profile } from "../../data/portfolio";
 							<label
 								class="invisible opacity-0 space-y-2"
 								data-contact-input-group
+								data-anim-list-item
 							>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
@@ -78,6 +81,7 @@ import { profile } from "../../data/portfolio";
 							<label
 								class="invisible opacity-0 space-y-2 sm:col-span-2"
 								data-contact-input-group
+								data-anim-list-item
 							>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
@@ -94,6 +98,7 @@ import { profile } from "../../data/portfolio";
 							<label
 								class="invisible opacity-0 space-y-2"
 								data-contact-input-group
+								data-anim-list-item
 							>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
@@ -121,6 +126,7 @@ import { profile } from "../../data/portfolio";
 							<label
 								class="invisible opacity-0 space-y-2"
 								data-contact-input-group
+								data-anim-list-item
 							>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
@@ -138,6 +144,7 @@ import { profile } from "../../data/portfolio";
 							<label
 								class="invisible opacity-0 space-y-2 sm:col-span-2"
 								data-contact-input-group
+								data-anim-list-item
 							>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
@@ -157,6 +164,7 @@ import { profile } from "../../data/portfolio";
 							type="submit"
 							class="invisible opacity-0 border-4 border-acid-300 bg-acid-300 px-5 py-2 font-bold uppercase tracking-widest text-xs text-ink-950 transition duration-300 ease-out hover:bg-paper-50"
 							data-contact-submit
+							data-anim-list-item
 						>
 							Send Message
 						</button>
@@ -165,6 +173,7 @@ import { profile } from "../../data/portfolio";
 				<article
 					class="invisible opacity-0 space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 					data-contact-direct-panel
+					data-anim-card
 				>
 					<h3
 						class="font-mono uppercase tracking-widest text-xs text-paper-300"
@@ -182,6 +191,7 @@ import { profile } from "../../data/portfolio";
 								href={`mailto:${profile.contact.email}`}
 								class="invisible opacity-0 underline underline-offset-4 decoration-acid-300 text-paper-50"
 								data-contact-direct-link
+								data-anim-list-item
 							>
 								{profile.contact.email}
 							</a>
@@ -196,6 +206,7 @@ import { profile } from "../../data/portfolio";
 								href={`tel:${profile.contact.phone}`}
 								class="invisible opacity-0 underline underline-offset-4 decoration-acid-300 text-paper-50"
 								data-contact-direct-link
+								data-anim-list-item
 							>
 								{profile.contact.phone}
 							</a>
@@ -211,6 +222,7 @@ import { profile } from "../../data/portfolio";
 								target="_blank"
 								class="invisible opacity-0 underline underline-offset-4 decoration-acid-300 text-paper-50"
 								data-contact-direct-link
+								data-anim-list-item
 							>
 								{
 									profile.contact.linkedIn.replace(
@@ -231,6 +243,7 @@ import { profile } from "../../data/portfolio";
 								target="_blank"
 								class="invisible opacity-0 underline underline-offset-4 decoration-acid-300 text-paper-50"
 								data-contact-direct-link
+								data-anim-list-item
 							>
 								{profile.contact.github.replace("https://", "")}
 							</a>
@@ -247,16 +260,12 @@ import { profile } from "../../data/portfolio";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 	gsap.registerPlugin(ScrollTrigger);
-
-	const resetContactTriggers = () => {
-		ScrollTrigger.getAll().forEach((trigger) => {
-			const id = trigger.vars.id;
-
-			if (typeof id === "string" && id.startsWith("contact-")) {
-				trigger.kill();
-			}
-		});
-	};
+	const EASE = "power2.out";
+	const CARD_FROM = { autoAlpha: 0, y: 24 };
+	const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
+	const ITEM_FROM = { autoAlpha: 0, y: 12 };
+	const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
+	const ITEM_STAGGER = 0.05;
 
 	const runContactAnimations = () => {
 		const root = document.querySelector('[data-page="contact"]');
@@ -265,24 +274,38 @@ import { profile } from "../../data/portfolio";
 			return;
 		}
 
-		resetContactTriggers();
-		const formPanel = root.querySelector("[data-contact-form-panel]");
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+			if (typeof id === "string" && id.startsWith("contact-")) {
+				trigger.kill();
+			}
+		});
 
 		gsap.fromTo(
-			root.querySelectorAll(
-				"[data-contact-heading], [data-contact-intro]",
-			),
-			{ autoAlpha: 0, y: 16 },
+			root.querySelectorAll("[data-anim-card]"),
+			CARD_FROM,
 			{
-				autoAlpha: 1,
-				y: 0,
-				duration: 0.3,
-				stagger: 0.05,
-				ease: "power1.out",
+				...CARD_TO,
+				stagger: 0.12,
+				scrollTrigger: {
+					id: "contact-panels",
+					trigger: root,
+					start: "top 86%",
+					once: true,
+				},
+			},
+		);
+
+		gsap.fromTo(
+			root.querySelectorAll("[data-contact-heading], [data-contact-intro]"),
+			ITEM_FROM,
+			{
+				...ITEM_TO,
+				stagger: ITEM_STAGGER,
 				scrollTrigger: {
 					id: "contact-header",
-					trigger: formPanel || root,
-					start: "top 88%",
+					trigger: "[data-contact-form-panel]",
+					start: "top 84%",
 					once: true,
 				},
 			},
@@ -290,54 +313,33 @@ import { profile } from "../../data/portfolio";
 
 		gsap.fromTo(
 			root.querySelectorAll(
-				"[data-contact-input-group], [data-contact-submit]",
+				"[data-contact-form-panel] [data-anim-list-item]",
 			),
-			{ autoAlpha: 0, y: 8 },
+			ITEM_FROM,
 			{
-				autoAlpha: 1,
-				y: 0,
-				duration: 0.2,
-				stagger: 0.05,
-				ease: "power1.out",
+				...ITEM_TO,
+				stagger: ITEM_STAGGER,
 				scrollTrigger: {
-					id: "contact-fields",
-					trigger: formPanel || root,
-					start: "top 85%",
+					id: "contact-form-items",
+					trigger: "[data-contact-form-panel]",
+					start: "top 82%",
 					once: true,
 				},
 			},
 		);
 
 		gsap.fromTo(
-			root.querySelector("[data-contact-direct-panel]"),
-			{ autoAlpha: 0, x: 16 },
+			root.querySelectorAll(
+				"[data-contact-direct-panel] [data-anim-list-item]",
+			),
+			ITEM_FROM,
 			{
-				autoAlpha: 1,
-				x: 0,
-				duration: 0.3,
-				ease: "power1.out",
-				scrollTrigger: {
-					id: "contact-panel",
-					trigger: "[data-contact-direct-panel]",
-					start: "top 85%",
-					once: true,
-				},
-			},
-		);
-
-		gsap.fromTo(
-			root.querySelectorAll("[data-contact-direct-link]"),
-			{ autoAlpha: 0, x: -8 },
-			{
-				autoAlpha: 1,
-				x: 0,
-				duration: 0.2,
-				stagger: 0.05,
-				ease: "power1.out",
+				...ITEM_TO,
+				stagger: ITEM_STAGGER,
 				scrollTrigger: {
 					id: "contact-links",
 					trigger: "[data-contact-direct-panel]",
-					start: "top 80%",
+					start: "top 82%",
 					once: true,
 				},
 			},
@@ -346,9 +348,21 @@ import { profile } from "../../data/portfolio";
 		ScrollTrigger.refresh();
 	};
 
-	if (document.documentElement.dataset.sfxContactListenerBound !== "1") {
+	const beforeSwapContactAnimations = () => {
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+			if (typeof id === "string" && id.startsWith("contact-")) {
+				trigger.kill();
+			}
+		});
+	};
+
+	if (document.documentElement.dataset.contactListenerBound !== "1") {
 		document.addEventListener("astro:page-load", runContactAnimations);
-		document.addEventListener("astro:before-swap", resetContactTriggers);
-		document.documentElement.dataset.sfxContactListenerBound = "1";
+		document.addEventListener(
+			"astro:before-swap",
+			beforeSwapContactAnimations,
+		);
+		document.documentElement.dataset.contactListenerBound = "1";
 	}
 </script>

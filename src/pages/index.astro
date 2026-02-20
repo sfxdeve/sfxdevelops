@@ -17,6 +17,7 @@ import { cn } from "../lib/utils";
 				<article
 					class="border-4 p-4 grid gap-4 lg:grid-cols-[1.2fr_0.8fr] bg-ink-900 sm:p-6 sm:gap-6"
 					data-home-hero-panel
+					data-anim-card
 				>
 					<div class="space-y-5">
 						<p
@@ -93,6 +94,7 @@ import { cn } from "../lib/utils";
 									<li
 										class="invisible opacity-0 border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
 										data-home-competency
+										data-anim-list-item
 									>
 										{item}
 									</li>
@@ -116,6 +118,7 @@ import { cn } from "../lib/utils";
 							<article
 								class="invisible opacity-0 space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 								data-home-feature-card
+								data-anim-card
 							>
 								<div
 									class={cn(
@@ -123,6 +126,7 @@ import { cn } from "../lib/utils";
 										index % 2 === 0 && "bg-safety-500",
 									)}
 									data-home-feature-accent
+									data-anim-accent
 								/>
 								<div class="space-y-4">
 									<div class="space-y-1">
@@ -150,6 +154,7 @@ import { cn } from "../lib/utils";
 											<li
 												class="invisible opacity-0"
 												data-home-feature-point
+												data-anim-list-item
 											>
 												{point}
 											</li>
@@ -171,6 +176,14 @@ import { cn } from "../lib/utils";
 	import { SplitText } from "gsap/SplitText";
 
 	gsap.registerPlugin(ScrollTrigger, SplitText);
+	const EASE = "power2.out";
+	const CARD_FROM = { autoAlpha: 0, y: 24 };
+	const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
+	const ITEM_FROM = { autoAlpha: 0, y: 12 };
+	const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
+	const ITEM_STAGGER = 0.05;
+	const ACCENT_FROM = { scaleX: 0, transformOrigin: "left center" };
+	const ACCENT_TO = { scaleX: 1, duration: 0.28, ease: EASE };
 
 	let homeHeroTitleSplit: SplitText | null = null;
 
@@ -181,16 +194,6 @@ import { cn } from "../lib/utils";
 		}
 	};
 
-	const resetHomeTriggers = () => {
-		ScrollTrigger.getAll().forEach((trigger) => {
-			const id = trigger.vars.id;
-
-			if (typeof id === "string" && id.startsWith("home-")) {
-				trigger.kill();
-			}
-		});
-	};
-
 	const runHomeAnimations = () => {
 		const root = document.querySelector('[data-page="home"]');
 
@@ -198,8 +201,17 @@ import { cn } from "../lib/utils";
 			return;
 		}
 
-		resetHomeSplit();
-		resetHomeTriggers();
+		if (homeHeroTitleSplit) {
+			homeHeroTitleSplit.revert();
+			homeHeroTitleSplit = null;
+		}
+
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+			if (typeof id === "string" && id.startsWith("home-")) {
+				trigger.kill();
+			}
+		});
 
 		const heroPanel = root.querySelector("[data-home-hero-panel]");
 
@@ -229,9 +241,9 @@ import { cn } from "../lib/utils";
 				{
 					autoAlpha: 1,
 					y: 0,
-					duration: 0.3,
+					duration: 0.34,
 					stagger: 0.02,
-					ease: "power1.out",
+					ease: EASE,
 				},
 				0,
 			);
@@ -240,13 +252,10 @@ import { cn } from "../lib/utils";
 				root.querySelectorAll(
 					"[data-home-hero-kicker], [data-home-hero-meta-item], [data-home-hero-copy], [data-home-hero-actions] li",
 				),
-				{ autoAlpha: 0, y: 16 },
+				ITEM_FROM,
 				{
-					autoAlpha: 1,
-					y: 0,
-					duration: 0.3,
-					stagger: 0.05,
-					ease: "power1.out",
+					...ITEM_TO,
+					stagger: ITEM_STAGGER,
 				},
 				0.08,
 			);
@@ -258,16 +267,14 @@ import { cn } from "../lib/utils";
 		competencyChips.forEach((chip, index) => {
 			gsap.fromTo(
 				chip,
-				{ autoAlpha: 0, y: 8 },
+				ITEM_FROM,
 				{
-					autoAlpha: 1,
-					y: 0,
-					duration: 0.2,
-					ease: "power1.out",
+					...ITEM_TO,
+					duration: 0.24,
 					scrollTrigger: {
 						id: `home-competency-${index}`,
 						trigger: chip,
-						start: "top 88%",
+						start: "top 90%",
 						once: true,
 					},
 				},
@@ -277,23 +284,18 @@ import { cn } from "../lib/utils";
 		gsap.utils
 			.toArray<HTMLElement>("[data-home-feature-card]")
 			.forEach((card, index) => {
-				const accent = card.querySelector("[data-home-feature-accent]");
-				const points = card.querySelectorAll(
-					"[data-home-feature-point]",
-				);
+				const accent = card.querySelector("[data-anim-accent]");
+				const points = card.querySelectorAll("[data-anim-list-item]");
 
 				gsap.fromTo(
 					card,
-					{ autoAlpha: 0, y: 24 },
+					CARD_FROM,
 					{
-						autoAlpha: 1,
-						y: 0,
-						duration: 0.3,
-						ease: "power1.out",
+						...CARD_TO,
 						scrollTrigger: {
 							id: `home-feature-card-${index}`,
 							trigger: card,
-							start: "top 85%",
+							start: "top 86%",
 							once: true,
 						},
 					},
@@ -302,47 +304,53 @@ import { cn } from "../lib/utils";
 				if (accent) {
 					gsap.fromTo(
 						accent,
-						{ scaleX: 0, transformOrigin: "left center" },
+						ACCENT_FROM,
 						{
-							scaleX: 1,
-							duration: 0.2,
-							ease: "power1.out",
+							...ACCENT_TO,
 							scrollTrigger: {
 								id: `home-feature-accent-${index}`,
 								trigger: card,
-								start: "top 85%",
+								start: "top 86%",
 								once: true,
 							},
 						},
 					);
 				}
 
-				gsap.fromTo(
-					points,
-					{ autoAlpha: 0, x: -8 },
-					{
-						autoAlpha: 1,
-						x: 0,
-						stagger: 0.05,
-						duration: 0.2,
-						ease: "power1.out",
-						scrollTrigger: {
-							id: `home-feature-points-${index}`,
-							trigger: card,
-							start: "top 80%",
-							once: true,
+				if (points.length) {
+					gsap.fromTo(
+						points,
+						ITEM_FROM,
+						{
+							...ITEM_TO,
+							stagger: ITEM_STAGGER,
+							scrollTrigger: {
+								id: `home-feature-points-${index}`,
+								trigger: card,
+								start: "top 82%",
+								once: true,
+							},
 						},
-					},
-				);
+					);
+				}
 			});
 
 		ScrollTrigger.refresh();
 	};
 
-	if (document.documentElement.dataset.sfxHomeListenerBound !== "1") {
+	const beforeSwapHomeAnimations = () => {
+		resetHomeSplit();
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+			if (typeof id === "string" && id.startsWith("home-")) {
+				trigger.kill();
+			}
+		});
+	};
+
+	if (document.documentElement.dataset.homeListenerBound !== "1") {
 		document.addEventListener("astro:page-load", runHomeAnimations);
-		document.addEventListener("astro:before-swap", resetHomeSplit);
-		document.addEventListener("astro:before-swap", resetHomeTriggers);
-		document.documentElement.dataset.sfxHomeListenerBound = "1";
+		document.addEventListener("astro:before-swap", beforeSwapHomeAnimations);
+		document.documentElement.dataset.homeListenerBound = "1";
 	}
 </script>

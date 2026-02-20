@@ -43,6 +43,7 @@ import { cn } from "../../lib/utils";
 							<article
 								class="invisible opacity-0 space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 								data-work-card
+								data-anim-card
 							>
 								<div
 									class={cn(
@@ -50,6 +51,7 @@ import { cn } from "../../lib/utils";
 										index % 2 === 0 && "bg-safety-500",
 									)}
 									data-work-bar
+									data-anim-accent
 								/>
 								<div class="space-y-4">
 									<div class="space-y-1">
@@ -77,6 +79,7 @@ import { cn } from "../../lib/utils";
 											<li
 												class="invisible opacity-0"
 												data-work-bullet
+												data-anim-list-item
 											>
 												{point}
 											</li>
@@ -97,16 +100,14 @@ import { cn } from "../../lib/utils";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 	gsap.registerPlugin(ScrollTrigger);
-
-	const resetWorkTriggers = () => {
-		ScrollTrigger.getAll().forEach((trigger) => {
-			const id = trigger.vars.id;
-
-			if (typeof id === "string" && id.startsWith("work-")) {
-				trigger.kill();
-			}
-		});
-	};
+	const EASE = "power2.out";
+	const CARD_FROM = { autoAlpha: 0, y: 24 };
+	const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
+	const ITEM_FROM = { autoAlpha: 0, y: 12 };
+	const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
+	const ITEM_STAGGER = 0.05;
+	const ACCENT_FROM = { scaleX: 0, transformOrigin: "left center" };
+	const ACCENT_TO = { scaleX: 1, duration: 0.28, ease: EASE };
 
 	const runWorkAnimations = () => {
 		const root = document.querySelector('[data-page="work"]');
@@ -115,77 +116,89 @@ import { cn } from "../../lib/utils";
 			return;
 		}
 
-		resetWorkTriggers();
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+			if (typeof id === "string" && id.startsWith("work-")) {
+				trigger.kill();
+			}
+		});
 
 		gsap.utils
 			.toArray<HTMLElement>("[data-work-item]")
 			.forEach((row, index) => {
 				const dateBlock = row.querySelector("[data-work-period]");
-				const card = row.querySelector("[data-work-card]");
-				const accent = row.querySelector("[data-work-bar]");
-				const points = row.querySelectorAll("[data-work-bullet]");
+				const card = row.querySelector("[data-anim-card]");
+				const accent = row.querySelector("[data-anim-accent]");
+				const points = row.querySelectorAll("[data-anim-list-item]");
 
-				gsap.fromTo(
-					[dateBlock, card],
-					{ autoAlpha: 0, y: 16 },
-					{
-						autoAlpha: 1,
-						y: 0,
-						duration: 0.3,
-						stagger: 0.05,
-						ease: "power1.out",
-						scrollTrigger: {
-							id: `work-row-${index}`,
-							trigger: row,
-							start: "top 85%",
-							once: true,
-						},
+				const rowTimeline = gsap.timeline({
+					scrollTrigger: {
+						id: `work-row-${index}`,
+						trigger: row,
+						start: "top 86%",
+						once: true,
 					},
+				});
+
+				rowTimeline.fromTo(
+					dateBlock,
+					CARD_FROM,
+					{
+						...CARD_TO,
+						duration: 0.36,
+					},
+					0,
+				);
+
+				rowTimeline.fromTo(
+					card,
+					CARD_FROM,
+					CARD_TO,
+					0.06,
 				);
 
 				if (accent) {
-					gsap.fromTo(
+					rowTimeline.fromTo(
 						accent,
-						{ scaleX: 0, transformOrigin: "left center" },
+						ACCENT_FROM,
+						ACCENT_TO,
+						0.14,
+					);
+				}
+
+				if (points.length) {
+					gsap.fromTo(
+						points,
+						ITEM_FROM,
 						{
-							scaleX: 1,
-							duration: 0.2,
-							ease: "power1.out",
+							...ITEM_TO,
+							stagger: ITEM_STAGGER,
 							scrollTrigger: {
-								id: `work-accent-${index}`,
+								id: `work-points-${index}`,
 								trigger: row,
-								start: "top 85%",
+								start: "top 82%",
 								once: true,
 							},
 						},
 					);
 				}
-
-				gsap.fromTo(
-					points,
-					{ autoAlpha: 0, x: -8 },
-					{
-						autoAlpha: 1,
-						x: 0,
-						stagger: 0.05,
-						duration: 0.2,
-						ease: "power1.out",
-						scrollTrigger: {
-							id: `work-points-${index}`,
-							trigger: row,
-							start: "top 80%",
-							once: true,
-						},
-					},
-				);
 			});
 
 		ScrollTrigger.refresh();
 	};
 
-	if (document.documentElement.dataset.sfxWorkListenerBound !== "1") {
+	const beforeSwapWorkAnimations = () => {
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+			if (typeof id === "string" && id.startsWith("work-")) {
+				trigger.kill();
+			}
+		});
+	};
+
+	if (document.documentElement.dataset.workListenerBound !== "1") {
 		document.addEventListener("astro:page-load", runWorkAnimations);
-		document.addEventListener("astro:before-swap", resetWorkTriggers);
-		document.documentElement.dataset.sfxWorkListenerBound = "1";
+		document.addEventListener("astro:before-swap", beforeSwapWorkAnimations);
+		document.documentElement.dataset.workListenerBound = "1";
 	}
 </script>

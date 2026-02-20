@@ -45,6 +45,9 @@ const { kicker, title, description } = Astro.props;
     import { SplitText } from "gsap/SplitText";
 
     gsap.registerPlugin(ScrollTrigger, SplitText);
+    const EASE = "power2.out";
+    const ITEM_FROM = { autoAlpha: 0, y: 12 };
+    const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
 
     let activeSplits: SplitText[] = [];
 
@@ -53,21 +56,16 @@ const { kicker, title, description } = Astro.props;
         activeSplits = [];
     };
 
-    const resetSectionTriggers = () => {
+    const runSectionTitleAnimations = () => {
+        const sections = document.querySelectorAll("[data-section-header]");
+
+        resetSectionSplits();
         ScrollTrigger.getAll().forEach((trigger) => {
             const id = trigger.vars.id;
-
             if (typeof id === "string" && id.startsWith("section-title-")) {
                 trigger.kill();
             }
         });
-    };
-
-    const animateSectionTitles = () => {
-        const sections = document.querySelectorAll("[data-section-header]");
-
-        resetSectionSplits();
-        resetSectionTriggers();
 
         if (!sections.length) {
             return;
@@ -106,9 +104,9 @@ const { kicker, title, description } = Astro.props;
                     {
                         autoAlpha: 1,
                         y: 0,
-                        duration: 0.3,
+                        duration: 0.34,
                         stagger: 0.02,
-                        ease: "power1.out",
+                        ease: EASE,
                     },
                     0,
                 );
@@ -118,24 +116,35 @@ const { kicker, title, description } = Astro.props;
             if (textElements.length) {
                 timeline.fromTo(
                     textElements,
-                    { autoAlpha: 0, y: 16 },
+                    ITEM_FROM,
                     {
-                        autoAlpha: 1,
-                        y: 0,
-                        duration: 0.3,
+                        ...ITEM_TO,
                         stagger: 0.05,
-                        ease: "power1.out",
                     },
                     0.1,
                 );
             }
         });
+
+        ScrollTrigger.refresh();
     };
 
-    if (document.documentElement.dataset.sfxSectionTitleListenerBound !== "1") {
-        document.addEventListener("astro:page-load", animateSectionTitles);
-        document.addEventListener("astro:before-swap", resetSectionSplits);
-        document.addEventListener("astro:before-swap", resetSectionTriggers);
-        document.documentElement.dataset.sfxSectionTitleListenerBound = "1";
+    const beforeSwapSectionTitleAnimations = () => {
+        resetSectionSplits();
+        ScrollTrigger.getAll().forEach((trigger) => {
+            const id = trigger.vars.id;
+            if (typeof id === "string" && id.startsWith("section-title-")) {
+                trigger.kill();
+            }
+        });
+    };
+
+    if (document.documentElement.dataset.sectionTitleListenerBound !== "1") {
+        document.addEventListener("astro:page-load", runSectionTitleAnimations);
+        document.addEventListener(
+            "astro:before-swap",
+            beforeSwapSectionTitleAnimations,
+        );
+        document.documentElement.dataset.sectionTitleListenerBound = "1";
     }
 </script>

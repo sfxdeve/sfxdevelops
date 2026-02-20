@@ -32,8 +32,12 @@ import { cn } from "../../lib/utils";
 					<article
 						class="invisible opacity-0 space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 						data-resume-card
+						data-anim-card
 					>
-						<div class={"h-2 w-16 bg-safety-500"}></div>
+						<div
+							class={"h-2 w-16 bg-safety-500"}
+							data-anim-accent
+						></div>
 						<div class="space-y-4">
 							<div>
 								<h3
@@ -52,7 +56,12 @@ import { cn } from "../../lib/utils";
 							>
 								{
 									positioningSummary.map((point) => (
-										<li>{point}</li>
+										<li
+											class="invisible opacity-0"
+											data-anim-list-item
+										>
+											{point}
+										</li>
 									))
 								}
 							</ul>
@@ -65,12 +74,14 @@ import { cn } from "../../lib/utils";
 							<article
 								class="invisible opacity-0 space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 								data-resume-card
+								data-anim-card
 							>
 								<div
 									class={cn(
 										"h-2 w-16 bg-safety-500",
 										index % 2 === 0 && "bg-acid-300",
 									)}
+									data-anim-accent
 								/>
 								<div class="space-y-4">
 									<div>
@@ -83,6 +94,7 @@ import { cn } from "../../lib/utils";
 											<li
 												class="invisible opacity-0 border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
 												data-resume-skill-chip
+												data-anim-list-item
 											>
 												{skill}
 											</li>
@@ -97,12 +109,14 @@ import { cn } from "../../lib/utils";
 					<article
 						class="invisible opacity-0 space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 						data-resume-card
+						data-anim-card
 					>
 						<div
 							class={cn(
 								"h-2 w-16 bg-safety-500",
 								skillGroups.length % 2 === 0 && "bg-acid-300",
 							)}
+							data-anim-accent
 						>
 						</div>
 						<div class="space-y-4">
@@ -119,6 +133,7 @@ import { cn } from "../../lib/utils";
 										<li
 											class="invisible opacity-0 border-b border-paper-300 flex items-start justify-between"
 											data-resume-language
+											data-anim-list-item
 										>
 											<span>{language.name}</span>
 											<span class="font-mono uppercase tracking-widest text-xs text-acid-100">
@@ -141,16 +156,14 @@ import { cn } from "../../lib/utils";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 	gsap.registerPlugin(ScrollTrigger);
-
-	const resetResumeTriggers = () => {
-		ScrollTrigger.getAll().forEach((trigger) => {
-			const id = trigger.vars.id;
-
-			if (typeof id === "string" && id.startsWith("resume-")) {
-				trigger.kill();
-			}
-		});
-	};
+	const EASE = "power2.out";
+	const CARD_FROM = { autoAlpha: 0, y: 24 };
+	const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
+	const ITEM_FROM = { autoAlpha: 0, y: 12 };
+	const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
+	const ITEM_STAGGER = 0.05;
+	const ACCENT_FROM = { scaleX: 0, transformOrigin: "left center" };
+	const ACCENT_TO = { scaleX: 1, duration: 0.28, ease: EASE };
 
 	const runResumeAnimations = () => {
 		const root = document.querySelector('[data-page="resume"]');
@@ -159,77 +172,83 @@ import { cn } from "../../lib/utils";
 			return;
 		}
 
-		resetResumeTriggers();
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+			if (typeof id === "string" && id.startsWith("resume-")) {
+				trigger.kill();
+			}
+		});
 
-		gsap.utils
-			.toArray<HTMLElement>("[data-resume-card]")
-			.forEach((card, index) => {
+		gsap.utils.toArray<HTMLElement>("[data-resume-card]").forEach((card, index) => {
+			const accent = card.querySelector("[data-anim-accent]");
+			const items = card.querySelectorAll("[data-anim-list-item]");
+
+			gsap.fromTo(
+				card,
+				CARD_FROM,
+				{
+					...CARD_TO,
+					scrollTrigger: {
+						id: `resume-card-${index}`,
+						trigger: card,
+						start: "top 86%",
+						once: true,
+					},
+				},
+			);
+
+			if (accent) {
 				gsap.fromTo(
-					card,
-					{ autoAlpha: 0, y: 16 },
+					accent,
+					ACCENT_FROM,
 					{
-						autoAlpha: 1,
-						y: 0,
-						duration: 0.3,
-						ease: "power1.out",
+						...ACCENT_TO,
 						scrollTrigger: {
-							id: `resume-card-${index}`,
+							id: `resume-accent-${index}`,
 							trigger: card,
-							start: "top 85%",
+							start: "top 86%",
 							once: true,
 						},
 					},
 				);
-			});
+			}
 
-		gsap.utils
-			.toArray<HTMLElement>("[data-resume-skill-chip]")
-			.forEach((chip, index) => {
+			if (items.length) {
 				gsap.fromTo(
-					chip,
-					{ autoAlpha: 0, y: 8 },
+					items,
+					ITEM_FROM,
 					{
-						autoAlpha: 1,
-						y: 0,
-						duration: 0.2,
-						ease: "power1.out",
+						...ITEM_TO,
+						stagger: ITEM_STAGGER,
 						scrollTrigger: {
-							id: `resume-chip-${index}`,
-							trigger: chip,
-							start: "top 88%",
+							id: `resume-items-${index}`,
+							trigger: card,
+							start: "top 82%",
 							once: true,
 						},
 					},
 				);
-			});
-
-		gsap.utils
-			.toArray<HTMLElement>("[data-resume-language]")
-			.forEach((language, index) => {
-				gsap.fromTo(
-					language,
-					{ autoAlpha: 0, x: -8 },
-					{
-						autoAlpha: 1,
-						x: 0,
-						duration: 0.2,
-						ease: "power1.out",
-						scrollTrigger: {
-							id: `resume-language-${index}`,
-							trigger: language,
-							start: "top 88%",
-							once: true,
-						},
-					},
-				);
-			});
+			}
+		});
 
 		ScrollTrigger.refresh();
 	};
 
-	if (document.documentElement.dataset.sfxResumeListenerBound !== "1") {
+	const beforeSwapResumeAnimations = () => {
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+			if (typeof id === "string" && id.startsWith("resume-")) {
+				trigger.kill();
+			}
+		});
+	};
+
+	if (document.documentElement.dataset.resumeListenerBound !== "1") {
 		document.addEventListener("astro:page-load", runResumeAnimations);
-		document.addEventListener("astro:before-swap", resetResumeTriggers);
-		document.documentElement.dataset.sfxResumeListenerBound = "1";
+		document.addEventListener(
+			"astro:before-swap",
+			beforeSwapResumeAnimations,
+		);
+		document.documentElement.dataset.resumeListenerBound = "1";
 	}
 </script>
