@@ -13,7 +13,7 @@ const { kicker, title, description } = Astro.props;
         {
             kicker && (
                 <p
-                    class="hidden opacity-0 font-mono uppercase tracking-widest text-xs text-acid-300"
+                    class="invisible opacity-0 font-mono uppercase tracking-widest text-xs text-acid-300"
                     data-section-kicker
                 >
                     {kicker}
@@ -21,7 +21,7 @@ const { kicker, title, description } = Astro.props;
             )
         }
         <h2
-            class="hidden opacity-0 font-display uppercase tracking-wider text-3xl sm:text-5xl"
+            class="invisible opacity-0 font-display uppercase tracking-wider text-3xl sm:text-5xl"
             data-section-heading
         >
             {title}
@@ -29,7 +29,7 @@ const { kicker, title, description } = Astro.props;
         {
             description && (
                 <p
-                    class="hidden opacity-0 max-w-3xl text-base text-paper-200 sm:text-lg"
+                    class="invisible opacity-0 max-w-3xl text-base text-paper-200 sm:text-lg"
                     data-section-description
                 >
                     {description}
