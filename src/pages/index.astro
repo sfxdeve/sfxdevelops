@@ -16,6 +16,7 @@ import { cn } from "../lib/utils";
 			<div class="container mx-auto">
 				<article
 					class="border-4 p-4 grid gap-4 lg:grid-cols-[1.2fr_0.8fr] bg-ink-900 sm:p-6 sm:gap-6"
+					data-home-hero-panel
 				>
 					<div class="space-y-5">
 						<p
@@ -180,6 +181,16 @@ import { cn } from "../lib/utils";
 		}
 	};
 
+	const resetHomeTriggers = () => {
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+
+			if (typeof id === "string" && id.startsWith("sfx-home-")) {
+				trigger.kill();
+			}
+		});
+	};
+
 	const runHomeAnimations = () => {
 		const root = document.querySelector('[data-page="home"]');
 
@@ -188,7 +199,9 @@ import { cn } from "../lib/utils";
 		}
 
 		resetHomeSplit();
-		ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+		resetHomeTriggers();
+
+		const heroPanel = root.querySelector("[data-home-hero-panel]");
 
 		const heroTitle = root.querySelector<HTMLElement>(
 			"[data-home-hero-title]",
@@ -200,8 +213,17 @@ import { cn } from "../lib/utils";
 			});
 		}
 
-		if (homeHeroTitleSplit) {
-			gsap.fromTo(
+		if (homeHeroTitleSplit && heroPanel) {
+			const heroTimeline = gsap.timeline({
+				scrollTrigger: {
+					id: "sfx-home-hero",
+					trigger: heroPanel,
+					start: "top 88%",
+					once: true,
+				},
+			});
+
+			heroTimeline.fromTo(
 				homeHeroTitleSplit.chars,
 				{ autoAlpha: 0, y: 16 },
 				{
@@ -211,47 +233,50 @@ import { cn } from "../lib/utils";
 					stagger: 0.02,
 					ease: "power1.out",
 				},
+				0,
+			);
+
+			heroTimeline.fromTo(
+				root.querySelectorAll(
+					"[data-home-hero-kicker], [data-home-hero-meta-item], [data-home-hero-copy], [data-home-hero-actions] li",
+				),
+				{ autoAlpha: 0, y: 16 },
+				{
+					autoAlpha: 1,
+					y: 0,
+					duration: 0.3,
+					stagger: 0.05,
+					ease: "power1.out",
+				},
+				0.08,
 			);
 		}
-
-		gsap.fromTo(
-			root.querySelectorAll(
-				"[data-home-hero-kicker], [data-home-hero-meta-item], [data-home-hero-copy], [data-home-hero-actions] li",
-			),
-			{ autoAlpha: 0, y: 16 },
-			{
-				autoAlpha: 1,
-				y: 0,
-				duration: 0.3,
-				stagger: 0.05,
-				ease: "power1.out",
-			},
-		);
 
 		const competencyChips = gsap.utils.toArray<HTMLElement>(
 			"[data-home-competency]",
 		);
-		ScrollTrigger.batch(competencyChips, {
-			start: "top 85%",
-			once: true,
-			onEnter: (batch) => {
-				gsap.fromTo(
-					batch,
-					{ autoAlpha: 0, y: 8 },
-					{
-						autoAlpha: 1,
-						y: 0,
-						stagger: 0.05,
-						duration: 0.2,
-						ease: "power1.out",
+		competencyChips.forEach((chip, index) => {
+			gsap.fromTo(
+				chip,
+				{ autoAlpha: 0, y: 8 },
+				{
+					autoAlpha: 1,
+					y: 0,
+					duration: 0.2,
+					ease: "power1.out",
+					scrollTrigger: {
+						id: `sfx-home-competency-${index}`,
+						trigger: chip,
+						start: "top 88%",
+						once: true,
 					},
-				);
-			},
+				},
+			);
 		});
 
 		gsap.utils
 			.toArray<HTMLElement>("[data-home-feature-card]")
-			.forEach((card) => {
+			.forEach((card, index) => {
 				const accent = card.querySelector("[data-home-feature-accent]");
 				const points = card.querySelectorAll(
 					"[data-home-feature-point]",
@@ -266,6 +291,7 @@ import { cn } from "../lib/utils";
 						duration: 0.3,
 						ease: "power1.out",
 						scrollTrigger: {
+							id: `sfx-home-feature-card-${index}`,
 							trigger: card,
 							start: "top 85%",
 							once: true,
@@ -282,6 +308,7 @@ import { cn } from "../lib/utils";
 							duration: 0.2,
 							ease: "power1.out",
 							scrollTrigger: {
+								id: `sfx-home-feature-accent-${index}`,
 								trigger: card,
 								start: "top 85%",
 								once: true,
@@ -300,6 +327,7 @@ import { cn } from "../lib/utils";
 						duration: 0.2,
 						ease: "power1.out",
 						scrollTrigger: {
+							id: `sfx-home-feature-points-${index}`,
 							trigger: card,
 							start: "top 80%",
 							once: true,
@@ -314,6 +342,7 @@ import { cn } from "../lib/utils";
 	if (document.documentElement.dataset.sfxHomeListenerBound !== "1") {
 		document.addEventListener("astro:page-load", runHomeAnimations);
 		document.addEventListener("astro:before-swap", resetHomeSplit);
+		document.addEventListener("astro:before-swap", resetHomeTriggers);
 		document.documentElement.dataset.sfxHomeListenerBound = "1";
 	}
 </script>

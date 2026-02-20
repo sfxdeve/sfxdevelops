@@ -95,6 +95,16 @@ import { cn } from "../../lib/utils";
 
 	gsap.registerPlugin(ScrollTrigger);
 
+	const resetWorkTriggers = () => {
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+
+			if (typeof id === "string" && id.startsWith("sfx-work-")) {
+				trigger.kill();
+			}
+		});
+	};
+
 	const runWorkAnimations = () => {
 		const root = document.querySelector('[data-page="work"]');
 
@@ -102,71 +112,77 @@ import { cn } from "../../lib/utils";
 			return;
 		}
 
-		ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+		resetWorkTriggers();
 
-		gsap.utils.toArray<HTMLElement>("[data-work-item]").forEach((row) => {
-			const dateBlock = row.querySelector("[data-work-period]");
-			const card = row.querySelector("[data-work-card]");
-			const accent = row.querySelector("[data-work-bar]");
-			const points = row.querySelectorAll("[data-work-bullet]");
+		gsap.utils
+			.toArray<HTMLElement>("[data-work-item]")
+			.forEach((row, index) => {
+				const dateBlock = row.querySelector("[data-work-period]");
+				const card = row.querySelector("[data-work-card]");
+				const accent = row.querySelector("[data-work-bar]");
+				const points = row.querySelectorAll("[data-work-bullet]");
 
-			gsap.fromTo(
-				[dateBlock, card],
-				{ autoAlpha: 0, y: 16 },
-				{
-					autoAlpha: 1,
-					y: 0,
-					duration: 0.3,
-					stagger: 0.05,
-					ease: "power1.out",
-					scrollTrigger: {
-						trigger: row,
-						start: "top 85%",
-						once: true,
-					},
-				},
-			);
-
-			if (accent) {
-				gsap.fromTo(
-					accent,
-					{ scaleX: 0, transformOrigin: "left center" },
+					gsap.fromTo(
+						[dateBlock, card],
+						{ autoAlpha: 0, y: 16 },
 					{
-						scaleX: 1,
+						autoAlpha: 1,
+						y: 0,
+						duration: 0.3,
+						stagger: 0.05,
+						ease: "power1.out",
+						scrollTrigger: {
+							id: `sfx-work-row-${index}`,
+							trigger: row,
+							start: "top 85%",
+							once: true,
+							},
+						},
+					);
+
+				if (accent) {
+					gsap.fromTo(
+						accent,
+						{ scaleX: 0, transformOrigin: "left center" },
+						{
+							scaleX: 1,
+							duration: 0.2,
+							ease: "power1.out",
+							scrollTrigger: {
+								id: `sfx-work-accent-${index}`,
+								trigger: row,
+								start: "top 85%",
+								once: true,
+							},
+						},
+					);
+				}
+
+				gsap.fromTo(
+					points,
+					{ autoAlpha: 0, x: -8 },
+					{
+						autoAlpha: 1,
+						x: 0,
+						stagger: 0.05,
 						duration: 0.2,
 						ease: "power1.out",
 						scrollTrigger: {
+							id: `sfx-work-points-${index}`,
 							trigger: row,
-							start: "top 85%",
+							start: "top 80%",
 							once: true,
 						},
 					},
 				);
-			}
-
-			gsap.fromTo(
-				points,
-				{ autoAlpha: 0, x: -8 },
-				{
-					autoAlpha: 1,
-					x: 0,
-					stagger: 0.05,
-					duration: 0.2,
-					ease: "power1.out",
-					scrollTrigger: {
-						trigger: row,
-						start: "top 80%",
-						once: true,
-					},
-				},
-			);
-		});
+			});
 
 		ScrollTrigger.refresh();
 	};
 
 	if (document.documentElement.dataset.sfxWorkListenerBound !== "1") {
 		document.addEventListener("astro:page-load", runWorkAnimations);
+		document.addEventListener("astro:before-swap", resetWorkTriggers);
 		document.documentElement.dataset.sfxWorkListenerBound = "1";
 	}
 </script>

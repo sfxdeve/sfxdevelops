@@ -142,6 +142,16 @@ import { cn } from "../../lib/utils";
 
 	gsap.registerPlugin(ScrollTrigger);
 
+	const resetResumeTriggers = () => {
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+
+			if (typeof id === "string" && id.startsWith("sfx-resume-")) {
+				trigger.kill();
+			}
+		});
+	};
+
 	const runResumeAnimations = () => {
 		const root = document.querySelector('[data-page="resume"]');
 
@@ -149,11 +159,11 @@ import { cn } from "../../lib/utils";
 			return;
 		}
 
-		ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+		resetResumeTriggers();
 
 		gsap.utils
 			.toArray<HTMLElement>("[data-resume-card]")
-			.forEach((card) => {
+			.forEach((card, index) => {
 				gsap.fromTo(
 					card,
 					{ autoAlpha: 0, y: 16 },
@@ -163,6 +173,7 @@ import { cn } from "../../lib/utils";
 						duration: 0.3,
 						ease: "power1.out",
 						scrollTrigger: {
+							id: `sfx-resume-card-${index}`,
 							trigger: card,
 							start: "top 85%",
 							once: true,
@@ -171,49 +182,54 @@ import { cn } from "../../lib/utils";
 				);
 			});
 
-		ScrollTrigger.batch(
-			gsap.utils.toArray<HTMLElement>("[data-resume-skill-chip]"),
-			{
-				start: "top 85%",
-				once: true,
-				onEnter: (batch) => {
-					gsap.fromTo(
-						batch,
-						{ autoAlpha: 0, y: 8 },
-						{
-							autoAlpha: 1,
-							y: 0,
-							stagger: 0.05,
-							duration: 0.2,
-							ease: "power1.out",
+		gsap.utils
+			.toArray<HTMLElement>("[data-resume-skill-chip]")
+			.forEach((chip, index) => {
+				gsap.fromTo(
+					chip,
+					{ autoAlpha: 0, y: 8 },
+					{
+						autoAlpha: 1,
+						y: 0,
+						duration: 0.2,
+						ease: "power1.out",
+						scrollTrigger: {
+							id: `sfx-resume-chip-${index}`,
+							trigger: chip,
+							start: "top 88%",
+							once: true,
 						},
-					);
-				},
-			},
-		);
+					},
+				);
+			});
 
-		gsap.fromTo(
-			root.querySelectorAll("[data-resume-language]"),
-			{ autoAlpha: 0, x: -8 },
-			{
-				autoAlpha: 1,
-				x: 0,
-				stagger: 0.05,
-				duration: 0.2,
-				ease: "power1.out",
-				scrollTrigger: {
-					trigger: "[data-resume-language]",
-					start: "top 85%",
-					once: true,
-				},
-			},
-		);
+		gsap.utils
+			.toArray<HTMLElement>("[data-resume-language]")
+			.forEach((language, index) => {
+				gsap.fromTo(
+					language,
+					{ autoAlpha: 0, x: -8 },
+					{
+						autoAlpha: 1,
+						x: 0,
+						duration: 0.2,
+						ease: "power1.out",
+						scrollTrigger: {
+							id: `sfx-resume-language-${index}`,
+							trigger: language,
+							start: "top 88%",
+							once: true,
+						},
+					},
+				);
+			});
 
 		ScrollTrigger.refresh();
 	};
 
 	if (document.documentElement.dataset.sfxResumeListenerBound !== "1") {
 		document.addEventListener("astro:page-load", runResumeAnimations);
+		document.addEventListener("astro:before-swap", resetResumeTriggers);
 		document.documentElement.dataset.sfxResumeListenerBound = "1";
 	}
 </script>

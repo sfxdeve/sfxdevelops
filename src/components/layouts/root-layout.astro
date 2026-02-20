@@ -110,13 +110,29 @@ const navItems = [
 
 <script>
     import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const resetLayoutTriggers = () => {
+        ScrollTrigger.getAll().forEach((trigger) => {
+            const id = trigger.vars.id;
+
+            if (typeof id === "string" && id.startsWith("sfx-layout-")) {
+                trigger.kill();
+            }
+        });
+    };
 
     const runLayoutAnimation = () => {
         const root = document.querySelector("[data-layout-shell]");
+        const footer = root?.querySelector("footer");
 
-        if (!root) {
+        if (!root || !footer) {
             return;
         }
+
+        resetLayoutTriggers();
 
         gsap.fromTo(
             root.querySelectorAll("[data-layout-footer-text]"),
@@ -127,13 +143,19 @@ const navItems = [
                 duration: 0.2,
                 stagger: 0.05,
                 ease: "power1.out",
-                delay: 0.1,
+                scrollTrigger: {
+                    id: "sfx-layout-footer",
+                    trigger: footer,
+                    start: "top 95%",
+                    once: true,
+                },
             },
         );
     };
 
     if (document.documentElement.dataset.sfxLayoutListenerBound !== "1") {
         document.addEventListener("astro:page-load", runLayoutAnimation);
+        document.addEventListener("astro:before-swap", resetLayoutTriggers);
         document.documentElement.dataset.sfxLayoutListenerBound = "1";
     }
 </script>

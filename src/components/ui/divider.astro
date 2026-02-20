@@ -7,12 +7,93 @@ const { label } = Astro.props;
 ---
 
 <div class="flex gap-3 items-center">
-    <div class="h-1 w-full bg-paper-50"></div>
+    <div
+        class="invisible opacity-0 h-1 w-full bg-paper-50"
+        data-divider-line
+    ></div>
     {
         label && (
-            <span class="font-mono uppercase tracking-widest text-xs text-paper-100">
+            <span
+                class="invisible opacity-0 font-mono uppercase tracking-widest text-xs text-paper-100"
+                data-divider-label
+            >
                 {label}
             </span>
         )
     }
 </div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const resetDividerTriggers = () => {
+        ScrollTrigger.getAll().forEach((trigger) => {
+            const id = trigger.vars.id;
+
+            if (typeof id === "string" && id.startsWith("sfx-divider-")) {
+                trigger.kill();
+            }
+        });
+    };
+
+    const runDividerAnimations = () => {
+        const dividers = document.querySelectorAll("[data-divider-line]");
+
+        if (!dividers.length) {
+            return;
+        }
+
+        resetDividerTriggers();
+
+        dividers.forEach((line, index) => {
+            const root = line.parentElement;
+            const label = root?.querySelector("[data-divider-label]");
+            if (!root) {
+                return;
+            }
+
+            const timeline = gsap.timeline({
+                scrollTrigger: {
+                    id: `sfx-divider-${index}`,
+                    trigger: root,
+                    start: "top 90%",
+                    once: true,
+                },
+            });
+
+            timeline.fromTo(
+                line,
+                { autoAlpha: 0, scaleX: 0, transformOrigin: "left center" },
+                {
+                    autoAlpha: 1,
+                    scaleX: 1,
+                    duration: 0.25,
+                    ease: "power1.out",
+                },
+            );
+
+            if (label) {
+                timeline.fromTo(
+                    label,
+                    { autoAlpha: 0, x: -8 },
+                    {
+                        autoAlpha: 1,
+                        x: 0,
+                        duration: 0.2,
+                        ease: "power1.out",
+                    },
+                    0.1,
+                );
+            }
+        });
+    };
+
+    if (document.documentElement.dataset.sfxDividerListenerBound !== "1") {
+        document.addEventListener("astro:page-load", runDividerAnimations);
+        document.addEventListener("astro:before-swap", resetDividerTriggers);
+        document.documentElement.dataset.sfxDividerListenerBound = "1";
+    }
+</script>

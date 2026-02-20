@@ -41,9 +41,10 @@ const { kicker, title, description } = Astro.props;
 
 <script>
     import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
     import { SplitText } from "gsap/SplitText";
 
-    gsap.registerPlugin(SplitText);
+    gsap.registerPlugin(ScrollTrigger, SplitText);
 
     let activeSplits: SplitText[] = [];
 
@@ -52,10 +53,24 @@ const { kicker, title, description } = Astro.props;
         activeSplits = [];
     };
 
+    const resetSectionTriggers = () => {
+        ScrollTrigger.getAll().forEach((trigger) => {
+            const id = trigger.vars.id;
+
+            if (
+                typeof id === "string" &&
+                id.startsWith("sfx-section-title-")
+            ) {
+                trigger.kill();
+            }
+        });
+    };
+
     const animateSectionTitles = () => {
         const sections = document.querySelectorAll("[data-section-header]");
 
         resetSectionSplits();
+        resetSectionTriggers();
 
         if (!sections.length) {
             return;
@@ -73,7 +88,12 @@ const { kicker, title, description } = Astro.props;
             );
 
             const timeline = gsap.timeline({
-                delay: index * 0.05,
+                scrollTrigger: {
+                    id: `sfx-section-title-${index}`,
+                    trigger: section,
+                    start: "top 88%",
+                    once: true,
+                },
             });
 
             if (heading) {
@@ -118,6 +138,7 @@ const { kicker, title, description } = Astro.props;
     if (document.documentElement.dataset.sfxSectionTitleListenerBound !== "1") {
         document.addEventListener("astro:page-load", animateSectionTitles);
         document.addEventListener("astro:before-swap", resetSectionSplits);
+        document.addEventListener("astro:before-swap", resetSectionTriggers);
         document.documentElement.dataset.sfxSectionTitleListenerBound = "1";
     }
 </script>

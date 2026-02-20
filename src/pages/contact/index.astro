@@ -248,6 +248,16 @@ import { profile } from "../../data/portfolio";
 
 	gsap.registerPlugin(ScrollTrigger);
 
+	const resetContactTriggers = () => {
+		ScrollTrigger.getAll().forEach((trigger) => {
+			const id = trigger.vars.id;
+
+			if (typeof id === "string" && id.startsWith("sfx-contact-")) {
+				trigger.kill();
+			}
+		});
+	};
+
 	const runContactAnimations = () => {
 		const root = document.querySelector('[data-page="contact"]');
 
@@ -255,7 +265,8 @@ import { profile } from "../../data/portfolio";
 			return;
 		}
 
-		ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+		resetContactTriggers();
+		const formPanel = root.querySelector("[data-contact-form-panel]");
 
 		gsap.fromTo(
 			root.querySelectorAll(
@@ -268,6 +279,12 @@ import { profile } from "../../data/portfolio";
 				duration: 0.3,
 				stagger: 0.05,
 				ease: "power1.out",
+				scrollTrigger: {
+					id: "sfx-contact-header",
+					trigger: formPanel || root,
+					start: "top 88%",
+					once: true,
+				},
 			},
 		);
 
@@ -283,7 +300,8 @@ import { profile } from "../../data/portfolio";
 				stagger: 0.05,
 				ease: "power1.out",
 				scrollTrigger: {
-					trigger: "[data-contact-form-panel]",
+					id: "sfx-contact-fields",
+					trigger: formPanel || root,
 					start: "top 85%",
 					once: true,
 				},
@@ -299,6 +317,7 @@ import { profile } from "../../data/portfolio";
 				duration: 0.3,
 				ease: "power1.out",
 				scrollTrigger: {
+					id: "sfx-contact-panel",
 					trigger: "[data-contact-direct-panel]",
 					start: "top 85%",
 					once: true,
@@ -316,6 +335,7 @@ import { profile } from "../../data/portfolio";
 				stagger: 0.05,
 				ease: "power1.out",
 				scrollTrigger: {
+					id: "sfx-contact-links",
 					trigger: "[data-contact-direct-panel]",
 					start: "top 80%",
 					once: true,
@@ -328,6 +348,7 @@ import { profile } from "../../data/portfolio";
 
 	if (document.documentElement.dataset.sfxContactListenerBound !== "1") {
 		document.addEventListener("astro:page-load", runContactAnimations);
+		document.addEventListener("astro:before-swap", resetContactTriggers);
 		document.documentElement.dataset.sfxContactListenerBound = "1";
 	}
 </script>
