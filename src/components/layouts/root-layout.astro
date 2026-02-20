@@ -23,10 +23,10 @@ const navItems = [
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
-        <!-- <script is:inline>
-            document.documentElement.classList.add("sfx-js");
-        </script> -->
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <script is:inline>
+            document.documentElement.classList.add("gsap");
+        </script>
         <title>
             {
                 `${title ? title : "Shayan Fareed"} | Full Stack JavaScript Developer`
@@ -108,39 +108,35 @@ const navItems = [
                 </p>
             </div>
         </footer>
-        <script>
-            import { gsap } from "gsap";
-
-            const runLayoutAnimation = () => {
-                const root = document.querySelector("[data-layout-shell]");
-
-                if (!root) {
-                    return;
-                }
-
-                gsap.fromTo(
-                    root.querySelectorAll("[data-layout-footer-text]"),
-                    { autoAlpha: 0, y: 8 },
-                    {
-                        autoAlpha: 1,
-                        y: 0,
-                        duration: 0.2,
-                        stagger: 0.05,
-                        ease: "power1.out",
-                        delay: 0.1,
-                    },
-                );
-            };
-
-            if (
-                document.documentElement.dataset.sfxLayoutListenerBound !== "1"
-            ) {
-                document.addEventListener(
-                    "astro:page-load",
-                    runLayoutAnimation,
-                );
-                document.documentElement.dataset.sfxLayoutListenerBound = "1";
-            }
-        </script>
     </body>
 </html>
+
+<script>
+    import { gsap } from "gsap";
+
+    const runLayoutAnimation = () => {
+        const root = document.querySelector("[data-layout-shell]");
+
+        if (!root) {
+            return;
+        }
+
+        gsap.fromTo(
+            root.querySelectorAll("[data-layout-footer-text]"),
+            { autoAlpha: 0, y: 8 },
+            {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.2,
+                stagger: 0.05,
+                ease: "power1.out",
+                delay: 0.1,
+            },
+        );
+    };
+
+    if (document.documentElement.dataset.sfxLayoutListenerBound !== "1") {
+        document.addEventListener("astro:page-load", runLayoutAnimation);
+        document.documentElement.dataset.sfxLayoutListenerBound = "1";
+    }
+</script>

@@ -25,7 +25,10 @@ import { cn } from "../../lib/utils";
 			<ul class="space-y-4 container mx-auto">
 				{
 					experience.map((item, index) => (
-						<li class="grid gap-4 lg:grid-cols-[14rem_1fr]" data-work-item>
+						<li
+							class="grid gap-4 lg:grid-cols-[14rem_1fr]"
+							data-work-item
+						>
 							<div
 								class="space-y-2 border-l-4 border-acid-300 pl-4 lg:border-l-0 lg:border-r-4 lg:pl-0"
 								data-work-period
@@ -83,9 +86,11 @@ import { cn } from "../../lib/utils";
 		</section>
 	</main>
 </RootLayout>
+
 <script>
 	import { gsap } from "gsap";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 	gsap.registerPlugin(ScrollTrigger);
 
 	const runWorkAnimations = () => {

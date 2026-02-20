@@ -146,7 +146,9 @@ import { cn } from "../lib/utils";
 										)}
 									>
 										{item.achievements.map((point) => (
-											<li data-home-feature-point>{point}</li>
+											<li data-home-feature-point>
+												{point}
+											</li>
 										))}
 									</ul>
 								</div>
@@ -158,10 +160,12 @@ import { cn } from "../lib/utils";
 		</section>
 	</main>
 </RootLayout>
+
 <script>
 	import { gsap } from "gsap";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
 	import { SplitText } from "gsap/SplitText";
+
 	gsap.registerPlugin(ScrollTrigger, SplitText);
 
 	let homeHeroTitleSplit: SplitText | null = null;
@@ -183,10 +187,14 @@ import { cn } from "../lib/utils";
 		resetHomeSplit();
 		ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
-		const heroTitle = root.querySelector<HTMLElement>("[data-home-hero-title]");
+		const heroTitle = root.querySelector<HTMLElement>(
+			"[data-home-hero-title]",
+		);
 		if (heroTitle) {
 			gsap.set(heroTitle, { autoAlpha: 1 });
-			homeHeroTitleSplit = SplitText.create(heroTitle, { type: "words,chars" });
+			homeHeroTitleSplit = SplitText.create(heroTitle, {
+				type: "words,chars",
+			});
 		}
 
 		if (homeHeroTitleSplit) {
@@ -217,8 +225,9 @@ import { cn } from "../lib/utils";
 			},
 		);
 
-		const competencyChips =
-			gsap.utils.toArray<HTMLElement>("[data-home-competency]");
+		const competencyChips = gsap.utils.toArray<HTMLElement>(
+			"[data-home-competency]",
+		);
 		ScrollTrigger.batch(competencyChips, {
 			start: "top 85%",
 			once: true,
@@ -237,33 +246,21 @@ import { cn } from "../lib/utils";
 			},
 		});
 
-		gsap.utils.toArray<HTMLElement>("[data-home-feature-card]").forEach((card) => {
-			const accent = card.querySelector("[data-home-feature-accent]");
-			const points = card.querySelectorAll("[data-home-feature-point]");
+		gsap.utils
+			.toArray<HTMLElement>("[data-home-feature-card]")
+			.forEach((card) => {
+				const accent = card.querySelector("[data-home-feature-accent]");
+				const points = card.querySelectorAll(
+					"[data-home-feature-point]",
+				);
 
-			gsap.fromTo(
-				card,
-				{ autoAlpha: 0, y: 24 },
-				{
-					autoAlpha: 1,
-					y: 0,
-					duration: 0.3,
-					ease: "power1.out",
-					scrollTrigger: {
-						trigger: card,
-						start: "top 85%",
-						once: true,
-					},
-				},
-			);
-
-			if (accent) {
 				gsap.fromTo(
-					accent,
-					{ scaleX: 0, transformOrigin: "left center" },
+					card,
+					{ autoAlpha: 0, y: 24 },
 					{
-						scaleX: 1,
-						duration: 0.2,
+						autoAlpha: 1,
+						y: 0,
+						duration: 0.3,
 						ease: "power1.out",
 						scrollTrigger: {
 							trigger: card,
@@ -272,25 +269,41 @@ import { cn } from "../lib/utils";
 						},
 					},
 				);
-			}
 
-			gsap.fromTo(
-				points,
-				{ autoAlpha: 0, x: -8 },
-				{
-					autoAlpha: 1,
-					x: 0,
-					stagger: 0.05,
-					duration: 0.2,
-					ease: "power1.out",
-					scrollTrigger: {
-						trigger: card,
-						start: "top 80%",
-						once: true,
+				if (accent) {
+					gsap.fromTo(
+						accent,
+						{ scaleX: 0, transformOrigin: "left center" },
+						{
+							scaleX: 1,
+							duration: 0.2,
+							ease: "power1.out",
+							scrollTrigger: {
+								trigger: card,
+								start: "top 85%",
+								once: true,
+							},
+						},
+					);
+				}
+
+				gsap.fromTo(
+					points,
+					{ autoAlpha: 0, x: -8 },
+					{
+						autoAlpha: 1,
+						x: 0,
+						stagger: 0.05,
+						duration: 0.2,
+						ease: "power1.out",
+						scrollTrigger: {
+							trigger: card,
+							start: "top 80%",
+							once: true,
+						},
 					},
-				},
-			);
-		});
+				);
+			});
 
 		ScrollTrigger.refresh();
 	};

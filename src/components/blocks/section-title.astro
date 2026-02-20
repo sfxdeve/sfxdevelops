@@ -38,9 +38,11 @@ const { kicker, title, description } = Astro.props;
         }
     </div>
 </section>
+
 <script>
     import { gsap } from "gsap";
     import { SplitText } from "gsap/SplitText";
+
     gsap.registerPlugin(SplitText);
 
     let activeSplits: SplitText[] = [];
@@ -60,8 +62,12 @@ const { kicker, title, description } = Astro.props;
         }
 
         sections.forEach((section, index) => {
-            const kicker = section.querySelector<HTMLElement>("[data-section-kicker]");
-            const heading = section.querySelector<HTMLElement>("[data-section-heading]");
+            const kicker = section.querySelector<HTMLElement>(
+                "[data-section-kicker]",
+            );
+            const heading = section.querySelector<HTMLElement>(
+                "[data-section-heading]",
+            );
             const description = section.querySelector<HTMLElement>(
                 "[data-section-description]",
             );
@@ -72,7 +78,9 @@ const { kicker, title, description } = Astro.props;
 
             if (heading) {
                 gsap.set(heading, { autoAlpha: 1 });
-                const split = SplitText.create(heading, { type: "words,chars" });
+                const split = SplitText.create(heading, {
+                    type: "words,chars",
+                });
                 activeSplits.push(split);
 
                 timeline.fromTo(

@@ -229,9 +229,11 @@ import { profile } from "../../data/portfolio";
 		</section>
 	</main>
 </RootLayout>
+
 <script>
 	import { gsap } from "gsap";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 	gsap.registerPlugin(ScrollTrigger);
 
 	const runContactAnimations = () => {
@@ -258,7 +260,9 @@ import { profile } from "../../data/portfolio";
 		);
 
 		gsap.fromTo(
-			root.querySelectorAll("[data-contact-input-group], [data-contact-submit]"),
+			root.querySelectorAll(
+				"[data-contact-input-group], [data-contact-submit]",
+			),
 			{ autoAlpha: 0, y: 8 },
 			{
 				autoAlpha: 1,
