@@ -5,364 +5,302 @@ import { profile } from "../../data/portfolio";
 ---
 
 <RootLayout
-	title="Contact"
-	description="Direct contact details for Shayan Fareed including email, phone, LinkedIn, and GitHub."
+  title="Contact"
+  description="Direct contact details for Shayan Fareed including email, phone, LinkedIn, and GitHub."
 >
-	<main data-page="contact">
-		<SectionTitle
-			kicker="Contact"
-			title="Open for collaboration"
-			description="For product engineering roles, freelance builds, and long term contracts, reach out directly through the channels below."
-		/>
-		<section class="p-4 sm:py-12">
-			<div
-				class="container mx-auto grid gap-6 lg:grid-cols-[1.3fr_0.7fr] items-start"
-			>
-				<article
-					class="invisible opacity-0 space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
-					data-contact-form-panel
-					data-anim-card
-				>
-					<h3
-						class="invisible opacity-0 font-display uppercase tracking-wider text-3xl sm:text-5xl"
-						data-contact-heading
-					>
-						Let&apos;s build something that ships
-					</h3>
-					<p
-						class="invisible opacity-0 max-w-2xl text-base text-paper-100 sm:text-lg"
-						data-contact-intro
-					>
-						Send a quick message and I&apos;ll reply as soon as
-						possible.
-					</p>
-					<form
-						name="contact"
-						method="POST"
-						data-netlify="true"
-						data-astro-reload
-						class="space-y-4"
-					>
-						<div class="grid gap-4 sm:grid-cols-2">
-							<label
-								class="invisible opacity-0 space-y-2"
-								data-contact-input-group
-								data-anim-list-item
-							>
-								<span
-									class="font-mono uppercase tracking-wider text-xs text-paper-300"
-								>
-									Name
-								</span>
-								<input
-									type="text"
-									name="name"
-									required
-									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
-								/>
-							</label>
-							<label
-								class="invisible opacity-0 space-y-2"
-								data-contact-input-group
-								data-anim-list-item
-							>
-								<span
-									class="font-mono uppercase tracking-wider text-xs text-paper-300"
-								>
-									Email
-								</span>
-								<input
-									type="email"
-									name="email"
-									required
-									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
-								/>
-							</label>
-							<label
-								class="invisible opacity-0 space-y-2 sm:col-span-2"
-								data-contact-input-group
-								data-anim-list-item
-							>
-								<span
-									class="font-mono uppercase tracking-wider text-xs text-paper-300"
-								>
-									Company / Brand
-								</span>
-								<input
-									type="text"
-									name="company"
-									placeholder="Optional"
-									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out placeholder:text-paper-400 focus:border-acid-300"
-								/>
-							</label>
-							<label
-								class="invisible opacity-0 space-y-2"
-								data-contact-input-group
-								data-anim-list-item
-							>
-								<span
-									class="font-mono uppercase tracking-wider text-xs text-paper-300"
-								>
-									Reason
-								</span>
-								<select
-									name="reason"
-									required
-									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
-								>
-									<option value="">Select one</option>
-									<option value="project-collaboration"
-										>Project collaboration</option
-									>
-									<option value="role-opportunity"
-										>Role opportunity</option
-									>
-									<option value="general-question"
-										>General question</option
-									>
-									<option value="other">Other</option>
-								</select>
-							</label>
-							<label
-								class="invisible opacity-0 space-y-2"
-								data-contact-input-group
-								data-anim-list-item
-							>
-								<span
-									class="font-mono uppercase tracking-wider text-xs text-paper-300"
-								>
-									Subject
-								</span>
-								<input
-									type="text"
-									name="subject"
-									required
-									placeholder="What should we talk about?"
-									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
-								/>
-							</label>
-							<label
-								class="invisible opacity-0 space-y-2 sm:col-span-2"
-								data-contact-input-group
-								data-anim-list-item
-							>
-								<span
-									class="font-mono uppercase tracking-wider text-xs text-paper-300"
-								>
-									Message
-								</span>
-								<textarea
-									name="message"
-									rows="5"
-									required
-									placeholder="Tell me a bit about what you need."
-									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out placeholder:text-paper-400 focus:border-acid-300"
-								></textarea>
-							</label>
-						</div>
-						<button
-							type="submit"
-							class="invisible opacity-0 border-4 border-acid-300 bg-acid-300 px-5 py-2 font-bold uppercase tracking-widest text-xs text-ink-950 transition duration-300 ease-out hover:bg-paper-50"
-							data-contact-submit
-							data-anim-list-item
-						>
-							Send Message
-						</button>
-					</form>
-				</article>
-				<article
-					class="invisible opacity-0 space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
-					data-contact-direct-panel
-					data-anim-card
-				>
-					<h3
-						class="font-mono uppercase tracking-widest text-xs text-paper-300"
-					>
-						Direct Contact
-					</h3>
-					<dl>
-						<dt
-							class="font-mono uppercase tracking-wider text-xs text-paper-300"
-						>
-							Email
-						</dt>
-						<dd class="mb-3">
-							<a
-								href={`mailto:${profile.contact.email}`}
-								class="invisible opacity-0 underline underline-offset-4 decoration-acid-300 text-paper-50"
-								data-contact-direct-link
-								data-anim-list-item
-							>
-								{profile.contact.email}
-							</a>
-						</dd>
-						<dt
-							class="font-mono uppercase tracking-wider text-xs text-paper-300"
-						>
-							Phone
-						</dt>
-						<dd class="mb-3">
-							<a
-								href={`tel:${profile.contact.phone}`}
-								class="invisible opacity-0 underline underline-offset-4 decoration-acid-300 text-paper-50"
-								data-contact-direct-link
-								data-anim-list-item
-							>
-								{profile.contact.phone}
-							</a>
-						</dd>
-						<dt
-							class="font-mono uppercase tracking-wider text-xs text-paper-300"
-						>
-							LinkedIn
-						</dt>
-						<dd class="mb-3">
-							<a
-								href={profile.contact.linkedIn}
-								target="_blank"
-								class="invisible opacity-0 underline underline-offset-4 decoration-acid-300 text-paper-50"
-								data-contact-direct-link
-								data-anim-list-item
-							>
-								{
-									profile.contact.linkedIn.replace(
-										"https://",
-										"",
-									)
-								}
-							</a>
-						</dd>
-						<dt
-							class="font-mono uppercase tracking-wider text-xs text-paper-300"
-						>
-							GitHub
-						</dt>
-						<dd class="mb-3">
-							<a
-								href={profile.contact.github}
-								target="_blank"
-								class="invisible opacity-0 underline underline-offset-4 decoration-acid-300 text-paper-50"
-								data-contact-direct-link
-								data-anim-list-item
-							>
-								{profile.contact.github.replace("https://", "")}
-							</a>
-						</dd>
-					</dl>
-				</article>
-			</div>
-		</section>
-	</main>
+  <main data-page="contact" class="px-4 pb-12">
+    <SectionTitle
+      kicker="Contact"
+      title="Start a Practical Conversation"
+      description="Share your scope, timeline, and product goals. I will reply with clear next steps."
+    />
+
+    <section class="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+      <article class="surface rounded-xl p-6 sm:p-7" data-contact-form-panel data-anim-card>
+        <p class="eyebrow" data-contact-heading>Project Intake</p>
+        <h2 class="mt-3 font-display text-3xl font-bold leading-tight text-paper-50" data-contact-heading>
+          Tell me what you need built
+        </h2>
+        <p class="mt-2 text-sm text-paper-200" data-contact-intro>
+          I typically respond within one business day.
+        </p>
+
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          data-astro-reload
+          class="mt-6 space-y-4"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <label class="space-y-2" data-anim-list-item>
+              <span class="eyebrow">Name</span>
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="Your full name"
+                class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50 placeholder:text-paper-300/70"
+              />
+            </label>
+
+            <label class="space-y-2" data-anim-list-item>
+              <span class="eyebrow">Email</span>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="you@example.com"
+                class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50 placeholder:text-paper-300/70"
+              />
+            </label>
+
+            <label class="space-y-2 sm:col-span-2" data-anim-list-item>
+              <span class="eyebrow">Company / Brand</span>
+              <input
+                type="text"
+                name="company"
+                placeholder="Optional"
+                class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50 placeholder:text-paper-300/70"
+              />
+            </label>
+
+            <label class="space-y-2" data-anim-list-item>
+              <span class="eyebrow">Reason</span>
+              <select
+                name="reason"
+                required
+                class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50"
+              >
+                <option value="" disabled selected>Select reason</option>
+                <option value="project-collaboration">Project collaboration</option>
+                <option value="role-opportunity">Role opportunity</option>
+                <option value="general-question">General question</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+
+            <label class="space-y-2" data-anim-list-item>
+              <span class="eyebrow">Subject</span>
+              <input
+                type="text"
+                name="subject"
+                required
+                placeholder="What should we discuss?"
+                class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50 placeholder:text-paper-300/70"
+              />
+            </label>
+
+            <label class="space-y-2 sm:col-span-2" data-anim-list-item>
+              <span class="eyebrow">Message</span>
+              <textarea
+                name="message"
+                rows="5"
+                required
+                placeholder="Briefly describe scope, constraints, and timeline."
+                class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50 placeholder:text-paper-300/70"
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <button
+              type="submit"
+              class="focus-ring rounded-md border border-amber-300 bg-amber-300 px-4 py-2.5 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-ink-950 transition hover:-translate-y-0.5 hover:bg-amber-200"
+              data-anim-list-item
+            >
+              Send message
+            </button>
+          </div>
+        </form>
+      </article>
+
+      <aside class="space-y-4" data-contact-sidebar>
+        <article class="surface-muted rounded-xl p-6" data-contact-direct-panel data-anim-card>
+          <p class="eyebrow" data-contact-direct-heading>Direct Channels</p>
+          <dl class="mt-4 space-y-4">
+            <div>
+              <dt class="eyebrow text-paper-300">Email</dt>
+              <dd>
+                <a
+                  href={`mailto:${profile.contact.email}`}
+                  class="text-sm text-paper-100 underline underline-offset-4"
+                  data-anim-list-item
+                >
+                  {profile.contact.email}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt class="eyebrow text-paper-300">Phone</dt>
+              <dd>
+                <a
+                  href={`tel:${profile.contact.phone}`}
+                  class="text-sm text-paper-100 underline underline-offset-4"
+                  data-anim-list-item
+                >
+                  {profile.contact.phone}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt class="eyebrow text-paper-300">LinkedIn</dt>
+              <dd>
+                <a
+                  href={profile.contact.linkedIn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-paper-100 underline underline-offset-4"
+                  data-anim-list-item
+                >
+                  {profile.contact.linkedIn.replace("https://", "")}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt class="eyebrow text-paper-300">GitHub</dt>
+              <dd>
+                <a
+                  href={profile.contact.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-paper-100 underline underline-offset-4"
+                  data-anim-list-item
+                >
+                  {profile.contact.github.replace("https://", "")}
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="surface-muted rounded-xl p-6" data-anim-card>
+          <p class="eyebrow" data-anim-list-item>Working Process</p>
+          <ul class="mt-3 space-y-2 text-sm text-paper-100">
+            <li data-anim-list-item>1. Scope and constraints alignment.</li>
+            <li data-anim-list-item>2. Implementation plan and timeline.</li>
+            <li data-anim-list-item>3. Iterative build and handoff.</li>
+          </ul>
+        </article>
+      </aside>
+    </section>
+  </main>
 </RootLayout>
 
 <script>
-	import { gsap } from "gsap";
-	import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-	gsap.registerPlugin(ScrollTrigger);
-	const EASE = "power2.out";
-	const CARD_FROM = { autoAlpha: 0, y: 24 };
-	const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
-	const ITEM_FROM = { autoAlpha: 0, y: 12 };
-	const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
-	const ITEM_STAGGER = 0.05;
+  gsap.registerPlugin(ScrollTrigger);
+  const EASE = "power2.out";
+  const CARD_FROM = { autoAlpha: 0, y: 24 };
+  const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
+  const ITEM_FROM = { autoAlpha: 0, y: 12 };
+  const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
+  const ITEM_STAGGER = 0.05;
 
-	const runContactAnimations = () => {
-		const root = document.querySelector('[data-page="contact"]');
+  const runContactAnimations = () => {
+    const root = document.querySelector('[data-page="contact"]');
 
-		if (!root) {
-			return;
-		}
+    if (!root) {
+      return;
+    }
 
-		ScrollTrigger.getAll().forEach((trigger) => {
-			const id = trigger.vars.id;
-			if (typeof id === "string" && id.startsWith("contact-")) {
-				trigger.kill();
-			}
-		});
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("contact-")) {
+        trigger.kill();
+      }
+    });
 
-		gsap.fromTo(
-			root.querySelectorAll("[data-anim-card]"),
-			CARD_FROM,
-			{
-				...CARD_TO,
-				stagger: 0.12,
-				scrollTrigger: {
-					id: "contact-panels",
-					trigger: root,
-					start: "top 86%",
-					once: true,
-				},
-			},
-		);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(
+        "[data-anim-card], [data-contact-heading], [data-contact-intro], [data-anim-list-item]",
+        {
+          clearProps: "all",
+          autoAlpha: 1,
+        },
+      );
+      return;
+    }
 
-		gsap.fromTo(
-			root.querySelectorAll("[data-contact-heading], [data-contact-intro]"),
-			ITEM_FROM,
-			{
-				...ITEM_TO,
-				stagger: ITEM_STAGGER,
-				scrollTrigger: {
-					id: "contact-header",
-					trigger: "[data-contact-form-panel]",
-					start: "top 84%",
-					once: true,
-				},
-			},
-		);
+    gsap.fromTo(
+      root.querySelectorAll("[data-anim-card]"),
+      CARD_FROM,
+      {
+        ...CARD_TO,
+        stagger: 0.12,
+        scrollTrigger: {
+          id: "contact-panels",
+          trigger: root,
+          start: "top 86%",
+          once: true,
+        },
+      },
+    );
 
-		gsap.fromTo(
-			root.querySelectorAll(
-				"[data-contact-form-panel] [data-anim-list-item]",
-			),
-			ITEM_FROM,
-			{
-				...ITEM_TO,
-				stagger: ITEM_STAGGER,
-				scrollTrigger: {
-					id: "contact-form-items",
-					trigger: "[data-contact-form-panel]",
-					start: "top 82%",
-					once: true,
-				},
-			},
-		);
+    gsap.fromTo(
+      root.querySelectorAll("[data-contact-heading], [data-contact-intro]"),
+      ITEM_FROM,
+      {
+        ...ITEM_TO,
+        stagger: ITEM_STAGGER,
+        scrollTrigger: {
+          id: "contact-header",
+          trigger: "[data-contact-form-panel]",
+          start: "top 84%",
+          once: true,
+        },
+      },
+    );
 
-		gsap.fromTo(
-			root.querySelectorAll(
-				"[data-contact-direct-panel] [data-anim-list-item]",
-			),
-			ITEM_FROM,
-			{
-				...ITEM_TO,
-				stagger: ITEM_STAGGER,
-				scrollTrigger: {
-					id: "contact-links",
-					trigger: "[data-contact-direct-panel]",
-					start: "top 82%",
-					once: true,
-				},
-			},
-		);
+    gsap.fromTo(
+      root.querySelectorAll("[data-contact-form-panel] [data-anim-list-item]"),
+      ITEM_FROM,
+      {
+        ...ITEM_TO,
+        stagger: ITEM_STAGGER,
+        scrollTrigger: {
+          id: "contact-form-items",
+          trigger: "[data-contact-form-panel]",
+          start: "top 82%",
+          once: true,
+        },
+      },
+    );
 
-		ScrollTrigger.refresh();
-	};
+    gsap.fromTo(
+      root.querySelectorAll("[data-contact-sidebar] [data-anim-list-item]"),
+      ITEM_FROM,
+      {
+        ...ITEM_TO,
+        stagger: ITEM_STAGGER,
+        scrollTrigger: {
+          id: "contact-links",
+          trigger: "[data-contact-sidebar]",
+          start: "top 82%",
+          once: true,
+        },
+      },
+    );
 
-	const beforeSwapContactAnimations = () => {
-		ScrollTrigger.getAll().forEach((trigger) => {
-			const id = trigger.vars.id;
-			if (typeof id === "string" && id.startsWith("contact-")) {
-				trigger.kill();
-			}
-		});
-	};
+    ScrollTrigger.refresh();
+  };
 
-	if (document.documentElement.dataset.contactListenerBound !== "1") {
-		document.addEventListener("astro:page-load", runContactAnimations);
-		document.addEventListener(
-			"astro:before-swap",
-			beforeSwapContactAnimations,
-		);
-		document.documentElement.dataset.contactListenerBound = "1";
-	}
+  const beforeSwapContactAnimations = () => {
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("contact-")) {
+        trigger.kill();
+      }
+    });
+  };
+
+  if (document.documentElement.dataset.contactListenerBound !== "1") {
+    document.addEventListener("astro:page-load", runContactAnimations);
+    document.addEventListener("astro:before-swap", beforeSwapContactAnimations);
+    document.documentElement.dataset.contactListenerBound = "1";
+  }
 </script>

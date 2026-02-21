@@ -1,51 +1,107 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 @import "tailwindcss";
 
 @theme {
-  --font-body: "Space Grotesk", sans-serif;
-  --font-display: "Bebas Neue", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --font-display: "Fraunces", serif;
   --font-mono: "IBM Plex Mono", monospace;
 
-  --color-ink-950: #0b0b0b;
-  --color-ink-900: #151515;
-  --color-ink-800: #252525;
+  --color-ink-950: #100f0d;
+  --color-ink-900: #171513;
+  --color-ink-850: #1d1a17;
+  --color-ink-800: #26211d;
 
-  --color-paper-50: #f7f2e8;
-  --color-paper-100: #efe7d8;
-  --color-paper-200: #dfd4c2;
-  --color-paper-300: #cabca6;
-  --color-paper-400: #b3a48d;
+  --color-paper-50: #f4ede2;
+  --color-paper-100: #e8dece;
+  --color-paper-200: #cabfae;
+  --color-paper-300: #aa9d8c;
 
-  --color-acid-100: #e5ff96;
-  --color-acid-200: #d6ff58;
-  --color-acid-300: #c9ff30;
-
-  --color-safety-300: #ff8f6d;
-  --color-safety-500: #ff6030;
+  --color-amber-200: #d2aa71;
+  --color-amber-300: #bf8c4a;
+  --color-amber-400: #a9732f;
+  --color-amber-500: #8f5b1c;
 }
 
-@utility bg-grid {
-  background-image:
-    linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px),
-    linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px);
-  background-size: 30px 30px;
+:root {
+  color-scheme: dark;
+}
+
+body {
+  color: var(--color-paper-50);
+  background:
+    radial-gradient(circle at 20% -10%, rgb(191 140 74 / 0.2), transparent 28%),
+    linear-gradient(180deg, #100f0d 0%, #171513 48%, #1d1a17 100%);
+}
+
+::selection {
+  color: var(--color-ink-950);
+  background: var(--color-amber-200);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber-300);
+  outline-offset: 2px;
+}
+
+@utility bg-site {
+  background:
+    radial-gradient(circle at 20% -10%, rgb(191 140 74 / 0.2), transparent 28%),
+    linear-gradient(180deg, #100f0d 0%, #171513 48%, #1d1a17 100%);
+}
+
+@utility surface {
+  border: 1px solid rgb(232 222 206 / 0.2);
+  background-color: rgb(23 21 19 / 0.72);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.2);
+  backdrop-filter: blur(4px);
+}
+
+@utility surface-muted {
+  border: 1px solid rgb(202 191 174 / 0.18);
+  background-color: rgb(29 26 23 / 0.64);
+}
+
+@utility accent-line {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgb(191 140 74 / 0.8) 48%, transparent 100%);
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  line-height: 1;
+  color: var(--color-paper-200);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@utility focus-ring {
+  outline-color: transparent;
+}
+
+@layer utilities {
+  .focus-ring:focus-visible {
+    outline: 2px solid rgb(191 140 74 / 0.95);
+    outline-offset: 2px;
+  }
 }
 
 ::view-transition-group(root) {
-  animation-duration: 200ms;
+  animation-duration: 180ms;
   animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
 }
 
 ::view-transition-old(root) {
   animation-name: fadeOut;
-  animation-duration: 150ms;
+  animation-duration: 120ms;
   animation-timing-function: ease-out;
 }
 
 ::view-transition-new(root) {
   animation-name: fadeIn;
-  animation-duration: 200ms;
+  animation-duration: 180ms;
   animation-timing-function: ease-out;
 }
 
@@ -53,6 +109,7 @@
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -62,7 +119,25 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms !important;
   }
 }

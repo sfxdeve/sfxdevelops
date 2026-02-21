@@ -2,27 +2,38 @@
 import { cn } from "../../lib/utils";
 
 interface Props {
-    href: string;
-    isExternal?: boolean;
-    variant?: "solid" | "outline" | "ghost";
+  href: string;
+  isExternal?: boolean;
+  variant?: "primary" | "secondary" | "ghost" | "solid" | "outline";
 }
 
-const { href, isExternal, variant } = Astro.props;
+const { href, isExternal, variant = "primary" } = Astro.props;
+const visualVariant =
+  variant === "solid"
+    ? "primary"
+    : variant === "outline"
+      ? "secondary"
+      : variant;
 ---
 
 <a
-    href={href}
-    target={isExternal ? "_blank" : undefined}
-    rel={isExternal ? "noreferrer" : undefined}
-    class={cn(
-        "border-4 py-2 px-5 flex items-center justify-center font-bold uppercase tracking-widest text-xs transition duration-300 ease-out",
-        variant === "solid" &&
-            "border-acid-300 text-ink-950 bg-acid-300 hover:text-ink-950 hover:bg-paper-50",
-        variant === "outline" &&
-            "border-paper-50 text-paper-50 bg-transparent hover:text-ink-950 hover:bg-paper-50",
-        variant === "ghost" &&
-            "border-transparent text-paper-50 bg-transparent hover:text-paper-50 hover:bg-ink-800",
-    )}
+  href={href}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
+  class={cn(
+    "focus-ring group inline-flex items-center gap-2 font-mono text-[0.66rem] uppercase tracking-[0.2em] transition duration-200",
+    visualVariant === "primary" &&
+      "rounded-md border border-amber-300 bg-amber-300 px-4 py-2.5 font-semibold text-ink-950 hover:-translate-y-0.5 hover:bg-amber-200",
+    visualVariant === "secondary" &&
+      "rounded-md border border-paper-200/35 bg-transparent px-4 py-2.5 text-paper-100 hover:-translate-y-0.5 hover:border-amber-300/70 hover:text-paper-50",
+    visualVariant === "ghost" &&
+      "border-b border-paper-200/50 pb-1 text-paper-100 hover:border-amber-300 hover:text-amber-200",
+  )}
 >
-    <slot />
+  <slot />
+  {
+    isExternal && (
+      <span aria-hidden="true" class="text-xs transition duration-200 group-hover:translate-x-0.5">↗</span>
+    )
+  }
 </a>

@@ -1,150 +1,159 @@
 ---
 interface Props {
-    kicker?: string;
-    title: string;
-    description?: string;
+  kicker?: string;
+  title: string;
+  description?: string;
 }
 
 const { kicker, title, description } = Astro.props;
 ---
 
-<section class="p-4 sm:py-12" data-section-header>
-    <div class="space-y-3 container mx-auto">
-        {
-            kicker && (
-                <p
-                    class="invisible opacity-0 font-mono uppercase tracking-widest text-xs text-acid-300"
-                    data-section-kicker
-                >
-                    {kicker}
-                </p>
-            )
-        }
-        <h2
-            class="invisible opacity-0 font-display uppercase tracking-wider text-3xl sm:text-5xl"
-            data-section-heading
-        >
-            {title}
-        </h2>
-        {
-            description && (
-                <p
-                    class="invisible opacity-0 max-w-3xl text-base text-paper-200 sm:text-lg"
-                    data-section-description
-                >
-                    {description}
-                </p>
-            )
-        }
-    </div>
+<section class="px-4 py-14 sm:py-18" data-section-header>
+  <div class="container mx-auto max-w-6xl space-y-4">
+    {
+      kicker && (
+        <p class="eyebrow" data-section-kicker>{kicker}</p>
+      )
+    }
+    <h2
+      class="max-w-4xl font-display text-4xl font-bold leading-[1.03] text-paper-50 sm:text-6xl lg:text-7xl"
+      data-section-heading
+    >
+      {title}
+    </h2>
+    {
+      description && (
+        <p class="max-w-3xl text-base text-paper-200 sm:text-lg" data-section-description>
+          {description}
+        </p>
+      )
+    }
+    <div class="accent-line max-w-xl" data-section-accent></div>
+  </div>
 </section>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-    import { SplitText } from "gsap/SplitText";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
 
-    gsap.registerPlugin(ScrollTrigger, SplitText);
-    const EASE = "power2.out";
-    const ITEM_FROM = { autoAlpha: 0, y: 12 };
-    const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+  const EASE = "power2.out";
+  const ITEM_FROM = { autoAlpha: 0, y: 12 };
+  const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
 
-    let activeSplits: SplitText[] = [];
+  let activeSplits: SplitText[] = [];
 
-    const resetSectionSplits = () => {
-        activeSplits.forEach((split) => split.revert());
-        activeSplits = [];
-    };
+  const resetSectionSplits = () => {
+    activeSplits.forEach((split) => split.revert());
+    activeSplits = [];
+  };
 
-    const runSectionTitleAnimations = () => {
-        const sections = document.querySelectorAll("[data-section-header]");
+  const runSectionTitleAnimations = () => {
+    const sections = document.querySelectorAll("[data-section-header]");
 
-        resetSectionSplits();
-        ScrollTrigger.getAll().forEach((trigger) => {
-            const id = trigger.vars.id;
-            if (typeof id === "string" && id.startsWith("section-title-")) {
-                trigger.kill();
-            }
-        });
+    resetSectionSplits();
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("section-title-")) {
+        trigger.kill();
+      }
+    });
 
-        if (!sections.length) {
-            return;
-        }
-
-        sections.forEach((section, index) => {
-            const kicker = section.querySelector<HTMLElement>(
-                "[data-section-kicker]",
-            );
-            const heading = section.querySelector<HTMLElement>(
-                "[data-section-heading]",
-            );
-            const description = section.querySelector<HTMLElement>(
-                "[data-section-description]",
-            );
-
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    id: `section-title-${index}`,
-                    trigger: section,
-                    start: "top 88%",
-                    once: true,
-                },
-            });
-
-            if (heading) {
-                gsap.set(heading, { autoAlpha: 1 });
-                const split = SplitText.create(heading, {
-                    type: "words,chars",
-                });
-                activeSplits.push(split);
-
-                timeline.fromTo(
-                    split.chars,
-                    { autoAlpha: 0, y: 16 },
-                    {
-                        autoAlpha: 1,
-                        y: 0,
-                        duration: 0.34,
-                        stagger: 0.02,
-                        ease: EASE,
-                    },
-                    0,
-                );
-            }
-
-            const textElements = [kicker, description].filter(Boolean);
-            if (textElements.length) {
-                timeline.fromTo(
-                    textElements,
-                    ITEM_FROM,
-                    {
-                        ...ITEM_TO,
-                        stagger: 0.05,
-                    },
-                    0.1,
-                );
-            }
-        });
-
-        ScrollTrigger.refresh();
-    };
-
-    const beforeSwapSectionTitleAnimations = () => {
-        resetSectionSplits();
-        ScrollTrigger.getAll().forEach((trigger) => {
-            const id = trigger.vars.id;
-            if (typeof id === "string" && id.startsWith("section-title-")) {
-                trigger.kill();
-            }
-        });
-    };
-
-    if (document.documentElement.dataset.sectionTitleListenerBound !== "1") {
-        document.addEventListener("astro:page-load", runSectionTitleAnimations);
-        document.addEventListener(
-            "astro:before-swap",
-            beforeSwapSectionTitleAnimations,
-        );
-        document.documentElement.dataset.sectionTitleListenerBound = "1";
+    if (!sections.length) {
+      return;
     }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(
+        "[data-section-kicker], [data-section-heading], [data-section-description], [data-section-accent]",
+        {
+          clearProps: "all",
+          autoAlpha: 1,
+        },
+      );
+      return;
+    }
+
+    sections.forEach((section, index) => {
+      const kicker = section.querySelector<HTMLElement>("[data-section-kicker]");
+      const heading = section.querySelector<HTMLElement>("[data-section-heading]");
+      const description = section.querySelector<HTMLElement>("[data-section-description]");
+      const accent = section.querySelector<HTMLElement>("[data-section-accent]");
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          id: `section-title-${index}`,
+          trigger: section,
+          start: "top 88%",
+          once: true,
+        },
+      });
+
+      if (heading) {
+        gsap.set(heading, { autoAlpha: 1 });
+        const split = SplitText.create(heading, {
+          type: "words,chars",
+        });
+        activeSplits.push(split);
+
+        timeline.fromTo(
+          split.chars,
+          { autoAlpha: 0, y: 16 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.34,
+            stagger: 0.02,
+            ease: EASE,
+          },
+          0,
+        );
+      }
+
+      const textElements = [kicker, description].filter(Boolean);
+      if (textElements.length) {
+        timeline.fromTo(
+          textElements,
+          ITEM_FROM,
+          {
+            ...ITEM_TO,
+            stagger: 0.05,
+          },
+          0.1,
+        );
+      }
+
+      if (accent) {
+        timeline.fromTo(
+          accent,
+          { scaleX: 0, transformOrigin: "left center" },
+          {
+            scaleX: 1,
+            duration: 0.28,
+            ease: EASE,
+          },
+          0.14,
+        );
+      }
+    });
+
+    ScrollTrigger.refresh();
+  };
+
+  const beforeSwapSectionTitleAnimations = () => {
+    resetSectionSplits();
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("section-title-")) {
+        trigger.kill();
+      }
+    });
+  };
+
+  if (document.documentElement.dataset.sectionTitleListenerBound !== "1") {
+    document.addEventListener("astro:page-load", runSectionTitleAnimations);
+    document.addEventListener("astro:before-swap", beforeSwapSectionTitleAnimations);
+    document.documentElement.dataset.sectionTitleListenerBound = "1";
+  }
 </script>

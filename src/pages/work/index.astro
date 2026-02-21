@@ -3,202 +3,207 @@ import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
 import Divider from "../../components/ui/divider.astro";
 import { experience } from "../../data/portfolio";
-import { cn } from "../../lib/utils";
+
+const metrics = [
+  { label: "Professional span", value: "2023 - Present" },
+  { label: "Roles", value: `${experience.length}` },
+  { label: "Delivery mode", value: "Remote, collaborative" },
+  { label: "Primary focus", value: "Full stack JavaScript" },
+];
 ---
 
 <RootLayout
-	title="Work"
-	description="Experience timeline for Shayan Fareed across production full-stack roles and freelance delivery."
+  title="Work"
+  description="Experience history for Shayan Fareed with delivery outcomes and responsibilities."
 >
-	<main data-page="work">
-		<SectionTitle
-			kicker="Experience"
-			title="Work History"
-			description="Production roles, remote collaboration, and full stack delivery across international teams and freelance clients."
-		/>
-		<section class="px-4">
-			<div class="container mx-auto">
-				<Divider label="Timeline" />
-			</div>
-		</section>
-		<section class="p-4 sm:py-12">
-			<ul class="space-y-4 container mx-auto">
-				{
-					experience.map((item, index) => (
-						<li
-							class="grid gap-4 lg:grid-cols-[14rem_1fr]"
-							data-work-item
-						>
-							<div
-								class="invisible opacity-0 space-y-2 border-l-4 border-acid-300 pl-4 lg:border-l-0 lg:border-r-4 lg:pl-0"
-								data-work-period
-							>
-								<p class="font-mono uppercase tracking-widest text-xs">
-									{item.startDate} - {item.endDate}
-								</p>
-								<span class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-[0.5rem] text-paper-100">
-									{item.location}
-								</span>
-							</div>
-							<article
-								class="invisible opacity-0 space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
-								data-work-card
-								data-anim-card
-							>
-								<div
-									class={cn(
-										"h-2 w-16 bg-acid-300",
-										index % 2 === 0 && "bg-safety-500",
-									)}
-									data-work-bar
-									data-anim-accent
-								/>
-								<div class="space-y-4">
-									<div class="space-y-1">
-										<h3 class="font-display uppercase tracking-wider text-3xl text-paper-50">
-											{item.role}
-										</h3>
-										<p
-											class={cn(
-												"font-mono uppercase tracking-widest text-xs text-acid-300",
-												index % 2 === 0 &&
-													"text-safety-500",
-											)}
-										>
-											{item.company}
-										</p>
-									</div>
-									<ul
-										class={cn(
-											"space-y-2 pl-4 text-sm list-disc marker:text-acid-300",
-											index % 2 === 0 &&
-												"marker:text-safety-500",
-										)}
-									>
-										{item.achievements.map((point) => (
-											<li
-												class="invisible opacity-0"
-												data-work-bullet
-												data-anim-list-item
-											>
-												{point}
-											</li>
-										))}
-									</ul>
-								</div>
-							</article>
-						</li>
-					))
-				}
-			</ul>
-		</section>
-	</main>
+  <main data-page="work" class="px-4 pb-12">
+    <SectionTitle
+      kicker="Work"
+      title="Production Work Across Product Teams"
+      description="A practical track record in system delivery, interface quality, API design, and team collaboration."
+    />
+
+    <section class="mx-auto w-full max-w-6xl">
+      <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          metrics.map((metric) => (
+            <li class="surface-muted rounded-lg p-4" data-work-metric>
+              <p class="eyebrow text-paper-300">{metric.label}</p>
+              <p class="mt-2 text-sm text-paper-100">{metric.value}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mx-auto mt-12 w-full max-w-6xl">
+      <Divider label="Role Timeline" />
+    </section>
+
+    <section class="mx-auto mt-7 w-full max-w-6xl">
+      <ul class="space-y-4">
+        {
+          experience.map((item) => (
+            <li class="grid gap-4 lg:grid-cols-[14rem_1fr]" data-work-item>
+              <div class="space-y-2 rounded-md border border-paper-200/20 p-3 lg:self-start" data-work-period>
+                <p class="eyebrow text-paper-300">{item.startDate} - {item.endDate}</p>
+                <p class="text-xs text-paper-200">{item.location}</p>
+              </div>
+
+              <article class="surface rounded-xl p-6 sm:p-7" data-work-card data-anim-card>
+                <div class="accent-line max-w-28" data-work-bar data-anim-accent></div>
+                <h2 class="mt-4 font-display text-3xl font-bold leading-tight text-paper-50">{item.role}</h2>
+                <p class="mt-2 text-sm text-paper-200">{item.company}</p>
+
+                <div class="mt-5 grid gap-5 lg:grid-cols-2">
+                  <div>
+                    <p class="eyebrow text-paper-300">Outcomes</p>
+                    <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-paper-100 marker:text-paper-300">
+                      {
+                        item.achievements.slice(0, 2).map((point) => (
+                          <li data-anim-list-item>{point}</li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="eyebrow text-paper-300">Responsibilities</p>
+                    <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-paper-100 marker:text-paper-300">
+                      {
+                        item.achievements.slice(2).map((point) => (
+                          <li data-anim-list-item>{point}</li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                </div>
+              </article>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
 </RootLayout>
 
 <script>
-	import { gsap } from "gsap";
-	import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-	gsap.registerPlugin(ScrollTrigger);
-	const EASE = "power2.out";
-	const CARD_FROM = { autoAlpha: 0, y: 24 };
-	const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
-	const ITEM_FROM = { autoAlpha: 0, y: 12 };
-	const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
-	const ITEM_STAGGER = 0.05;
-	const ACCENT_FROM = { scaleX: 0, transformOrigin: "left center" };
-	const ACCENT_TO = { scaleX: 1, duration: 0.28, ease: EASE };
+  gsap.registerPlugin(ScrollTrigger);
+  const EASE = "power2.out";
+  const CARD_FROM = { autoAlpha: 0, y: 24 };
+  const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
+  const ITEM_FROM = { autoAlpha: 0, y: 12 };
+  const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
+  const ITEM_STAGGER = 0.05;
+  const ACCENT_FROM = { scaleX: 0, transformOrigin: "left center" };
+  const ACCENT_TO = { scaleX: 1, duration: 0.28, ease: EASE };
 
-	const runWorkAnimations = () => {
-		const root = document.querySelector('[data-page="work"]');
+  const runWorkAnimations = () => {
+    const root = document.querySelector('[data-page="work"]');
 
-		if (!root) {
-			return;
-		}
+    if (!root) {
+      return;
+    }
 
-		ScrollTrigger.getAll().forEach((trigger) => {
-			const id = trigger.vars.id;
-			if (typeof id === "string" && id.startsWith("work-")) {
-				trigger.kill();
-			}
-		});
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("work-")) {
+        trigger.kill();
+      }
+    });
 
-		gsap.utils
-			.toArray<HTMLElement>("[data-work-item]")
-			.forEach((row, index) => {
-				const dateBlock = row.querySelector("[data-work-period]");
-				const card = row.querySelector("[data-anim-card]");
-				const accent = row.querySelector("[data-anim-accent]");
-				const points = row.querySelectorAll("[data-anim-list-item]");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(
+        "[data-work-metric], [data-work-period], [data-anim-card], [data-anim-accent], [data-anim-list-item]",
+        {
+          clearProps: "all",
+          autoAlpha: 1,
+        },
+      );
+      return;
+    }
 
-				const rowTimeline = gsap.timeline({
-					scrollTrigger: {
-						id: `work-row-${index}`,
-						trigger: row,
-						start: "top 86%",
-						once: true,
-					},
-				});
+    gsap.fromTo(
+      root.querySelectorAll("[data-work-metric]"),
+      ITEM_FROM,
+      {
+        ...ITEM_TO,
+        stagger: ITEM_STAGGER,
+        scrollTrigger: {
+          id: "work-metrics",
+          trigger: "[data-page=work]",
+          start: "top 84%",
+          once: true,
+        },
+      },
+    );
 
-				rowTimeline.fromTo(
-					dateBlock,
-					CARD_FROM,
-					{
-						...CARD_TO,
-						duration: 0.36,
-					},
-					0,
-				);
+    gsap.utils.toArray<HTMLElement>("[data-work-item]").forEach((row, index) => {
+      const dateBlock = row.querySelector("[data-work-period]");
+      const card = row.querySelector("[data-anim-card]");
+      const accent = row.querySelector("[data-anim-accent]");
+      const points = row.querySelectorAll("[data-anim-list-item]");
 
-				rowTimeline.fromTo(
-					card,
-					CARD_FROM,
-					CARD_TO,
-					0.06,
-				);
+      const rowTimeline = gsap.timeline({
+        scrollTrigger: {
+          id: `work-row-${index}`,
+          trigger: row,
+          start: "top 86%",
+          once: true,
+        },
+      });
 
-				if (accent) {
-					rowTimeline.fromTo(
-						accent,
-						ACCENT_FROM,
-						ACCENT_TO,
-						0.14,
-					);
-				}
+      rowTimeline.fromTo(
+        dateBlock,
+        CARD_FROM,
+        {
+          ...CARD_TO,
+          duration: 0.36,
+        },
+        0,
+      );
 
-				if (points.length) {
-					gsap.fromTo(
-						points,
-						ITEM_FROM,
-						{
-							...ITEM_TO,
-							stagger: ITEM_STAGGER,
-							scrollTrigger: {
-								id: `work-points-${index}`,
-								trigger: row,
-								start: "top 82%",
-								once: true,
-							},
-						},
-					);
-				}
-			});
+      rowTimeline.fromTo(card, CARD_FROM, CARD_TO, 0.06);
 
-		ScrollTrigger.refresh();
-	};
+      if (accent) {
+        rowTimeline.fromTo(accent, ACCENT_FROM, ACCENT_TO, 0.14);
+      }
 
-	const beforeSwapWorkAnimations = () => {
-		ScrollTrigger.getAll().forEach((trigger) => {
-			const id = trigger.vars.id;
-			if (typeof id === "string" && id.startsWith("work-")) {
-				trigger.kill();
-			}
-		});
-	};
+      if (points.length) {
+        gsap.fromTo(
+          points,
+          ITEM_FROM,
+          {
+            ...ITEM_TO,
+            stagger: ITEM_STAGGER,
+            scrollTrigger: {
+              id: `work-points-${index}`,
+              trigger: row,
+              start: "top 82%",
+              once: true,
+            },
+          },
+        );
+      }
+    });
 
-	if (document.documentElement.dataset.workListenerBound !== "1") {
-		document.addEventListener("astro:page-load", runWorkAnimations);
-		document.addEventListener("astro:before-swap", beforeSwapWorkAnimations);
-		document.documentElement.dataset.workListenerBound = "1";
-	}
+    ScrollTrigger.refresh();
+  };
+
+  const beforeSwapWorkAnimations = () => {
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("work-")) {
+        trigger.kill();
+      }
+    });
+  };
+
+  if (document.documentElement.dataset.workListenerBound !== "1") {
+    document.addEventListener("astro:page-load", runWorkAnimations);
+    document.addEventListener("astro:before-swap", beforeSwapWorkAnimations);
+    document.documentElement.dataset.workListenerBound = "1";
+  }
 </script>

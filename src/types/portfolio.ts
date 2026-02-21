@@ -5,6 +5,12 @@ export interface PortfolioContact {
   github: string;
 }
 
+export interface PortfolioBrand {
+  tagline: string;
+  availability: string;
+  focusAreas: string[];
+}
+
 export interface PortfolioProfile {
   name: string;
   title: string;
@@ -12,6 +18,7 @@ export interface PortfolioProfile {
   summary: string[];
   relocationNote: string;
   contact: PortfolioContact;
+  brand?: PortfolioBrand;
 }
 
 export interface ExperienceItem {
@@ -21,6 +28,21 @@ export interface ExperienceItem {
   startDate: string;
   endDate: string;
   achievements: string[];
+}
+
+export interface ProjectItem {
+  title: string;
+  summary: string;
+  impact: string[];
+  stack: string[];
+  role: string;
+  timeline: string;
+  links: {
+    label: string;
+    href: string;
+  }[];
+  featured: boolean;
+  theme: "signal" | "ember" | "frost";
 }
 
 export interface SkillGroup {

@@ -11,8 +11,8 @@ export const profile: PortfolioProfile = {
   title: "Full Stack JavaScript Developer",
   location: "Karachi, Pakistan",
   summary: [
-    "Full Stack JavaScript Developer with 3+ years of professional experience building scalable, production level web applications using React.js, Next.js, Node.js, and MongoDB.",
-    "Currently working remotely with a UK based company and contributing across full stack architecture, API development, and performance optimization with a strong focus on clean architecture and maintainable systems.",
+    "Full Stack JavaScript Developer with 3+ years of professional experience building scalable, production-level web applications using React.js, Next.js, Node.js, and MongoDB.",
+    "Currently working remotely with a UK-based company and contributing across full stack architecture, API development, and performance optimization with a focus on clean architecture and maintainable systems.",
   ],
   relocationNote: "Open to relocation within Europe.",
   contact: {
@@ -20,6 +20,15 @@ export const profile: PortfolioProfile = {
     phone: "+923082228141",
     linkedIn: "https://linkedin.com/in/shayanfareed",
     github: "https://github.com/sfxdeve",
+  },
+  brand: {
+    tagline: "Building high-performance products that actually ship.",
+    availability: "Open for remote-first roles and high-impact freelance builds.",
+    focusAreas: [
+      "End-to-end product delivery",
+      "Scalable APIs and backend systems",
+      "Performance-first frontend architecture",
+    ],
   },
 };
 
@@ -30,25 +39,11 @@ export const coreCompetencies: string[] = [
   "Performance Optimization",
   "Reusable Component Architecture",
   "Clean Code & Code Reviews",
-  "Agile & Sprint Based Development",
+  "Agile & Sprint-Based Development",
   "International Remote Collaboration",
 ];
 
 export const experience: ExperienceItem[] = [
-  // {
-  //   role: "Software Engineer",
-  //   company: "Aqua Digital Rising",
-  //   location: "London, UK (Remote)",
-  //   startDate: "Jan 2025",
-  //   endDate: "Present",
-  //   achievements: [
-  //     "Develop and maintain full stack MERN applications for production environments.",
-  //     "Design and implement scalable RESTful APIs for internal and third party integrations.",
-  //     "Optimize frontend performance using structured state management and reusable architecture.",
-  //     "Participate in sprint planning, architecture discussions, and peer code reviews.",
-  //     "Contribute to scalable backend structures and clean deployment workflows.",
-  //   ],
-  // },
   {
     role: "Freelance Full Stack Developer",
     company: "Upwork",
@@ -69,7 +64,7 @@ export const experience: ExperienceItem[] = [
     startDate: "Oct 2023",
     endDate: "Nov 2024",
     achievements: [
-      "Built production level web applications using React.js and Node.js.",
+      "Built production-level web applications using React.js and Node.js.",
       "Refactored reusable components to improve maintainability and performance.",
       "Assisted in backend API development and MongoDB schema design.",
       "Contributed to version control management and deployment processes.",
@@ -84,7 +79,7 @@ export const experience: ExperienceItem[] = [
     achievements: [
       "Developed responsive frontend interfaces from Figma designs.",
       "Integrated REST APIs and authentication systems.",
-      "Ensured cross browser compatibility and mobile responsiveness.",
+      "Ensured cross-browser compatibility and mobile responsiveness.",
     ],
   },
 ];
@@ -92,10 +87,10 @@ export const experience: ExperienceItem[] = [
 export const featuredExperience: ExperienceItem[] = experience.slice(0, 2);
 
 export const positioningSummary: string[] = [
-  "A production ready Full Stack JavaScript engineer",
-  "Experienced in international remote collaboration",
+  "Production-ready full stack JavaScript engineer",
+  "Experienced with international remote collaboration",
   "Strong in structured architecture and scalable systems",
-  "Comfortable owning both frontend and backend systems",
+  "Comfortable owning frontend and backend delivery",
   "Ready for European relocation",
 ];
 
@@ -120,7 +115,7 @@ export const skillGroups: SkillGroup[] = [
       "Material UI",
       "Responsive UI/UX Design",
       "Component Optimization",
-      "Cross browser compatibility",
+      "Cross-browser compatibility",
     ],
   },
   {
@@ -135,7 +130,7 @@ export const skillGroups: SkillGroup[] = [
       "PostgreSQL",
       "MySQL",
       "Firebase",
-      "Event driven architecture",
+      "Event-driven architecture",
       "Webhook handling",
     ],
   },
@@ -143,9 +138,9 @@ export const skillGroups: SkillGroup[] = [
     name: "Dashboard & Data Systems",
     items: [
       "Custom Admin Panels",
-      "Data driven dashboards",
-      "Real time analytics",
-      "Third party API integrations",
+      "Data-driven dashboards",
+      "Real-time analytics",
+      "Third-party API integrations",
     ],
   },
   {

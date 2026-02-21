@@ -1,104 +1,96 @@
 ---
 interface Props {
-    label?: string;
+  label?: string;
 }
 
 const { label } = Astro.props;
 ---
 
-<div class="flex gap-3 items-center">
-    <div class="invisible opacity-0 h-1 w-full bg-paper-50" data-divider-line>
-    </div>
-    {
-        label && (
-            <span
-                class="invisible opacity-0 font-mono uppercase tracking-widest text-xs text-paper-100"
-                data-divider-label
-            >
-                {label}
-            </span>
-        )
-    }
+<div class="relative flex items-center gap-4 py-2" data-divider-root>
+  <div class="accent-line" data-divider-line></div>
+  {
+    label && (
+      <span class="eyebrow shrink-0 text-paper-200" data-divider-label>{label}</span>
+    )
+  }
 </div>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-    gsap.registerPlugin(ScrollTrigger);
-    const EASE = "power2.out";
+  gsap.registerPlugin(ScrollTrigger);
 
-    const runDividerAnimations = () => {
-        const dividers = document.querySelectorAll("[data-divider-line]");
+  const runDividerAnimations = () => {
+    const roots = gsap.utils.toArray<HTMLElement>("[data-divider-root]");
 
-        ScrollTrigger.getAll().forEach((trigger) => {
-            const id = trigger.vars.id;
-            if (typeof id === "string" && id.startsWith("divider-")) {
-                trigger.kill();
-            }
-        });
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("divider-")) {
+        trigger.kill();
+      }
+    });
 
-        if (!dividers.length) {
-            return;
-        }
-
-        dividers.forEach((line, index) => {
-            const root = line.parentElement;
-            const label = root?.querySelector("[data-divider-label]");
-            if (!root) {
-                return;
-            }
-
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    id: `divider-${index}`,
-                    trigger: root,
-                    start: "top 90%",
-                    once: true,
-                },
-            });
-
-            timeline.fromTo(
-                line,
-                { autoAlpha: 0, scaleX: 0, transformOrigin: "left center" },
-                {
-                    autoAlpha: 1,
-                    scaleX: 1,
-                    duration: 0.28,
-                    ease: EASE,
-                },
-            );
-
-            if (label) {
-                timeline.fromTo(
-                    label,
-                    { autoAlpha: 0, y: 12 },
-                    {
-                        autoAlpha: 1,
-                        y: 0,
-                        duration: 0.26,
-                        ease: EASE,
-                    },
-                    0.1,
-                );
-            }
-        });
-
-        ScrollTrigger.refresh();
-    };
-
-    const beforeSwapDividerAnimations = () => {
-        ScrollTrigger.getAll().forEach((trigger) => {
-            const id = trigger.vars.id;
-            if (typeof id === "string" && id.startsWith("divider-")) {
-                trigger.kill();
-            }
-        });
-    };
-
-    if (document.documentElement.dataset.dividerListenerBound !== "1") {
-        document.addEventListener("astro:page-load", runDividerAnimations);
-        document.addEventListener("astro:before-swap", beforeSwapDividerAnimations);
-        document.documentElement.dataset.dividerListenerBound = "1";
+    if (!roots.length) {
+      return;
     }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set("[data-divider-line], [data-divider-label]", { clearProps: "all", autoAlpha: 1 });
+      return;
+    }
+
+    roots.forEach((root, index) => {
+      const line = root.querySelector("[data-divider-line]");
+      const label = root.querySelector("[data-divider-label]");
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          id: `divider-${index}`,
+          trigger: root,
+          start: "top 90%",
+          once: true,
+        },
+      });
+
+      if (line) {
+        timeline.from(line, {
+          scaleX: 0,
+          transformOrigin: "left center",
+          duration: 0.36,
+          ease: "power2.out",
+        });
+      }
+
+      if (label) {
+        timeline.from(
+          label,
+          {
+            y: 8,
+            autoAlpha: 0,
+            duration: 0.26,
+            ease: "power2.out",
+          },
+          0.08,
+        );
+      }
+    });
+
+    ScrollTrigger.refresh();
+  };
+
+  const beforeSwapDividerAnimations = () => {
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("divider-")) {
+        trigger.kill();
+      }
+    });
+  };
+
+  if (document.documentElement.dataset.dividerListenerBound !== "1") {
+    document.addEventListener("astro:page-load", runDividerAnimations);
+    document.addEventListener("astro:before-swap", beforeSwapDividerAnimations);
+    document.documentElement.dataset.dividerListenerBound = "1";
+  }
 </script>

@@ -2,355 +2,269 @@
 import RootLayout from "../components/layouts/root-layout.astro";
 import ButtonLink from "../components/ui/button-link.astro";
 import Divider from "../components/ui/divider.astro";
-import {
-	coreCompetencies,
-	featuredExperience,
-	profile,
-} from "../data/portfolio";
-import { cn } from "../lib/utils";
+import { featuredExperience, profile } from "../data/portfolio";
+
+const trustSignals = [
+  { label: "Experience", value: "3+ years" },
+  { label: "Core stack", value: "React + Node" },
+  { label: "Delivery", value: "Remote / Async" },
+  { label: "Availability", value: "Open now" },
+];
 ---
 
 <RootLayout>
-	<main data-page="home">
-		<section class="p-4 sm:py-12">
-			<div class="container mx-auto">
-				<article
-					class="border-4 p-4 grid gap-4 lg:grid-cols-[1.2fr_0.8fr] bg-ink-900 sm:p-6 sm:gap-6"
-					data-home-hero-panel
-					data-anim-card
-				>
-					<div class="space-y-5">
-						<p
-							class="invisible opacity-0 font-mono uppercase tracking-widest text-xs text-acid-300"
-							data-home-hero-kicker
-						>
-							Available for impact first teams
-						</p>
-						<h3
-							class="invisible opacity-0 max-w-2xl font-display uppercase tracking-wider text-5xl sm:text-9xl"
-							data-home-hero-title
-						>
-							{profile.name}
-						</h3>
-						<div class="flex flex-wrap gap-2">
-							<div
-								class="invisible opacity-0 border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
-								data-home-hero-meta-item
-							>
-								{profile.title}
-							</div>
-							<div
-								class="invisible opacity-0 border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
-								data-home-hero-meta-item
-							>
-								{profile.location}
-							</div>
-						</div>
-						<div class="space-y-2">
-							{
-								profile.summary.map((paragraph) => (
-									<p
-										class="invisible opacity-0 max-w-2xl text-base text-paper-100 sm:text-lg"
-										data-home-hero-copy
-									>
-										{paragraph}
-									</p>
-								))
-							}
-							<p
-								class="invisible opacity-0 uppercase tracking-widest text-safety-300"
-								data-home-hero-copy
-							>
-								{profile.relocationNote}
-							</p>
-						</div>
-						<ul class="flex flex-wrap gap-3" data-home-hero-actions>
-							<li class="invisible opacity-0">
-								<ButtonLink href="/work" variant="solid"
-									>See Work
-								</ButtonLink>
-							</li>
-							<li class="invisible opacity-0">
-								<ButtonLink href="/resume" variant="outline"
-									>Open Resume
-								</ButtonLink>
-							</li>
-							<li class="invisible opacity-0">
-								<ButtonLink href="/contact" variant="outline"
-									>Contact
-								</ButtonLink>
-							</li>
-						</ul>
-					</div>
-					<div
-						class="hidden lg:block space-y-4 border-4 p-4 bg-ink-950 sm:p-6"
-					>
-						<h3 class="font-mono uppercase tracking-widest text-xs">
-							Core competencies
-						</h3>
-						<ul class="flex flex-wrap gap-2">
-							{
-								coreCompetencies.map((item) => (
-									<li
-										class="invisible opacity-0 border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
-										data-home-competency
-										data-anim-list-item
-									>
-										{item}
-									</li>
-								))
-							}
-						</ul>
-					</div>
-				</article>
-			</div>
-		</section>
-		<section class="px-4">
-			<div class="container mx-auto">
-				<Divider label="Featured" />
-			</div>
-		</section>
-		<section class="p-4 sm:py-12">
-			<ul class="container mx-auto grid gap-4 md:grid-cols-2">
-				{
-					featuredExperience.map((item, index) => (
-						<li>
-							<article
-								class="invisible opacity-0 space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
-								data-home-feature-card
-								data-anim-card
-							>
-								<div
-									class={cn(
-										"h-2 w-16 bg-acid-300",
-										index % 2 === 0 && "bg-safety-500",
-									)}
-									data-home-feature-accent
-									data-anim-accent
-								/>
-								<div class="space-y-4">
-									<div class="space-y-1">
-										<h3 class="font-display uppercase tracking-wider text-3xl text-paper-50">
-											{item.role}
-										</h3>
-										<p
-											class={cn(
-												"font-mono uppercase tracking-widest text-xs text-acid-300",
-												index % 2 === 0 &&
-													"text-safety-500",
-											)}
-										>
-											{item.company}
-										</p>
-									</div>
-									<ul
-										class={cn(
-											"space-y-2 pl-4 text-sm list-disc marker:text-acid-300",
-											index % 2 === 0 &&
-												"marker:text-safety-500",
-										)}
-									>
-										{item.achievements.map((point) => (
-											<li
-												class="invisible opacity-0"
-												data-home-feature-point
-												data-anim-list-item
-											>
-												{point}
-											</li>
-										))}
-									</ul>
-								</div>
-							</article>
-						</li>
-					))
-				}
-			</ul>
-		</section>
-	</main>
+  <main data-page="home" class="px-4 pb-12 pt-12 sm:pt-16">
+    <section class="mx-auto w-full max-w-6xl" data-home-hero>
+      <article class="surface rounded-xl p-7 sm:p-10" data-home-hero-panel>
+        <p class="eyebrow" data-home-hero-kicker>{profile.title}</p>
+        <h1
+          class="mt-4 max-w-4xl font-display text-5xl font-bold leading-[0.98] text-paper-50 sm:text-7xl lg:text-8xl"
+          data-home-hero-title
+        >
+          Building reliable web products with clear architecture.
+        </h1>
+        <p class="mt-5 max-w-3xl text-base text-paper-100 sm:text-lg" data-home-hero-copy>
+          I design and ship full stack JavaScript systems that stay maintainable as teams and product scope grow.
+        </p>
+        <p class="mt-3 text-sm text-paper-200" data-home-hero-copy>
+          Based in {profile.location}. {profile.relocationNote}
+        </p>
+
+        <ul class="mt-8 flex flex-wrap gap-3" data-home-hero-actions>
+          <li>
+            <ButtonLink href="/work" variant="primary">View Work</ButtonLink>
+          </li>
+          <li>
+            <ButtonLink href="/resume" variant="secondary">View Resume</ButtonLink>
+          </li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="mx-auto mt-8 w-full max-w-6xl">
+      <ul class="grid gap-3 border-y border-paper-200/15 py-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          trustSignals.map((signal) => (
+            <li data-home-stat>
+              <p class="eyebrow text-paper-300">{signal.label}</p>
+              <p class="mt-1 text-sm text-paper-100">{signal.value}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mx-auto mt-12 w-full max-w-6xl">
+      <Divider label="Experience Highlights" />
+    </section>
+
+    <section class="mx-auto mt-7 w-full max-w-6xl">
+      <ul class="grid gap-4 lg:grid-cols-2">
+        {
+          featuredExperience.map((item, index) => (
+            <li>
+              <article class="surface-muted rounded-xl p-6" data-home-feature-card>
+                <div
+                  class={index % 2 === 0 ? "accent-line max-w-28" : "accent-line max-w-28 opacity-80"}
+                  data-home-feature-accent
+                  data-anim-accent
+                ></div>
+                <p class="eyebrow mt-4 text-paper-300">{item.startDate} - {item.endDate}</p>
+                <h2 class="mt-3 font-display text-3xl font-bold leading-tight text-paper-50">{item.role}</h2>
+                <p class="mt-1 text-sm text-paper-200">{item.company} • {item.location}</p>
+                <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-paper-100 marker:text-paper-300">
+                  {
+                    item.achievements.map((point) => (
+                      <li data-anim-list-item>{point}</li>
+                    ))
+                  }
+                </ul>
+              </article>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
 </RootLayout>
 
 <script>
-	import { gsap } from "gsap";
-	import { ScrollTrigger } from "gsap/ScrollTrigger";
-	import { SplitText } from "gsap/SplitText";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
 
-	gsap.registerPlugin(ScrollTrigger, SplitText);
-	const EASE = "power2.out";
-	const CARD_FROM = { autoAlpha: 0, y: 24 };
-	const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
-	const ITEM_FROM = { autoAlpha: 0, y: 12 };
-	const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
-	const ITEM_STAGGER = 0.05;
-	const ACCENT_FROM = { scaleX: 0, transformOrigin: "left center" };
-	const ACCENT_TO = { scaleX: 1, duration: 0.28, ease: EASE };
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+  const EASE = "power2.out";
+  const CARD_FROM = { autoAlpha: 0, y: 24 };
+  const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
+  const ITEM_FROM = { autoAlpha: 0, y: 12 };
+  const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
+  const ITEM_STAGGER = 0.05;
+  const ACCENT_FROM = { scaleX: 0, transformOrigin: "left center" };
+  const ACCENT_TO = { scaleX: 1, duration: 0.28, ease: EASE };
 
-	let homeHeroTitleSplit: SplitText | null = null;
+  let homeHeroTitleSplit: SplitText | null = null;
 
-	const resetHomeSplit = () => {
-		if (homeHeroTitleSplit) {
-			homeHeroTitleSplit.revert();
-			homeHeroTitleSplit = null;
-		}
-	};
+  const resetHomeSplit = () => {
+    if (homeHeroTitleSplit) {
+      homeHeroTitleSplit.revert();
+      homeHeroTitleSplit = null;
+    }
+  };
 
-	const runHomeAnimations = () => {
-		const root = document.querySelector('[data-page="home"]');
+  const runHomeAnimations = () => {
+    const root = document.querySelector('[data-page="home"]');
 
-		if (!root) {
-			return;
-		}
+    if (!root) {
+      return;
+    }
 
-		if (homeHeroTitleSplit) {
-			homeHeroTitleSplit.revert();
-			homeHeroTitleSplit = null;
-		}
+    resetHomeSplit();
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("home-")) {
+        trigger.kill();
+      }
+    });
 
-		ScrollTrigger.getAll().forEach((trigger) => {
-			const id = trigger.vars.id;
-			if (typeof id === "string" && id.startsWith("home-")) {
-				trigger.kill();
-			}
-		});
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(
+        "[data-home-hero-title], [data-home-hero-kicker], [data-home-hero-copy], [data-home-hero-actions] li, [data-home-stat], [data-home-feature-card], [data-anim-accent], [data-anim-list-item]",
+        {
+          clearProps: "all",
+          autoAlpha: 1,
+        },
+      );
+      return;
+    }
 
-		const heroPanel = root.querySelector("[data-home-hero-panel]");
+    const heroPanel = root.querySelector("[data-home-hero-panel]");
+    const heroTitle = root.querySelector<HTMLElement>("[data-home-hero-title]");
 
-		const heroTitle = root.querySelector<HTMLElement>(
-			"[data-home-hero-title]",
-		);
-		if (heroTitle) {
-			gsap.set(heroTitle, { autoAlpha: 1 });
-			homeHeroTitleSplit = SplitText.create(heroTitle, {
-				type: "words,chars",
-			});
-		}
+    if (heroTitle) {
+      gsap.set(heroTitle, { autoAlpha: 1 });
+      homeHeroTitleSplit = SplitText.create(heroTitle, {
+        type: "words,chars",
+      });
+    }
 
-		if (homeHeroTitleSplit && heroPanel) {
-			const heroTimeline = gsap.timeline({
-				scrollTrigger: {
-					id: "home-hero",
-					trigger: heroPanel,
-					start: "top 88%",
-					once: true,
-				},
-			});
+    if (homeHeroTitleSplit && heroPanel) {
+      const heroTimeline = gsap.timeline({
+        scrollTrigger: {
+          id: "home-hero",
+          trigger: heroPanel,
+          start: "top 88%",
+          once: true,
+        },
+      });
 
-			heroTimeline.fromTo(
-				homeHeroTitleSplit.chars,
-				{ autoAlpha: 0, y: 16 },
-				{
-					autoAlpha: 1,
-					y: 0,
-					duration: 0.34,
-					stagger: 0.02,
-					ease: EASE,
-				},
-				0,
-			);
+      heroTimeline.fromTo(
+        homeHeroTitleSplit.chars,
+        { autoAlpha: 0, y: 16 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.34,
+          stagger: 0.02,
+          ease: EASE,
+        },
+        0,
+      );
 
-			heroTimeline.fromTo(
-				root.querySelectorAll(
-					"[data-home-hero-kicker], [data-home-hero-meta-item], [data-home-hero-copy], [data-home-hero-actions] li",
-				),
-				ITEM_FROM,
-				{
-					...ITEM_TO,
-					stagger: ITEM_STAGGER,
-				},
-				0.08,
-			);
-		}
+      heroTimeline.fromTo(
+        root.querySelectorAll("[data-home-hero-kicker], [data-home-hero-copy], [data-home-hero-actions] li"),
+        ITEM_FROM,
+        {
+          ...ITEM_TO,
+          stagger: ITEM_STAGGER,
+        },
+        0.08,
+      );
+    }
 
-		const competencyChips = gsap.utils.toArray<HTMLElement>(
-			"[data-home-competency]",
-		);
-		competencyChips.forEach((chip, index) => {
-			gsap.fromTo(
-				chip,
-				ITEM_FROM,
-				{
-					...ITEM_TO,
-					duration: 0.24,
-					scrollTrigger: {
-						id: `home-competency-${index}`,
-						trigger: chip,
-						start: "top 90%",
-						once: true,
-					},
-				},
-			);
-		});
+    gsap.fromTo(
+      root.querySelectorAll("[data-home-stat]"),
+      ITEM_FROM,
+      {
+        ...ITEM_TO,
+        stagger: ITEM_STAGGER,
+        scrollTrigger: {
+          id: "home-stats",
+          trigger: "[data-home-stat]",
+          start: "top 92%",
+          once: true,
+        },
+      },
+    );
 
-		gsap.utils
-			.toArray<HTMLElement>("[data-home-feature-card]")
-			.forEach((card, index) => {
-				const accent = card.querySelector("[data-anim-accent]");
-				const points = card.querySelectorAll("[data-anim-list-item]");
+    gsap.utils.toArray<HTMLElement>("[data-home-feature-card]").forEach((card, index) => {
+      const accent = card.querySelector("[data-anim-accent]");
+      const points = card.querySelectorAll("[data-anim-list-item]");
 
-				gsap.fromTo(
-					card,
-					CARD_FROM,
-					{
-						...CARD_TO,
-						scrollTrigger: {
-							id: `home-feature-card-${index}`,
-							trigger: card,
-							start: "top 86%",
-							once: true,
-						},
-					},
-				);
+      gsap.fromTo(
+        card,
+        CARD_FROM,
+        {
+          ...CARD_TO,
+          scrollTrigger: {
+            id: `home-feature-card-${index}`,
+            trigger: card,
+            start: "top 86%",
+            once: true,
+          },
+        },
+      );
 
-				if (accent) {
-					gsap.fromTo(
-						accent,
-						ACCENT_FROM,
-						{
-							...ACCENT_TO,
-							scrollTrigger: {
-								id: `home-feature-accent-${index}`,
-								trigger: card,
-								start: "top 86%",
-								once: true,
-							},
-						},
-					);
-				}
+      if (accent) {
+        gsap.fromTo(
+          accent,
+          ACCENT_FROM,
+          {
+            ...ACCENT_TO,
+            scrollTrigger: {
+              id: `home-feature-accent-${index}`,
+              trigger: card,
+              start: "top 86%",
+              once: true,
+            },
+          },
+        );
+      }
 
-				if (points.length) {
-					gsap.fromTo(
-						points,
-						ITEM_FROM,
-						{
-							...ITEM_TO,
-							stagger: ITEM_STAGGER,
-							scrollTrigger: {
-								id: `home-feature-points-${index}`,
-								trigger: card,
-								start: "top 82%",
-								once: true,
-							},
-						},
-					);
-				}
-			});
+      if (points.length) {
+        gsap.fromTo(
+          points,
+          ITEM_FROM,
+          {
+            ...ITEM_TO,
+            stagger: ITEM_STAGGER,
+            scrollTrigger: {
+              id: `home-feature-points-${index}`,
+              trigger: card,
+              start: "top 82%",
+              once: true,
+            },
+          },
+        );
+      }
+    });
 
-		ScrollTrigger.refresh();
-	};
+    ScrollTrigger.refresh();
+  };
 
-	const beforeSwapHomeAnimations = () => {
-		resetHomeSplit();
-		ScrollTrigger.getAll().forEach((trigger) => {
-			const id = trigger.vars.id;
-			if (typeof id === "string" && id.startsWith("home-")) {
-				trigger.kill();
-			}
-		});
-	};
+  const beforeSwapHomeAnimations = () => {
+    resetHomeSplit();
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("home-")) {
+        trigger.kill();
+      }
+    });
+  };
 
-	if (document.documentElement.dataset.homeListenerBound !== "1") {
-		document.addEventListener("astro:page-load", runHomeAnimations);
-		document.addEventListener("astro:before-swap", beforeSwapHomeAnimations);
-		document.documentElement.dataset.homeListenerBound = "1";
-	}
+  if (document.documentElement.dataset.homeListenerBound !== "1") {
+    document.addEventListener("astro:page-load", runHomeAnimations);
+    document.addEventListener("astro:before-swap", beforeSwapHomeAnimations);
+    document.documentElement.dataset.homeListenerBound = "1";
+  }
 </script>

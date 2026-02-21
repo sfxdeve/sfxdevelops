@@ -5,164 +5,146 @@ import { normalizePath } from "../../lib/path";
 import "../../styles/global.css";
 
 interface Props {
-    title?: string;
-    description?: string;
+  title?: string;
+  description?: string;
 }
 
 const { title, description } = Astro.props;
 
 const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Work", href: "/work" },
-    { label: "Resume", href: "/resume" },
-    { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/" },
+  { label: "Work", href: "/work" },
+  { label: "Resume", href: "/resume" },
+  { label: "Contact", href: "/contact" },
 ];
 ---
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{`${title ? title : "Shayan Fareed"} | Full Stack JavaScript Developer`}</title>
+    <meta
+      name="description"
+      content={
+        description
+          ? description
+          : "Portfolio of Shayan Fareed, Full Stack JavaScript Developer building scalable web applications."
+      }
+    />
+    <meta name="theme-color" content="#100f0d" />
+    <meta name="generator" content={Astro.generator} />
+    <ClientRouter fallback="animate" />
+  </head>
+  <body class="min-h-dvh bg-site font-body text-paper-50" data-layout-shell>
+    <header class="sticky top-0 z-40 border-b border-paper-200/10 bg-ink-900/85 backdrop-blur" data-layout-header>
+      <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+        <a href="/" class="focus-ring font-display text-2xl font-bold tracking-tight text-paper-50 sm:text-3xl">
+          SFX//Develops
+        </a>
+        <nav>
+          <ul class="flex flex-wrap items-center gap-4 sm:gap-6">
             {
-                `${title ? title : "Shayan Fareed"} | Full Stack JavaScript Developer`
-            }
-        </title>
-        <meta
-            name="description"
-            content={description
-                ? description
-                : "Portfolio of Shayan Fareed, Full Stack JavaScript Developer building scalable web applications."}
-        />
-        <meta name="generator" content={Astro.generator} />
-        <ClientRouter fallback="animate" />
-    </head>
-    <body
-        class="min-h-dvh font-body text-paper-50 bg-ink-950 bg-grid"
-        data-layout-shell
-    >
-        <header class="border-b-4 border-paper-50 bg-ink-950">
-            <div
-                class="container mx-auto p-4 flex flex-wrap gap-3 items-center justify-between"
-            >
-                <a
-                    href="/"
-                    class="font-display uppercase tracking-wider text-3xl"
-                >
-                    SFX//Develops
-                </a>
-                <nav>
-                    <ul class="flex flex-wrap gap-2 items-center">
-                        {
-                            navItems.map((item) => {
-                                const currPath = normalizePath(
-                                    Astro.url.pathname,
-                                );
-                                const itemPath = normalizePath(item.href);
-                                const itemIsActive =
-                                    itemPath === "/"
-                                        ? currPath === "/"
-                                        : currPath.startsWith(itemPath);
+              navItems.map((item) => {
+                const currPath = normalizePath(Astro.url.pathname);
+                const itemPath = normalizePath(item.href);
+                const itemIsActive = itemPath === "/" ? currPath === "/" : currPath.startsWith(itemPath);
 
-                                return (
-                                    <li>
-                                        <a
-                                            href={item.href}
-                                            class={cn(
-                                                "border-2 border-paper-50 py-2 px-3 font-mono uppercase tracking-wider text-xs  transition duration-300 ease-out hover:text-ink-950 hover:bg-paper-50",
-                                                !itemIsActive && "",
-                                                itemIsActive &&
-                                                    "border-acid-300 text-ink-950 bg-acid-300",
-                                            )}
-                                        >
-                                            {item.label}
-                                        </a>
-                                    </li>
-                                );
-                            })
-                        }
-                    </ul>
-                </nav>
-            </div>
-        </header>
-        <slot />
-        <footer class="border-t-4 border-paper-50 bg-ink-950">
-            <div
-                class="container mx-auto p-4 flex flex-wrap gap-3 items-center justify-between"
-            >
-                <p
-                    class="invisible opacity-0 font-mono uppercase tracking-wider text-xs text-paper-200"
-                    data-layout-footer-text
-                >
-                    2026 SFX//Develops
-                </p>
-                <p
-                    class="invisible opacity-0 font-mono uppercase tracking-wider text-xs text-acid-100"
-                    data-layout-footer-text
-                >
-                    Built with Astro + Tailwind
-                </p>
-            </div>
-        </footer>
-    </body>
+                return (
+                  <li>
+                    <a
+                      href={item.href}
+                      class={cn(
+                        "focus-ring border-b border-transparent pb-1 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-paper-200 transition hover:border-amber-300/80 hover:text-paper-50",
+                        itemIsActive && "border-amber-300 text-paper-50",
+                      )}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer class="mt-16 border-t border-paper-200/10 px-4 py-8 sm:px-6">
+      <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4">
+        <p class="eyebrow text-paper-300" data-layout-footer-text>2026 SFX//Develops</p>
+        <p class="text-sm text-paper-200" data-layout-footer-text>Available for full stack product engineering.</p>
+      </div>
+    </footer>
+  </body>
 </html>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-    gsap.registerPlugin(ScrollTrigger);
-    const EASE = "power2.out";
+  gsap.registerPlugin(ScrollTrigger);
+  const EASE = "power2.out";
 
-    const runLayoutAnimation = () => {
-        const root = document.querySelector("[data-layout-shell]");
-        const footer = root?.querySelector("footer");
+  const runLayoutAnimation = () => {
+    const root = document.querySelector("[data-layout-shell]");
+    const footer = root?.querySelector("footer");
 
-        if (!root || !footer) {
-            return;
-        }
-
-        ScrollTrigger.getAll().forEach((trigger) => {
-            const id = trigger.vars.id;
-            if (typeof id === "string" && id.startsWith("layout-")) {
-                trigger.kill();
-            }
-        });
-
-        gsap.fromTo(
-            root.querySelectorAll("[data-layout-footer-text]"),
-            { autoAlpha: 0, y: 12 },
-            {
-                autoAlpha: 1,
-                y: 0,
-                duration: 0.26,
-                stagger: 0.05,
-                ease: EASE,
-                scrollTrigger: {
-                    id: "layout-footer",
-                    trigger: footer,
-                    start: "top 95%",
-                    once: true,
-                },
-            },
-        );
-
-        ScrollTrigger.refresh();
-    };
-
-    const beforeSwapLayoutAnimation = () => {
-        ScrollTrigger.getAll().forEach((trigger) => {
-            const id = trigger.vars.id;
-            if (typeof id === "string" && id.startsWith("layout-")) {
-                trigger.kill();
-            }
-        });
-    };
-
-    if (document.documentElement.dataset.layoutListenerBound !== "1") {
-        document.addEventListener("astro:page-load", runLayoutAnimation);
-        document.addEventListener("astro:before-swap", beforeSwapLayoutAnimation);
-        document.documentElement.dataset.layoutListenerBound = "1";
+    if (!root || !footer) {
+      return;
     }
+
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("layout-")) {
+        trigger.kill();
+      }
+    });
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(root.querySelectorAll("[data-layout-footer-text]"), {
+        clearProps: "all",
+        autoAlpha: 1,
+      });
+      return;
+    }
+
+    gsap.fromTo(
+      root.querySelectorAll("[data-layout-footer-text]"),
+      { autoAlpha: 0, y: 12 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.26,
+        stagger: 0.05,
+        ease: EASE,
+        scrollTrigger: {
+          id: "layout-footer",
+          trigger: footer,
+          start: "top 95%",
+          once: true,
+        },
+      },
+    );
+
+    ScrollTrigger.refresh();
+  };
+
+  const beforeSwapLayoutAnimation = () => {
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = trigger.vars.id;
+      if (typeof id === "string" && id.startsWith("layout-")) {
+        trigger.kill();
+      }
+    });
+  };
+
+  if (document.documentElement.dataset.layoutListenerBound !== "1") {
+    document.addEventListener("astro:page-load", runLayoutAnimation);
+    document.addEventListener("astro:before-swap", beforeSwapLayoutAnimation);
+    document.documentElement.dataset.layoutListenerBound = "1";
+  }
 </script>
