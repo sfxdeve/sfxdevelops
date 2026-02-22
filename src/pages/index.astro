@@ -16,7 +16,10 @@ const trustSignals = [
   title="Full Stack Engineer Portfolio"
   description="Portfolio of Shayan Fareed featuring full stack JavaScript delivery, case studies, and technical capabilities."
 >
-  <main data-page="home" class="px-4 pb-12 pt-12 sm:pt-16">
+  <main
+    data-page="home"
+    class="px-4 pb-8 pt-10 sm:px-6 sm:pb-10 sm:pt-14 lg:pt-16"
+  >
     <section class="mx-auto w-full max-w-6xl" data-home-hero>
       <article class="surface rounded-xl p-7 sm:p-10" data-home-hero-panel>
         <p class="invisible opacity-0 eyebrow" data-home-hero-kicker>
@@ -57,30 +60,33 @@ const trustSignals = [
 
     <section class="mx-auto mt-8 w-full max-w-6xl">
       <ul
-        class="grid gap-3 border-y border-paper-200/15 py-4 sm:grid-cols-2 lg:grid-cols-4"
+        class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
       >
         {
           trustSignals.map((signal) => (
-            <li class="invisible opacity-0" data-home-stat>
+            <li
+              class="invisible opacity-0 surface-muted rounded-lg p-4"
+              data-home-stat
+            >
               <p class="eyebrow text-paper-300">{signal.label}</p>
-              <p class="mt-1 text-sm text-paper-100">{signal.value}</p>
+              <p class="mt-2 text-sm text-paper-100">{signal.value}</p>
             </li>
           ))
         }
       </ul>
     </section>
 
-    <section class="mx-auto mt-12 w-full max-w-6xl">
+    <section class="mx-auto mt-10 w-full max-w-6xl sm:mt-12">
       <Divider label="Experience Highlights" />
     </section>
 
-    <section class="mx-auto mt-7 w-full max-w-6xl">
+    <section class="mx-auto mt-6 w-full max-w-6xl sm:mt-7">
       <ul class="grid gap-4 lg:grid-cols-2">
         {
           featuredExperience.map((item, index) => (
             <li>
               <article
-                class="invisible opacity-0 surface-muted rounded-xl p-6"
+                class="invisible opacity-0 surface-muted rounded-xl p-6 sm:p-7"
                 data-home-feature-card
               >
                 <div
