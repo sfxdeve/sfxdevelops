@@ -21,13 +21,17 @@ const trustSignals = [
       <article class="surface rounded-xl p-7 sm:p-10" data-home-hero-panel>
         <p class="eyebrow" data-home-hero-kicker>{profile.title}</p>
         <h1
-          class="mt-4 max-w-4xl font-display text-5xl font-bold leading-[0.98] text-paper-50 sm:text-7xl lg:text-8xl"
+          class="mt-4 max-w-4xl font-display text-4xl font-bold leading-[0.98] text-paper-50 sm:text-6xl lg:text-7xl"
           data-home-hero-title
         >
           Shipping full stack products that stay easy to evolve.
         </h1>
-        <p class="mt-5 max-w-3xl text-base text-paper-100 sm:text-lg" data-home-hero-copy>
-          I design and ship full stack JavaScript systems that stay maintainable as teams and product scope grow.
+        <p
+          class="mt-5 max-w-3xl text-base text-paper-100 sm:text-lg"
+          data-home-hero-copy
+        >
+          I design and ship full stack JavaScript systems that stay maintainable
+          as teams and product scope grow.
         </p>
         <p class="mt-3 text-sm text-paper-200" data-home-hero-copy>
           Based in {profile.location}. {profile.relocationNote}
@@ -38,14 +42,18 @@ const trustSignals = [
             <ButtonLink href="/work" variant="primary">View Work</ButtonLink>
           </li>
           <li>
-            <ButtonLink href="/resume" variant="secondary">View Resume</ButtonLink>
+            <ButtonLink href="/resume" variant="secondary"
+              >View Resume</ButtonLink
+            >
           </li>
         </ul>
       </article>
     </section>
 
     <section class="mx-auto mt-8 w-full max-w-6xl">
-      <ul class="grid gap-3 border-y border-paper-200/15 py-4 sm:grid-cols-2 lg:grid-cols-4">
+      <ul
+        class="grid gap-3 border-y border-paper-200/15 py-4 sm:grid-cols-2 lg:grid-cols-4"
+      >
         {
           trustSignals.map((signal) => (
             <li data-home-stat>
@@ -66,21 +74,32 @@ const trustSignals = [
         {
           featuredExperience.map((item, index) => (
             <li>
-              <article class="surface-muted rounded-xl p-6" data-home-feature-card>
+              <article
+                class="surface-muted rounded-xl p-6"
+                data-home-feature-card
+              >
                 <div
-                  class={index % 2 === 0 ? "accent-line max-w-28" : "accent-line max-w-28 opacity-80"}
+                  class={
+                    index % 2 === 0
+                      ? "accent-line max-w-28"
+                      : "accent-line max-w-28 opacity-80"
+                  }
                   data-home-feature-accent
                   data-anim-accent
-                ></div>
-                <p class="eyebrow mt-4 text-paper-300">{item.startDate} - {item.endDate}</p>
-                <h2 class="mt-3 font-display text-3xl font-bold leading-tight text-paper-50">{item.role}</h2>
-                <p class="mt-1 text-sm text-paper-200">{item.company} • {item.location}</p>
+                />
+                <p class="eyebrow mt-4 text-paper-300">
+                  {item.startDate} - {item.endDate}
+                </p>
+                <h2 class="mt-3 font-display text-3xl font-bold leading-tight text-paper-50">
+                  {item.role}
+                </h2>
+                <p class="mt-1 text-sm text-paper-200">
+                  {item.company} • {item.location}
+                </p>
                 <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-paper-100 marker:text-paper-300">
-                  {
-                    item.achievements.map((point) => (
-                      <li data-anim-list-item>{point}</li>
-                    ))
-                  }
+                  {item.achievements.map((point) => (
+                    <li data-anim-list-item>{point}</li>
+                  ))}
                 </ul>
               </article>
             </li>
@@ -175,7 +194,9 @@ const trustSignals = [
       );
 
       heroTimeline.fromTo(
-        root.querySelectorAll("[data-home-hero-kicker], [data-home-hero-copy], [data-home-hero-actions] li"),
+        root.querySelectorAll(
+          "[data-home-hero-kicker], [data-home-hero-copy], [data-home-hero-actions] li",
+        ),
         ITEM_FROM,
         {
           ...ITEM_TO,
@@ -185,29 +206,24 @@ const trustSignals = [
       );
     }
 
-    gsap.fromTo(
-      root.querySelectorAll("[data-home-stat]"),
-      ITEM_FROM,
-      {
-        ...ITEM_TO,
-        stagger: ITEM_STAGGER,
-        scrollTrigger: {
-          id: "home-stats",
-          trigger: "[data-home-stat]",
-          start: "top 92%",
-          once: true,
-        },
+    gsap.fromTo(root.querySelectorAll("[data-home-stat]"), ITEM_FROM, {
+      ...ITEM_TO,
+      stagger: ITEM_STAGGER,
+      scrollTrigger: {
+        id: "home-stats",
+        trigger: "[data-home-stat]",
+        start: "top 92%",
+        once: true,
       },
-    );
+    });
 
-    gsap.utils.toArray<HTMLElement>("[data-home-feature-card]").forEach((card, index) => {
-      const accent = card.querySelector("[data-anim-accent]");
-      const points = card.querySelectorAll("[data-anim-list-item]");
+    gsap.utils
+      .toArray<HTMLElement>("[data-home-feature-card]")
+      .forEach((card, index) => {
+        const accent = card.querySelector("[data-anim-accent]");
+        const points = card.querySelectorAll("[data-anim-list-item]");
 
-      gsap.fromTo(
-        card,
-        CARD_FROM,
-        {
+        gsap.fromTo(card, CARD_FROM, {
           ...CARD_TO,
           scrollTrigger: {
             id: `home-feature-card-${index}`,
@@ -215,14 +231,10 @@ const trustSignals = [
             start: "top 86%",
             once: true,
           },
-        },
-      );
+        });
 
-      if (accent) {
-        gsap.fromTo(
-          accent,
-          ACCENT_FROM,
-          {
+        if (accent) {
+          gsap.fromTo(accent, ACCENT_FROM, {
             ...ACCENT_TO,
             scrollTrigger: {
               id: `home-feature-accent-${index}`,
@@ -230,15 +242,11 @@ const trustSignals = [
               start: "top 86%",
               once: true,
             },
-          },
-        );
-      }
+          });
+        }
 
-      if (points.length) {
-        gsap.fromTo(
-          points,
-          ITEM_FROM,
-          {
+        if (points.length) {
+          gsap.fromTo(points, ITEM_FROM, {
             ...ITEM_TO,
             stagger: ITEM_STAGGER,
             scrollTrigger: {
@@ -247,10 +255,9 @@ const trustSignals = [
               start: "top 82%",
               once: true,
             },
-          },
-        );
-      }
-    });
+          });
+        }
+      });
 
     ScrollTrigger.refresh();
   };
