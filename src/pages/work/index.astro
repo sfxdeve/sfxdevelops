@@ -27,7 +27,7 @@ const metrics = [
       <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {
           metrics.map((metric) => (
-            <li class="surface-muted rounded-lg p-4" data-work-metric>
+            <li class="invisible opacity-0 surface-muted rounded-lg p-4" data-work-metric>
               <p class="eyebrow text-paper-300">{metric.label}</p>
               <p class="mt-2 text-sm text-paper-100">{metric.value}</p>
             </li>
@@ -45,12 +45,12 @@ const metrics = [
         {
           experience.map((item) => (
             <li class="grid gap-4 lg:grid-cols-[14rem_1fr]" data-work-item>
-              <div class="space-y-2 rounded-md border border-paper-200/20 p-3 lg:self-start" data-work-period>
+              <div class="invisible opacity-0 space-y-2 rounded-md border border-paper-200/20 p-3 lg:self-start" data-work-period>
                 <p class="eyebrow text-paper-300">{item.startDate} - {item.endDate}</p>
                 <p class="text-xs text-paper-200">{item.location}</p>
               </div>
 
-              <article class="surface rounded-xl p-6 sm:p-7" data-work-card data-anim-card>
+              <article class="invisible opacity-0 surface rounded-xl p-6 sm:p-7" data-work-card data-anim-card>
                 <div class="accent-line max-w-28" data-work-bar data-anim-accent></div>
                 <h2 class="mt-4 font-display text-3xl font-bold leading-tight text-paper-50">{item.role}</h2>
                 <p class="mt-2 text-sm text-paper-200">{item.company}</p>
@@ -61,7 +61,7 @@ const metrics = [
                     <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-paper-100 marker:text-paper-300">
                       {
                         item.achievements.slice(0, 2).map((point) => (
-                          <li data-anim-list-item>{point}</li>
+                          <li class="invisible opacity-0" data-anim-list-item>{point}</li>
                         ))
                       }
                     </ul>
@@ -71,7 +71,7 @@ const metrics = [
                     <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-paper-100 marker:text-paper-300">
                       {
                         item.achievements.slice(2).map((point) => (
-                          <li data-anim-list-item>{point}</li>
+                          <li class="invisible opacity-0" data-anim-list-item>{point}</li>
                         ))
                       }
                     </ul>
@@ -118,7 +118,6 @@ const metrics = [
       gsap.set(
         "[data-work-metric], [data-work-period], [data-anim-card], [data-anim-accent], [data-anim-list-item]",
         {
-          clearProps: "all",
           autoAlpha: 1,
         },
       );
