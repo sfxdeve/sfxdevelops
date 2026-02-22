@@ -12,23 +12,23 @@ const { kicker, title, description } = Astro.props;
   <div class="container mx-auto max-w-6xl space-y-4">
     {
       kicker && (
-        <p class="eyebrow" data-section-kicker>{kicker}</p>
+        <p class="invisible opacity-0 eyebrow" data-section-kicker>{kicker}</p>
       )
     }
     <h2
-      class="max-w-4xl font-display text-4xl font-bold leading-[1.03] text-paper-50 sm:text-6xl lg:text-7xl"
+      class="invisible opacity-0 max-w-4xl font-display text-4xl font-bold leading-[1.03] text-paper-50 sm:text-6xl lg:text-7xl"
       data-section-heading
     >
       {title}
     </h2>
     {
       description && (
-        <p class="max-w-3xl text-base text-paper-200 sm:text-lg" data-section-description>
+        <p class="invisible opacity-0 max-w-3xl text-base text-paper-200 sm:text-lg" data-section-description>
           {description}
         </p>
       )
     }
-    <div class="accent-line max-w-xl" data-section-accent></div>
+    <div class="invisible opacity-0 accent-line max-w-xl" data-section-accent></div>
   </div>
 </section>
 
@@ -68,7 +68,6 @@ const { kicker, title, description } = Astro.props;
       gsap.set(
         "[data-section-kicker], [data-section-heading], [data-section-description], [data-section-accent]",
         {
-          clearProps: "all",
           autoAlpha: 1,
         },
       );
@@ -127,8 +126,9 @@ const { kicker, title, description } = Astro.props;
       if (accent) {
         timeline.fromTo(
           accent,
-          { scaleX: 0, transformOrigin: "left center" },
+          { autoAlpha: 0, scaleX: 0, transformOrigin: "left center" },
           {
+            autoAlpha: 1,
             scaleX: 1,
             duration: 0.28,
             ease: EASE,

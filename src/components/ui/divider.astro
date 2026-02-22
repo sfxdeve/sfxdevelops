@@ -7,10 +7,10 @@ const { label } = Astro.props;
 ---
 
 <div class="relative flex items-center gap-4 py-2" data-divider-root>
-  <div class="accent-line" data-divider-line></div>
+  <div class="invisible opacity-0 accent-line" data-divider-line></div>
   {
     label && (
-      <span class="eyebrow shrink-0 text-paper-200" data-divider-label>{label}</span>
+      <span class="invisible opacity-0 eyebrow shrink-0 text-paper-200" data-divider-label>{label}</span>
     )
   }
 </div>
@@ -36,7 +36,7 @@ const { label } = Astro.props;
     }
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      gsap.set("[data-divider-line], [data-divider-label]", { clearProps: "all", autoAlpha: 1 });
+      gsap.set("[data-divider-line], [data-divider-label]", { autoAlpha: 1 });
       return;
     }
 
@@ -54,20 +54,32 @@ const { label } = Astro.props;
       });
 
       if (line) {
-        timeline.from(line, {
-          scaleX: 0,
-          transformOrigin: "left center",
-          duration: 0.36,
-          ease: "power2.out",
-        });
+        timeline.fromTo(
+          line,
+          {
+            autoAlpha: 0,
+            scaleX: 0,
+            transformOrigin: "left center",
+          },
+          {
+            autoAlpha: 1,
+            scaleX: 1,
+            duration: 0.36,
+            ease: "power2.out",
+          },
+        );
       }
 
       if (label) {
-        timeline.from(
+        timeline.fromTo(
           label,
           {
             y: 8,
             autoAlpha: 0,
+          },
+          {
+            y: 0,
+            autoAlpha: 1,
             duration: 0.26,
             ease: "power2.out",
           },

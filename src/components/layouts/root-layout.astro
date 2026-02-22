@@ -75,8 +75,10 @@ const navItems = [
 
     <footer class="mt-16 border-t border-paper-200/10 px-4 py-8 sm:px-6">
       <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4">
-        <p class="eyebrow text-paper-300" data-layout-footer-text>2026 SFX//Develops</p>
-        <p class="text-sm text-paper-200" data-layout-footer-text>Available for full stack product engineering.</p>
+        <p class="invisible opacity-0 eyebrow text-paper-300" data-layout-footer-text>2026 SFX//Develops</p>
+        <p class="invisible opacity-0 text-sm text-paper-200" data-layout-footer-text>
+          Available for full stack product engineering.
+        </p>
       </div>
     </footer>
   </body>
@@ -106,7 +108,6 @@ const navItems = [
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       gsap.set(root.querySelectorAll("[data-layout-footer-text]"), {
-        clearProps: "all",
         autoAlpha: 1,
       });
       return;

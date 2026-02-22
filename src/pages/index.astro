@@ -16,25 +16,25 @@ const trustSignals = [
   <main data-page="home" class="px-4 pb-12 pt-12 sm:pt-16">
     <section class="mx-auto w-full max-w-6xl" data-home-hero>
       <article class="surface rounded-xl p-7 sm:p-10" data-home-hero-panel>
-        <p class="eyebrow" data-home-hero-kicker>{profile.title}</p>
+        <p class="invisible opacity-0 eyebrow" data-home-hero-kicker>{profile.title}</p>
         <h1
-          class="mt-4 max-w-4xl font-display text-5xl font-bold leading-[0.98] text-paper-50 sm:text-7xl lg:text-8xl"
+          class="invisible opacity-0 mt-4 max-w-4xl font-display text-5xl font-bold leading-[0.98] text-paper-50 sm:text-7xl lg:text-8xl"
           data-home-hero-title
         >
           Building reliable web products with clear architecture.
         </h1>
-        <p class="mt-5 max-w-3xl text-base text-paper-100 sm:text-lg" data-home-hero-copy>
+        <p class="invisible opacity-0 mt-5 max-w-3xl text-base text-paper-100 sm:text-lg" data-home-hero-copy>
           I design and ship full stack JavaScript systems that stay maintainable as teams and product scope grow.
         </p>
-        <p class="mt-3 text-sm text-paper-200" data-home-hero-copy>
+        <p class="invisible opacity-0 mt-3 text-sm text-paper-200" data-home-hero-copy>
           Based in {profile.location}. {profile.relocationNote}
         </p>
 
         <ul class="mt-8 flex flex-wrap gap-3" data-home-hero-actions>
-          <li>
+          <li class="invisible opacity-0">
             <ButtonLink href="/work" variant="primary">View Work</ButtonLink>
           </li>
-          <li>
+          <li class="invisible opacity-0">
             <ButtonLink href="/resume" variant="secondary">View Resume</ButtonLink>
           </li>
         </ul>
@@ -45,7 +45,7 @@ const trustSignals = [
       <ul class="grid gap-3 border-y border-paper-200/15 py-4 sm:grid-cols-2 lg:grid-cols-4">
         {
           trustSignals.map((signal) => (
-            <li data-home-stat>
+            <li class="invisible opacity-0" data-home-stat>
               <p class="eyebrow text-paper-300">{signal.label}</p>
               <p class="mt-1 text-sm text-paper-100">{signal.value}</p>
             </li>
@@ -63,7 +63,7 @@ const trustSignals = [
         {
           featuredExperience.map((item, index) => (
             <li>
-              <article class="surface-muted rounded-xl p-6" data-home-feature-card>
+              <article class="invisible opacity-0 surface-muted rounded-xl p-6" data-home-feature-card>
                 <div
                   class={index % 2 === 0 ? "accent-line max-w-28" : "accent-line max-w-28 opacity-80"}
                   data-home-feature-accent
@@ -75,7 +75,7 @@ const trustSignals = [
                 <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-paper-100 marker:text-paper-300">
                   {
                     item.achievements.map((point) => (
-                      <li data-anim-list-item>{point}</li>
+                      <li class="invisible opacity-0" data-anim-list-item>{point}</li>
                     ))
                   }
                 </ul>
@@ -131,7 +131,6 @@ const trustSignals = [
       gsap.set(
         "[data-home-hero-title], [data-home-hero-kicker], [data-home-hero-copy], [data-home-hero-actions] li, [data-home-stat], [data-home-feature-card], [data-anim-accent], [data-anim-list-item]",
         {
-          clearProps: "all",
           autoAlpha: 1,
         },
       );
