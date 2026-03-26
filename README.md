@@ -82,4 +82,33 @@ Update `src/data/portfolio.ts` to change:
 
 The site is configured with the Vercel adapter in `astro.config.mjs`.
 
-The contact page currently contains a static HTML form UI. If you want form submissions to work on Vercel, add a server-side form handler or a third-party form backend. The existing `data-netlify="true"` attribute is not enough on its own when deploying to Vercel.
+The contact page uses an Astro Action for form submissions and appends rows to Google Sheets.
+
+Configure these environment variables before deploying:
+
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL`
+- `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY`
+- `GOOGLE_SHEET_ID`
+- `GOOGLE_SHEET_NAME` optional, defaults to `Contact`
+
+Google setup:
+
+- Enable the Google Sheets API for your Google Cloud project.
+- Create a service account for that project.
+- Create a JSON key for the service account.
+- Share your target spreadsheet with the service account email so it can edit the sheet.
+
+Suggested columns in the target sheet:
+
+- `submittedAt`
+- `name`
+- `email`
+- `company`
+- `reason`
+- `subject`
+- `message`
+- `path`
+
+The integration will create that header row automatically if the target tab is empty. If the tab already has a different header row, submissions will be rejected until the sheet structure matches.
+
+Without the Google Sheets environment variables, the form will validate inputs but return a server error explaining that delivery is not configured.

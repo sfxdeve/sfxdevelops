@@ -1,7 +1,13 @@
 ---
+import { actions, isInputError } from "astro:actions";
 import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
 import { profile } from "../../data/portfolio";
+
+export const prerender = false;
+
+const result = Astro.getActionResult(actions.contact);
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 ---
 
 <RootLayout
@@ -15,48 +21,119 @@ import { profile } from "../../data/portfolio";
       description="Share your scope, timeline, and product goals. I will reply with clear next steps."
     />
 
-    <section class="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-      <article class="invisible opacity-0 surface rounded-xl p-6 sm:p-7" data-contact-form-panel data-anim-card>
-        <p class="invisible opacity-0 eyebrow" data-contact-heading>Project Intake</p>
+    <section
+      class="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[1.15fr_0.85fr]"
+    >
+      <article
+        class="invisible opacity-0 surface rounded-xl p-6 sm:p-7"
+        data-contact-form-panel
+        data-anim-card
+      >
+        <p class="invisible opacity-0 eyebrow" data-contact-heading>
+          Project Intake
+        </p>
         <h2
           class="invisible opacity-0 mt-3 font-display text-3xl font-bold leading-tight text-paper-50"
           data-contact-heading
         >
           Tell me what you need built
         </h2>
-        <p class="invisible opacity-0 mt-2 text-sm text-paper-200" data-contact-intro>
+        <p
+          class="invisible opacity-0 mt-2 text-sm text-paper-200"
+          data-contact-intro
+        >
           I typically respond within one business day.
         </p>
 
-        <form onsubmit="event.preventDefault()" class="mt-6 space-y-4">
+        {
+          result?.error && !isInputError(result.error) && (
+            <p class="mt-6 rounded-md border border-rose-300/35 bg-rose-300/10 px-4 py-3 text-sm text-rose-100">
+              {result.error.message ||
+                "The form could not be submitted. Please try again later."}
+            </p>
+          )
+        }
+
+        {
+          result && !result.error && (
+            <p class="mt-6 rounded-md border border-emerald-300/35 bg-emerald-300/10 px-4 py-3 text-sm text-emerald-100">
+              {result.data.message}
+            </p>
+          )
+        }
+
+        <form method="POST" action={actions.contact} class="mt-6 space-y-4">
+          <label
+            class="absolute -left-[9999px] top-auto h-px w-px overflow-hidden"
+          >
+            Website
+            <input
+              type="text"
+              name="website"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </label>
+
           <div class="grid gap-4 sm:grid-cols-2">
             <label class="invisible opacity-0 space-y-2" data-anim-list-item>
               <span class="eyebrow">Name</span>
               <input
+                transition:persist
                 type="text"
                 name="name"
                 required
+                maxlength={80}
                 placeholder="Your full name"
+                aria-invalid={inputErrors.name ? "true" : "false"}
+                aria-describedby={inputErrors.name
+                  ? "contact-name-error"
+                  : undefined}
                 class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50 placeholder:text-paper-300/70"
               />
+              {
+                inputErrors.name && (
+                  <span id="contact-name-error" class="text-sm text-rose-200">
+                    {inputErrors.name.join(", ")}
+                  </span>
+                )
+              }
             </label>
 
             <label class="invisible opacity-0 space-y-2" data-anim-list-item>
               <span class="eyebrow">Email</span>
               <input
+                transition:persist
                 type="email"
                 name="email"
                 required
+                maxlength={120}
                 placeholder="you@example.com"
+                aria-invalid={inputErrors.email ? "true" : "false"}
+                aria-describedby={inputErrors.email
+                  ? "contact-email-error"
+                  : undefined}
                 class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50 placeholder:text-paper-300/70"
               />
+              {
+                inputErrors.email && (
+                  <span id="contact-email-error" class="text-sm text-rose-200">
+                    {inputErrors.email.join(", ")}
+                  </span>
+                )
+              }
             </label>
 
-            <label class="invisible opacity-0 space-y-2 sm:col-span-2" data-anim-list-item>
+            <label
+              class="invisible opacity-0 space-y-2 sm:col-span-2"
+              data-anim-list-item
+            >
               <span class="eyebrow">Company / Brand</span>
               <input
+                transition:persist
                 type="text"
                 name="company"
+                maxlength={120}
                 placeholder="Optional"
                 class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50 placeholder:text-paper-300/70"
               />
@@ -65,38 +142,87 @@ import { profile } from "../../data/portfolio";
             <label class="invisible opacity-0 space-y-2" data-anim-list-item>
               <span class="eyebrow">Reason</span>
               <select
+                transition:persist
                 name="reason"
                 required
+                aria-invalid={inputErrors.reason ? "true" : "false"}
+                aria-describedby={inputErrors.reason
+                  ? "contact-reason-error"
+                  : undefined}
                 class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50"
               >
                 <option value="" disabled selected>Select reason</option>
-                <option value="project-collaboration">Project collaboration</option>
+                <option value="project-collaboration"
+                  >Project collaboration</option
+                >
                 <option value="role-opportunity">Role opportunity</option>
                 <option value="general-question">General question</option>
                 <option value="other">Other</option>
               </select>
+              {
+                inputErrors.reason && (
+                  <span id="contact-reason-error" class="text-sm text-rose-200">
+                    {inputErrors.reason.join(", ")}
+                  </span>
+                )
+              }
             </label>
 
             <label class="invisible opacity-0 space-y-2" data-anim-list-item>
               <span class="eyebrow">Subject</span>
               <input
+                transition:persist
                 type="text"
                 name="subject"
                 required
+                maxlength={120}
                 placeholder="What should we discuss?"
+                aria-invalid={inputErrors.subject ? "true" : "false"}
+                aria-describedby={inputErrors.subject
+                  ? "contact-subject-error"
+                  : undefined}
                 class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50 placeholder:text-paper-300/70"
               />
+              {
+                inputErrors.subject && (
+                  <span
+                    id="contact-subject-error"
+                    class="text-sm text-rose-200"
+                  >
+                    {inputErrors.subject.join(", ")}
+                  </span>
+                )
+              }
             </label>
 
-            <label class="invisible opacity-0 space-y-2 sm:col-span-2" data-anim-list-item>
+            <label
+              class="invisible opacity-0 space-y-2 sm:col-span-2"
+              data-anim-list-item
+            >
               <span class="eyebrow">Message</span>
               <textarea
+                transition:persist
                 name="message"
                 rows="5"
                 required
+                maxlength={4000}
                 placeholder="Briefly describe scope, constraints, and timeline."
+                aria-invalid={inputErrors.message ? "true" : "false"}
+                aria-describedby={inputErrors.message
+                  ? "contact-message-error"
+                  : undefined}
                 class="focus-ring w-full rounded-md border border-paper-200/25 bg-ink-800/70 px-3 py-2.5 text-sm text-paper-50 placeholder:text-paper-300/70"
               ></textarea>
+              {
+                inputErrors.message && (
+                  <span
+                    id="contact-message-error"
+                    class="text-sm text-rose-200"
+                  >
+                    {inputErrors.message.join(", ")}
+                  </span>
+                )
+              }
             </label>
           </div>
 
@@ -113,7 +239,11 @@ import { profile } from "../../data/portfolio";
       </article>
 
       <aside class="space-y-4" data-contact-sidebar>
-        <article class="invisible opacity-0 surface-muted rounded-xl p-6 sm:p-7" data-contact-direct-panel data-anim-card>
+        <article
+          class="invisible opacity-0 surface-muted rounded-xl p-6 sm:p-7"
+          data-contact-direct-panel
+          data-anim-card
+        >
           <p class="eyebrow" data-contact-direct-heading>Direct Channels</p>
           <dl class="mt-4 space-y-4">
             <div>
@@ -171,12 +301,23 @@ import { profile } from "../../data/portfolio";
           </dl>
         </article>
 
-        <article class="invisible opacity-0 surface-muted rounded-xl p-6 sm:p-7" data-anim-card>
-          <p class="invisible opacity-0 eyebrow" data-anim-list-item>Working Process</p>
+        <article
+          class="invisible opacity-0 surface-muted rounded-xl p-6 sm:p-7"
+          data-anim-card
+        >
+          <p class="invisible opacity-0 eyebrow" data-anim-list-item>
+            Working Process
+          </p>
           <ul class="mt-3 space-y-2 text-sm text-paper-100">
-            <li class="invisible opacity-0" data-anim-list-item>1. Scope and constraints alignment.</li>
-            <li class="invisible opacity-0" data-anim-list-item>2. Implementation plan and timeline.</li>
-            <li class="invisible opacity-0" data-anim-list-item>3. Iterative build and handoff.</li>
+            <li class="invisible opacity-0" data-anim-list-item>
+              1. Scope and constraints alignment.
+            </li>
+            <li class="invisible opacity-0" data-anim-list-item>
+              2. Implementation plan and timeline.
+            </li>
+            <li class="invisible opacity-0" data-anim-list-item>
+              3. Iterative build and handoff.
+            </li>
           </ul>
         </article>
       </aside>
@@ -220,20 +361,16 @@ import { profile } from "../../data/portfolio";
       return;
     }
 
-    gsap.fromTo(
-      root.querySelectorAll("[data-anim-card]"),
-      CARD_FROM,
-      {
-        ...CARD_TO,
-        stagger: 0.12,
-        scrollTrigger: {
-          id: "contact-panels",
-          trigger: root,
-          start: "top 86%",
-          once: true,
-        },
+    gsap.fromTo(root.querySelectorAll("[data-anim-card]"), CARD_FROM, {
+      ...CARD_TO,
+      stagger: 0.12,
+      scrollTrigger: {
+        id: "contact-panels",
+        trigger: root,
+        start: "top 86%",
+        once: true,
       },
-    );
+    });
 
     gsap.fromTo(
       root.querySelectorAll("[data-contact-heading], [data-contact-intro]"),
