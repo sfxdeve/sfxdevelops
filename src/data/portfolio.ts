@@ -23,8 +23,7 @@ export const profile: PortfolioProfile = {
   },
   brand: {
     tagline: "Building high-performance products that actually ship.",
-    availability:
-      "Open for remote-first roles and high-impact freelance builds.",
+    availability: "Open for remote-first roles and high-impact freelance builds.",
     focusAreas: [
       "End-to-end product delivery",
       "Scalable APIs and backend systems",
@@ -146,14 +145,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     name: "DevOps & Deployment",
-    items: [
-      "Docker",
-      "AWS",
-      "Vercel",
-      "Heroku",
-      "CI/CD Pipelines",
-      "Git & GitHub",
-    ],
+    items: ["Docker", "AWS", "Vercel", "Heroku", "CI/CD Pipelines", "Git & GitHub"],
   },
   {
     name: "Development Tools & Practices",

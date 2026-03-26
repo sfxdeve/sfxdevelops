@@ -30,11 +30,7 @@
 body {
   color: var(--color-paper-50);
   background:
-    radial-gradient(
-      circle at 20% -10%,
-      rgb(204 77 106 / 0.18),
-      transparent 28%
-    ),
+    radial-gradient(circle at 20% -10%, rgb(204 77 106 / 0.18), transparent 28%),
     linear-gradient(180deg, #0d0c0e 0%, #130f11 48%, #1a1316 100%);
 }
 
@@ -50,11 +46,7 @@ body {
 
 @utility bg-site {
   background:
-    radial-gradient(
-      circle at 20% -10%,
-      rgb(204 77 106 / 0.18),
-      transparent 28%
-    ),
+    radial-gradient(circle at 20% -10%, rgb(204 77 106 / 0.18), transparent 28%),
     linear-gradient(180deg, #0d0c0e 0%, #130f11 48%, #1a1316 100%);
 }
 
@@ -73,12 +65,7 @@ body {
 @utility accent-line {
   height: 1px;
   width: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgb(204 77 106 / 0.8) 48%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgb(204 77 106 / 0.8) 48%, transparent 100%);
 }
 
 @utility eyebrow {
