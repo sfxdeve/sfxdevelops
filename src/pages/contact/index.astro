@@ -28,15 +28,7 @@ import { profile } from "../../data/portfolio";
           I typically respond within one business day.
         </p>
 
-        <form
-          name="contact"
-          method="POST"
-          data-netlify="true"
-          data-astro-reload
-          class="mt-6 space-y-4"
-        >
-          <input type="hidden" name="form-name" value="contact" />
-
+        <form onsubmit="event.preventDefault()" class="mt-6 space-y-4">
           <div class="grid gap-4 sm:grid-cols-2">
             <label class="invisible opacity-0 space-y-2" data-anim-list-item>
               <span class="eyebrow">Name</span>
