@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shayan Fareed — Resume</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        font-size: 11.5px;
+        line-height: 1.5;
+        color: #222;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        width: 794px; /* A4 96dpi */
+        min-height: 1123px;
+        margin: 0 auto;
+        padding: 36px 38px 32px 38px;
+        background: #fff;
+      }
+
+      /* ─── HEADER ─────────────────────────────────── */
+      .hd-name {
+        font-size: 36px;
+        font-weight: 900;
+        letter-spacing: 0.3px;
+        color: #111;
+        line-height: 1.05;
+        text-transform: uppercase;
+      }
+      .hd-title {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: #2563eb;
+        margin-top: 4px;
+        margin-bottom: 9px;
+      }
+      .hd-contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 0;
+        font-size: 11px;
+        color: #444;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1.5px solid #d0d0d0;
+        margin-bottom: 14px;
+      }
+      .hd-contact .ci {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        white-space: nowrap;
+      }
+      .hd-contact .ci + .ci::before {
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 12px;
+        background: #ccc;
+        margin: 0 9px;
+      }
+      .hd-contact svg {
+        width: 12px;
+        height: 12px;
+        fill: #2563eb;
+        flex-shrink: 0;
+      }
+      .hd-contact a {
+        color: #444;
+        text-decoration: none;
+      }
+
+      /* ─── BODY COLUMNS ───────────────────────────── */
+      .body {
+        display: flex;
+        gap: 22px;
+        align-items: flex-start;
+      }
+      .col-l {
+        flex: 0 0 57%;
+        min-width: 0;
+      }
+      .col-r {
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* ─── SECTION ─────────────────────────────────── */
+      .sec {
+        margin-bottom: 16px;
+      }
+      .sec-title {
+        font-size: 12.5px;
+        font-weight: 900;
+        letter-spacing: 0.7px;
+        text-transform: uppercase;
+        color: #111;
+        border-bottom: 2.5px solid #111;
+        padding-bottom: 3px;
+        margin-bottom: 10px;
+      }
+
+      /* ─── SUMMARY ─────────────────────────────────── */
+      .summary-text {
+        font-size: 11px;
+        color: #333;
+        line-height: 1.55;
+      }
+
+      /* ─── EXPERIENCE ──────────────────────────────── */
+      .exp + .exp {
+        margin-top: 10px;
+        padding-top: 9px;
+        border-top: 1px dashed #ccc;
+      }
+      .exp-role {
+        font-size: 12px;
+        font-weight: 800;
+        color: #111;
+      }
+      .exp-co {
+        font-size: 12px;
+        font-weight: 700;
+        color: #2563eb;
+        margin-top: 1px;
+      }
+      .exp-meta {
+        font-size: 10.5px;
+        color: #777;
+        display: flex;
+        gap: 12px;
+        margin: 3px 0 4px;
+        align-items: center;
+      }
+      .exp-desc {
+        font-size: 10.5px;
+        color: #555;
+        margin-bottom: 4px;
+      }
+      .exp-bullets {
+        list-style: disc;
+        padding-left: 15px;
+      }
+      .exp-bullets li {
+        font-size: 10.5px;
+        color: #333;
+        margin-bottom: 2px;
+        line-height: 1.45;
+      }
+
+      /* ─── EDUCATION ────────────────────────────────── */
+      .edu-deg {
+        font-size: 12px;
+        font-weight: 800;
+        color: #111;
+      }
+      .edu-inst {
+        font-size: 12px;
+        font-weight: 700;
+        color: #2563eb;
+        margin-top: 1px;
+      }
+      .edu-meta {
+        font-size: 10.5px;
+        color: #777;
+        display: flex;
+        gap: 12px;
+        margin-top: 3px;
+        align-items: center;
+      }
+
+      /* ─── STRENGTHS / ACHIEVEMENTS ─────────────────── */
+      .feat {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 9px;
+        align-items: flex-start;
+      }
+      .feat-icon {
+        font-size: 16px;
+        line-height: 1;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .feat-title {
+        font-size: 11.5px;
+        font-weight: 800;
+        color: #111;
+      }
+      .feat-desc {
+        font-size: 10.5px;
+        color: #555;
+        margin-top: 2px;
+        line-height: 1.45;
+      }
+
+      /* ─── LANGUAGES ─────────────────────────────────── */
+      .lang-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+        border-bottom: 1px dashed #ccc;
+      }
+      .lang-item:last-child {
+        border-bottom: none;
+      }
+      .lang-name {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #111;
+      }
+      .lang-level {
+        font-size: 10px;
+        color: #888;
+      }
+      .lang-dots {
+        display: flex;
+        gap: 4px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #d1d5db;
+      }
+      .dot.on {
+        background: #2563eb;
+      }
+
+      /* ─── SKILLS ─────────────────────────────────────── */
+      .skills-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .skill {
+        border: 1.5px solid #aaa;
+        border-radius: 3px;
+        padding: 2px 7px;
+        font-size: 10.5px;
+        font-weight: 600;
+        color: #111;
+        white-space: nowrap;
+      }
+
+      /* ─── PRINT ──────────────────────────────────────── */
+      @media print {
+        html,
+        body {
+          background: #fff;
+        }
+        .page {
+          margin: 0;
+          padding: 20mm 15mm 15mm 15mm;
+          width: 100%;
+        }
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- HEADER -->
+      <div class="hd-name">Shayan Fareed</div>
+      <div class="hd-title">Full Stack JavaScript Developer</div>
+      <div class="hd-contact">
+        <!-- phone -->
+        <span class="ci">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.26.2 2.47.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"
+            />
+          </svg>
+          +923082228141
+        </span>
+        <!-- email -->
+        <span class="ci">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+            />
+          </svg>
+          sfx.deve@gmail.com
+        </span>
+        <!-- linkedin -->
+        <span class="ci">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
+            />
+            <circle cx="4" cy="4" r="2" />
+          </svg>
+          <a href="https://linkedin.com/in/shayanfareed">linkedin.com/in/shayanfareed</a>
+        </span>
+        <!-- location -->
+        <span class="ci">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5z"
+            />
+          </svg>
+          Karachi, Pakistan
+        </span>
+      </div>
+
+      <!-- BODY -->
+      <div class="body">
+        <!-- LEFT -->
+        <div class="col-l">
+          <!-- SUMMARY -->
+          <div class="sec">
+            <div class="sec-title">Summary</div>
+            <p class="summary-text">
+              Full Stack JavaScript Developer with 3+ years of professional experience building
+              scalable, production-level web applications using React.js, Next.js, Node.js, and
+              MongoDB. Currently working remotely with a UK-based company, contributing across full
+              stack architecture, API development, and performance optimization with a focus on
+              clean architecture and maintainable systems. I thrive in remote collaboration and am
+              eager to take on high-impact projects in Europe or through remote opportunities.
+            </p>
+          </div>
+
+          <!-- EXPERIENCE -->
+          <div class="sec">
+            <div class="sec-title">Experience</div>
+
+            <!-- Job 1 -->
+            <div class="exp">
+              <div class="exp-role">Freelance Full Stack Developer</div>
+              <div class="exp-co">Upwork</div>
+              <div class="exp-meta">
+                <span>01/2025 – Present</span>
+                <span>Remote</span>
+              </div>
+              <div class="exp-desc">
+                Freelance platform for various international client projects
+              </div>
+              <ul class="exp-bullets">
+                <li>Delivered custom web solutions for international clients</li>
+                <li>
+                  Managed complete project lifecycle from requirements gathering to deployment
+                </li>
+                <li>Built scalable frontend systems and backend API integrations</li>
+                <li>Worked with clients across multiple regions in remote collaboration setups</li>
+              </ul>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="exp">
+              <div class="exp-role">Software Engineer</div>
+              <div class="exp-co">Jumppace Pvt Ltd</div>
+              <div class="exp-meta">
+                <span>10/2023 – 11/2024</span>
+                <span>Karachi, Pakistan</span>
+              </div>
+              <div class="exp-desc">
+                Software development company specialising in web applications
+              </div>
+              <ul class="exp-bullets">
+                <li>Built production-level web applications using React.js and Node.js</li>
+                <li>Refactored reusable components to improve maintainability and performance</li>
+                <li>Assisted in backend API development and MongoDB schema design</li>
+                <li>Contributed to version control management and deployment processes</li>
+              </ul>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="exp">
+              <div class="exp-role">React.js Developer</div>
+              <div class="exp-co">AZ Code Arena</div>
+              <div class="exp-meta">
+                <span>04/2023 – 09/2023</span>
+                <span>Karachi, Pakistan</span>
+              </div>
+              <div class="exp-desc">Company focused on web development solutions</div>
+              <ul class="exp-bullets">
+                <li>Developed responsive frontend interfaces from Figma designs</li>
+                <li>Integrated REST APIs and authentication systems</li>
+                <li>Ensured cross-browser compatibility and mobile responsiveness</li>
+              </ul>
+            </div>
+          </div>
+          <!-- /exp section -->
+
+          <!-- EDUCATION -->
+          <div class="sec">
+            <div class="sec-title">Education</div>
+            <div class="edu-deg">Bachelor of Science in Computer Science</div>
+            <div class="edu-inst">NED University of Engineering &amp; Technology</div>
+            <div class="edu-meta">
+              <span>01/2023 – Expected 05/2026</span>
+              <span>Karachi, Pakistan</span>
+            </div>
+          </div>
+        </div>
+        <!-- /col-l -->
+
+        <!-- RIGHT -->
+        <div class="col-r">
+          <!-- STRENGTHS -->
+          <div class="sec">
+            <div class="sec-title">Strengths</div>
+            <div class="feat">
+              <div>
+                <div class="feat-title">Full Stack JavaScript Development</div>
+                <div class="feat-desc">
+                  Full Stack JavaScript Development, Scalable REST API Architecture, MERN Stack
+                  Applications
+                </div>
+              </div>
+            </div>
+            <div class="feat">
+              <div>
+                <div class="feat-title">Clean Architecture &amp; Systems Design</div>
+                <div class="feat-desc">
+                  Performance Optimization, Reusable Component Architecture, Clean Code &amp; Code
+                  Reviews
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KEY ACHIEVEMENTS -->
+          <div class="sec">
+            <div class="sec-title">Key Achievements</div>
+            <div class="feat">
+              <div>
+                <div class="feat-title">High-Impact Project Deliveries</div>
+                <div class="feat-desc">
+                  Successfully delivered multiple high-impact projects consistently ahead of
+                  deadlines while maintaining high-quality code standards
+                </div>
+              </div>
+            </div>
+            <div class="feat">
+              <div>
+                <div class="feat-title">International Remote Collaboration</div>
+                <div class="feat-desc">
+                  Worked effectively with clients and teams across Europe and Asia, adapting to
+                  varying time zones and workflows
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LANGUAGES -->
+          <div class="sec">
+            <div class="sec-title">Languages</div>
+            <div class="lang-item">
+              <div>
+                <div class="lang-name">English</div>
+                <div class="lang-level">Professional</div>
+              </div>
+              <div class="lang-dots">
+                <span class="dot on"></span><span class="dot on"></span> <span class="dot on"></span
+                ><span class="dot on"></span>
+                <span class="dot"></span>
+              </div>
+            </div>
+            <div class="lang-item">
+              <div>
+                <div class="lang-name">Turkish</div>
+                <div class="lang-level">Fluent</div>
+              </div>
+              <div class="lang-dots">
+                <span class="dot on"></span><span class="dot on"></span> <span class="dot on"></span
+                ><span class="dot on"></span>
+                <span class="dot on"></span>
+              </div>
+            </div>
+            <div class="lang-item">
+              <div>
+                <div class="lang-name">Urdu</div>
+                <div class="lang-level">Native</div>
+              </div>
+              <div class="lang-dots">
+                <span class="dot on"></span><span class="dot on"></span> <span class="dot on"></span
+                ><span class="dot on"></span>
+                <span class="dot on"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SKILLS -->
+          <div class="sec">
+            <div class="sec-title">Skills</div>
+            <div class="skills-wrap">
+              <span class="skill">JavaScript</span>
+              <span class="skill">TypeScript</span>
+              <span class="skill">ES6+</span>
+              <span class="skill">HTML5</span>
+              <span class="skill">React</span>
+              <span class="skill">Next.js</span>
+              <span class="skill">Node.js</span>
+              <span class="skill">MongoDB</span>
+              <span class="skill">REST</span>
+              <span class="skill">Clean Code</span>
+              <span class="skill">Agile</span>
+              <span class="skill">Figma</span>
+              <span class="skill">Redux Toolkit</span>
+              <span class="skill">Tailwind</span>
+              <span class="skill">Material UI</span>
+              <span class="skill">Express.js</span>
+              <span class="skill">NestJS</span>
+              <span class="skill">PostgreSQL</span>
+              <span class="skill">Google Firebase</span>
+              <span class="skill">Docker</span>
+              <span class="skill">AWS</span>
+              <span class="skill">Vercel</span>
+              <span class="skill">Heroku</span>
+              <span class="skill">GIT Version Control</span>
+              <span class="skill">GitHub</span>
+              <span class="skill">Postman</span>
+              <span class="skill">Kotlin</span>
+            </div>
+          </div>
+        </div>
+        <!-- /col-r -->
+      </div>
+      <!-- /body -->
+    </div>
+    <!-- /page -->
+  </body>
+</html>

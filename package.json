@@ -10,7 +10,9 @@
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",
-    "lint:fix": "oxlint --fix"
+    "lint:fix": "oxlint --fix",
+    "resume:docx": "node scripts/generate-resume-docx.mjs",
+    "resume:pdf": "node scripts/generate-resume-pdf.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "^10.0.3",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.19.15",
+    "docx": "^9.6.1",
     "oxfmt": "^0.42.0",
     "oxlint": "^1.57.0"
   },
