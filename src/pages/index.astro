@@ -2,14 +2,7 @@
 import RootLayout from "../components/layouts/root-layout.astro";
 import ButtonLink from "../components/ui/button-link.astro";
 import Divider from "../components/ui/divider.astro";
-import { featuredExperience, profile } from "../data/portfolio";
-
-const trustSignals = [
-  { label: "Experience", value: "3+ years" },
-  { label: "Core stack", value: "React + Node" },
-  { label: "Delivery", value: "Remote / Async" },
-  { label: "Availability", value: "Open now" },
-];
+import { featuredExperience, profile, trustSignals } from "../data/portfolio";
 ---
 
 <RootLayout
@@ -127,16 +120,21 @@ const trustSignals = [
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import { SplitText } from "gsap/SplitText";
+  import {
+    ACCENT_FROM,
+    ACCENT_TO,
+    bindPageAnimationListeners,
+    CARD_FROM,
+    CARD_TO,
+    EASE,
+    ITEM_FROM,
+    ITEM_STAGGER,
+    ITEM_TO,
+    killScrollTriggersByPrefix,
+    prefersReducedMotion,
+  } from "../lib/animations";
 
   gsap.registerPlugin(ScrollTrigger, SplitText);
-  const EASE = "power2.out";
-  const CARD_FROM = { autoAlpha: 0, y: 24 };
-  const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
-  const ITEM_FROM = { autoAlpha: 0, y: 12 };
-  const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
-  const ITEM_STAGGER = 0.05;
-  const ACCENT_FROM = { scaleX: 0, transformOrigin: "left center" };
-  const ACCENT_TO = { scaleX: 1, duration: 0.28, ease: EASE };
 
   let homeHeroTitleSplit: SplitText | null = null;
 
@@ -155,14 +153,9 @@ const trustSignals = [
     }
 
     resetHomeSplit();
-    ScrollTrigger.getAll().forEach((trigger) => {
-      const id = trigger.vars.id;
-      if (typeof id === "string" && id.startsWith("home-")) {
-        trigger.kill();
-      }
-    });
+    killScrollTriggersByPrefix("home-");
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (prefersReducedMotion()) {
       gsap.set(
         "[data-home-hero-title], [data-home-hero-kicker], [data-home-hero-copy], [data-home-hero-actions] li, [data-home-stat], [data-home-feature-card], [data-anim-accent], [data-anim-list-item]",
         {
@@ -276,17 +269,12 @@ const trustSignals = [
 
   const beforeSwapHomeAnimations = () => {
     resetHomeSplit();
-    ScrollTrigger.getAll().forEach((trigger) => {
-      const id = trigger.vars.id;
-      if (typeof id === "string" && id.startsWith("home-")) {
-        trigger.kill();
-      }
-    });
+    killScrollTriggersByPrefix("home-");
   };
 
-  if (document.documentElement.dataset.homeListenerBound !== "1") {
-    document.addEventListener("astro:page-load", runHomeAnimations);
-    document.addEventListener("astro:before-swap", beforeSwapHomeAnimations);
-    document.documentElement.dataset.homeListenerBound = "1";
-  }
+  bindPageAnimationListeners(
+    "homeListenerBound",
+    runHomeAnimations,
+    beforeSwapHomeAnimations,
+  );
 </script>

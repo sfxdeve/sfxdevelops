@@ -30,19 +30,13 @@ export interface ExperienceItem {
   achievements: string[];
 }
 
-export interface ProjectItem {
-  title: string;
-  summary: string;
-  impact: string[];
-  stack: string[];
-  role: string;
-  timeline: string;
-  links: {
-    label: string;
-    href: string;
-  }[];
-  featured: boolean;
-  theme: "signal" | "ember" | "frost";
+export interface LabelValueItem {
+  label: string;
+  value: string;
+}
+
+export interface SimpleStepItem {
+  step: string;
 }
 
 export interface SkillGroup {

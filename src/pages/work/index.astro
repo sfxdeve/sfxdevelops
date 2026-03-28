@@ -2,14 +2,7 @@
 import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
 import Divider from "../../components/ui/divider.astro";
-import { experience } from "../../data/portfolio";
-
-const metrics = [
-  { label: "Professional span", value: "2023 - Present" },
-  { label: "Roles", value: `${experience.length}` },
-  { label: "Delivery mode", value: "Remote, collaborative" },
-  { label: "Primary focus", value: "Full stack JavaScript" },
-];
+import { experience, workMetrics } from "../../data/portfolio";
 ---
 
 <RootLayout
@@ -26,7 +19,7 @@ const metrics = [
     <section class="mx-auto w-full max-w-6xl">
       <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {
-          metrics.map((metric) => (
+          workMetrics.map((metric) => (
             <li class="invisible opacity-0 surface-muted rounded-lg p-4" data-work-metric>
               <p class="eyebrow text-paper-300">{metric.label}</p>
               <p class="mt-2 text-sm text-paper-100">{metric.value}</p>
@@ -89,16 +82,20 @@ const metrics = [
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import {
+    ACCENT_FROM,
+    ACCENT_TO,
+    bindPageAnimationListeners,
+    CARD_FROM,
+    CARD_TO,
+    ITEM_FROM,
+    ITEM_STAGGER,
+    ITEM_TO,
+    killScrollTriggersByPrefix,
+    prefersReducedMotion,
+  } from "../../lib/animations";
 
   gsap.registerPlugin(ScrollTrigger);
-  const EASE = "power2.out";
-  const CARD_FROM = { autoAlpha: 0, y: 24 };
-  const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
-  const ITEM_FROM = { autoAlpha: 0, y: 12 };
-  const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
-  const ITEM_STAGGER = 0.05;
-  const ACCENT_FROM = { scaleX: 0, transformOrigin: "left center" };
-  const ACCENT_TO = { scaleX: 1, duration: 0.28, ease: EASE };
 
   const runWorkAnimations = () => {
     const root = document.querySelector('[data-page="work"]');
@@ -107,14 +104,9 @@ const metrics = [
       return;
     }
 
-    ScrollTrigger.getAll().forEach((trigger) => {
-      const id = trigger.vars.id;
-      if (typeof id === "string" && id.startsWith("work-")) {
-        trigger.kill();
-      }
-    });
+    killScrollTriggersByPrefix("work-");
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (prefersReducedMotion()) {
       gsap.set(
         "[data-work-metric], [data-work-period], [data-anim-card], [data-anim-accent], [data-anim-list-item]",
         {
@@ -192,17 +184,12 @@ const metrics = [
   };
 
   const beforeSwapWorkAnimations = () => {
-    ScrollTrigger.getAll().forEach((trigger) => {
-      const id = trigger.vars.id;
-      if (typeof id === "string" && id.startsWith("work-")) {
-        trigger.kill();
-      }
-    });
+    killScrollTriggersByPrefix("work-");
   };
 
-  if (document.documentElement.dataset.workListenerBound !== "1") {
-    document.addEventListener("astro:page-load", runWorkAnimations);
-    document.addEventListener("astro:before-swap", beforeSwapWorkAnimations);
-    document.documentElement.dataset.workListenerBound = "1";
-  }
+  bindPageAnimationListeners(
+    "workListenerBound",
+    runWorkAnimations,
+    beforeSwapWorkAnimations,
+  );
 </script>

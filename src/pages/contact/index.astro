@@ -2,7 +2,7 @@
 import { actions, isInputError } from "astro:actions";
 import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
-import { profile } from "../../data/portfolio";
+import { contactProcess, profile } from "../../data/portfolio";
 
 export const prerender = false;
 
@@ -309,15 +309,13 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
             Working Process
           </p>
           <ul class="mt-3 space-y-2 text-sm text-paper-100">
-            <li class="invisible opacity-0" data-anim-list-item>
-              1. Scope and constraints alignment.
-            </li>
-            <li class="invisible opacity-0" data-anim-list-item>
-              2. Implementation plan and timeline.
-            </li>
-            <li class="invisible opacity-0" data-anim-list-item>
-              3. Iterative build and handoff.
-            </li>
+            {
+              contactProcess.map((item, index) => (
+                <li class="invisible opacity-0" data-anim-list-item>
+                  {index + 1}. {item.step}
+                </li>
+              ))
+            }
           </ul>
         </article>
       </aside>
@@ -328,14 +326,18 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import {
+    bindPageAnimationListeners,
+    CARD_FROM,
+    CARD_TO,
+    ITEM_FROM,
+    ITEM_STAGGER,
+    ITEM_TO,
+    killScrollTriggersByPrefix,
+    prefersReducedMotion,
+  } from "../../lib/animations";
 
   gsap.registerPlugin(ScrollTrigger);
-  const EASE = "power2.out";
-  const CARD_FROM = { autoAlpha: 0, y: 24 };
-  const CARD_TO = { autoAlpha: 1, y: 0, duration: 0.42, ease: EASE };
-  const ITEM_FROM = { autoAlpha: 0, y: 12 };
-  const ITEM_TO = { autoAlpha: 1, y: 0, duration: 0.26, ease: EASE };
-  const ITEM_STAGGER = 0.05;
 
   const runContactAnimations = () => {
     const root = document.querySelector('[data-page="contact"]');
@@ -344,14 +346,9 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
       return;
     }
 
-    ScrollTrigger.getAll().forEach((trigger) => {
-      const id = trigger.vars.id;
-      if (typeof id === "string" && id.startsWith("contact-")) {
-        trigger.kill();
-      }
-    });
+    killScrollTriggersByPrefix("contact-");
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (prefersReducedMotion()) {
       gsap.set(
         "[data-anim-card], [data-contact-heading], [data-contact-intro], [data-anim-list-item]",
         {
@@ -421,17 +418,12 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
   };
 
   const beforeSwapContactAnimations = () => {
-    ScrollTrigger.getAll().forEach((trigger) => {
-      const id = trigger.vars.id;
-      if (typeof id === "string" && id.startsWith("contact-")) {
-        trigger.kill();
-      }
-    });
+    killScrollTriggersByPrefix("contact-");
   };
 
-  if (document.documentElement.dataset.contactListenerBound !== "1") {
-    document.addEventListener("astro:page-load", runContactAnimations);
-    document.addEventListener("astro:before-swap", beforeSwapContactAnimations);
-    document.documentElement.dataset.contactListenerBound = "1";
-  }
+  bindPageAnimationListeners(
+    "contactListenerBound",
+    runContactAnimations,
+    beforeSwapContactAnimations,
+  );
 </script>

@@ -1,8 +1,10 @@
 import type {
   EducationItem,
   ExperienceItem,
+  LabelValueItem,
   LanguageItem,
   PortfolioProfile,
+  SimpleStepItem,
   SkillGroup,
 } from "../types/portfolio";
 
@@ -85,6 +87,20 @@ export const experience: ExperienceItem[] = [
 ];
 
 export const featuredExperience: ExperienceItem[] = experience.slice(0, 2);
+
+export const trustSignals: LabelValueItem[] = [
+  { label: "Experience", value: "3+ years" },
+  { label: "Core stack", value: "React + Node" },
+  { label: "Delivery", value: "Remote / Async" },
+  { label: "Availability", value: "Open now" },
+];
+
+export const workMetrics: LabelValueItem[] = [
+  { label: "Professional span", value: "2023 - Present" },
+  { label: "Roles", value: `${experience.length}` },
+  { label: "Delivery mode", value: "Remote, collaborative" },
+  { label: "Primary focus", value: "Full stack JavaScript" },
+];
 
 export const positioningSummary: string[] = [
   "Production-ready full stack JavaScript engineer",
@@ -174,4 +190,10 @@ export const languages: LanguageItem[] = [
   { name: "English", level: "Professional" },
   { name: "Turkish", level: "Fluent" },
   { name: "Urdu", level: "Native" },
+];
+
+export const contactProcess: SimpleStepItem[] = [
+  { step: "Scope and constraints alignment." },
+  { step: "Implementation plan and timeline." },
+  { step: "Iterative build and handoff." },
 ];

@@ -18,24 +18,24 @@ const { label } = Astro.props;
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import {
+    bindPageAnimationListeners,
+    killScrollTriggersByPrefix,
+    prefersReducedMotion,
+  } from "../../lib/animations";
 
   gsap.registerPlugin(ScrollTrigger);
 
   const runDividerAnimations = () => {
     const roots = gsap.utils.toArray<HTMLElement>("[data-divider-root]");
 
-    ScrollTrigger.getAll().forEach((trigger) => {
-      const id = trigger.vars.id;
-      if (typeof id === "string" && id.startsWith("divider-")) {
-        trigger.kill();
-      }
-    });
+    killScrollTriggersByPrefix("divider-");
 
     if (!roots.length) {
       return;
     }
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (prefersReducedMotion()) {
       gsap.set("[data-divider-line], [data-divider-label]", { autoAlpha: 1 });
       return;
     }
@@ -92,17 +92,12 @@ const { label } = Astro.props;
   };
 
   const beforeSwapDividerAnimations = () => {
-    ScrollTrigger.getAll().forEach((trigger) => {
-      const id = trigger.vars.id;
-      if (typeof id === "string" && id.startsWith("divider-")) {
-        trigger.kill();
-      }
-    });
+    killScrollTriggersByPrefix("divider-");
   };
 
-  if (document.documentElement.dataset.dividerListenerBound !== "1") {
-    document.addEventListener("astro:page-load", runDividerAnimations);
-    document.addEventListener("astro:before-swap", beforeSwapDividerAnimations);
-    document.documentElement.dataset.dividerListenerBound = "1";
-  }
+  bindPageAnimationListeners(
+    "dividerListenerBound",
+    runDividerAnimations,
+    beforeSwapDividerAnimations,
+  );
 </script>

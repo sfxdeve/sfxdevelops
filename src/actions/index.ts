@@ -9,8 +9,11 @@ const contactReasonSchema = z.enum([
   "other",
 ]);
 
-const optionalTextField = z.union([z.string(), z.null()]).transform((value) => value?.trim() ?? "");
-const honeypotField = z.union([z.string(), z.null()]).transform((value) => value?.trim() ?? "");
+const createTrimmedNullableField = () =>
+  z.union([z.string(), z.null()]).transform((value) => value?.trim() ?? "");
+
+const optionalTextField = createTrimmedNullableField();
+const honeypotField = createTrimmedNullableField();
 
 export const server = {
   contact: defineAction({
