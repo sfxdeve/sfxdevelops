@@ -13,18 +13,18 @@
     "lint:fix": "oxlint --fix"
   },
   "dependencies": {
-    "@astrojs/vercel": "^10.0.3",
+    "@astrojs/vercel": "^10.0.4",
     "@tailwindcss/vite": "^4.2.2",
-    "astro": "^6.1.0",
+    "astro": "^6.1.4",
     "clsx": "^2.1.1",
     "gsap": "^3.14.2",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
-    "@types/node": "^22.19.15",
-    "oxfmt": "^0.42.0",
-    "oxlint": "^1.57.0"
+    "@types/node": "^22.19.17",
+    "oxfmt": "^0.44.0",
+    "oxlint": "^1.59.0"
   },
   "packageManager": "pnpm@10.33.0"
 }
